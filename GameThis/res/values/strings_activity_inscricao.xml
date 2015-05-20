@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 	<string name="texto_botao_nome">Nome</string>
+ 	<string name="texto_botao_email">Email</string>
+    <string name="texto_botao_password">Senha</string>
+        
+</resources>

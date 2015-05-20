@@ -1,17 +1,55 @@
 package br.com.recidev.gamethis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
-
+	
+	GerenciadorSessao sessao;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		if (getIntent().getBooleanExtra("EXIT", false)) {
+		    finish();
+		}else {
+		
+		sessao = new GerenciadorSessao(getApplicationContext()); 
+		
+		
+		if(sessao.estaLogado()){
+			Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+			startActivity(homeIntent);
+		} else {
+			//Direciona para a tela de login
+			final Button botaoTelaLogin = (Button) findViewById(R.id.botao_tela_login);
+			botaoTelaLogin.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+					startActivity(loginIntent);
+				}
+			});
+			
+			//Direciona para a tela de incricao
+			final Button botaoTelaInscricao = (Button) findViewById(R.id.botao_tela_inscricao);
+			botaoTelaInscricao.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					Intent inscricaoIntent = new Intent(getApplicationContext(), InscricaoActivity.class);
+					startActivity(inscricaoIntent);
+				}
+			});
+		
+		}
+		}
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
