@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,19 +23,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/texto_botao_email" 
-                     android:layout_marginTop="40dp"                  
+                     android:layout_marginTop="20dp"                  
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
     
-    	<EditText
+    <EditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/texto_botao_password"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="25dp"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
+    	
+    	 <ListView
+              android:id="@+id/list_inscricao_avatar"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent">
+         </ListView>
+         
+    	 
+    	 <Button
+			        android:id="@+id/botao_avatar_inscricao"
+			        style="?android:textAppearanceSmall"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="40dp"
+			        android:text="@string/texto_botao_avatar_inscricao" />
+    	 
+    	 <Button
+                    android:id="@+id/botao_inscricao_enviar"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                  
+                    android:text="@string/texto_botao_inscricao_enviar"
+                    android:textStyle="bold" />
+    	
+    	
 
-</RelativeLayout>
+</LinearLayout>

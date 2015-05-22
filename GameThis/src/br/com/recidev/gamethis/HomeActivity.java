@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class HomeActivity extends Activity {
 
@@ -16,6 +17,13 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.activity_home);
 		
 		sessao = new GerenciadorSessao(getApplicationContext());
+		
+		Bundle bundle = getIntent().getExtras();
+		
+		TextView nome = (TextView) findViewById(R.id.nome);
+		if(bundle != null && bundle.getString("nome") != null){
+			nome.setText(bundle.getString("nome"));
+		}
 	}
 	
 	
