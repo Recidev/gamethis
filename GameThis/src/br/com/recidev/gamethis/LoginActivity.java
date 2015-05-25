@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
 				 String password = textPassword.getText().toString(); 
 			      
 				 Toast.makeText(getApplicationContext(), 
-						 email + " - " + password, Toast.LENGTH_LONG).show();
+						 "Bem Vindo", Toast.LENGTH_LONG).show();
 				 
 				 sessao.criarSessaoLogin(email, password);
 				 

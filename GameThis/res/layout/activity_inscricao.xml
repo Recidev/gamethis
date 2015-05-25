@@ -38,13 +38,6 @@
                     android:maxLines="1"
                     android:singleLine="true" />
     	
-    	 <ListView
-              android:id="@+id/list_inscricao_avatar"
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent">
-         </ListView>
-         
-    	 
     	 <Button
 			        android:id="@+id/botao_avatar_inscricao"
 			        style="?android:textAppearanceSmall"

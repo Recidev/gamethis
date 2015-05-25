@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 public class InscricaoActivity extends Activity {
 
 	GerenciadorSessao sessao;
+	final String[] AVATAR = new String[] { "Warior", "Mage", "Thiev"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,39 +23,16 @@ public class InscricaoActivity extends Activity {
 		setContentView(R.layout.activity_inscricao);
 		
 		sessao = new GerenciadorSessao(getApplicationContext()); 
+
+		//Criacao de dialogo para selecao do avatar
+		final AlertDialog.Builder dialogAvatar = new AlertDialog.Builder(this);
+		dialogAvatar.setTitle("Selecione seu Avatar!!");
 		
-		final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setTitle("Selecione seu Avatar!!");
+		AvatarAdapter avatarAdapter = new AvatarAdapter(this, AVATAR);
 		
-		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_2, android.R.id.text1);
-		
-		adapter.add("Warior");
-		adapter.add("Princess");
-		adapter.add("Mage");
-		adapter.add("Thiev");
-		
-		// Assign adapter to ListView
-		alertBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-			
+		dialogAvatar.setAdapter(avatarAdapter, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				//String strName = adapter.getItem(which);
-				// AlertDialog.Builder builderInner = new AlertDialog.Builder(
-				//         MainActivity.this);
-				//builderInner.setMessage(strName);
-				//builderInner.setTitle("Your Selected Item is");
-				//builderInner.setPositiveButton("Ok",
-				//     new DialogInterface.OnClickListener() {
-				
-				//          @Override
-				//           public void onClick(
-				//                  DialogInterface dialog,
-				//                   int which) {
-				//               dialog.dismiss();
-				//          }
-				//       });
-				//builderInner.show();
 			}
 		});
 		
@@ -64,7 +41,7 @@ public class InscricaoActivity extends Activity {
 		final Button botaoAvatarInscricao = (Button) findViewById(R.id.botao_avatar_inscricao);
 		botaoAvatarInscricao.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				alertBuilder.show();
+				dialogAvatar.show();
 			}
 		});
 		
@@ -81,6 +58,10 @@ public class InscricaoActivity extends Activity {
 				String nome = inputNome.getText().toString();
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString(); 
+				
+				//checagens e insercao no banco que serao feitas posteriormente
+				//...
+				//
 				
 				Toast.makeText(getApplicationContext(), 
 						"Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
