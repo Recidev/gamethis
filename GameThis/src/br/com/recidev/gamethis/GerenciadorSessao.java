@@ -61,7 +61,7 @@ public class GerenciadorSessao {
         editor.clear();
         editor.commit();
          
-        Intent intent = new Intent(contexto, LoginActivity.class);
+        Intent intent = new Intent(contexto, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         contexto.startActivity(intent);

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class HomeActivity extends Activity {
@@ -24,6 +26,39 @@ public class HomeActivity extends Activity {
 		if(bundle != null && bundle.getString("nome") != null){
 			nome.setText(bundle.getString("nome"));
 		}
+		
+		final Button botaoNovoJogo = (Button) findViewById(R.id.botao_novo_jogo);
+		botaoNovoJogo.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+	            startActivity(homeIntent);
+	            finish();
+				
+			}
+		});
+		
+		final Button botaoMeusJogos = (Button) findViewById(R.id.botao_meus_jogos);
+		botaoNovoJogo.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+	            startActivity(homeIntent);
+	            finish();
+				
+			}
+		});
+		
+		final Button botaoLogout = (Button) findViewById(R.id.botao_logout_sair);
+		botaoLogout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+	            sessao.logoutUsuario();
+			}
+		});
 	}
 	
 	
