@@ -36,10 +36,11 @@ public class SplashScreen extends Activity{
                  //fechar a tela de Splash
                     finish();
                      
-                 //Carrega a Activity Principal
-                 Intent i = new Intent();
-                 i.setClass(SplashScreen.this, MainActivity.class);
-                 startActivity(i);
+                 //Carrega a Activity Principal                 
+                                 
+                 Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+ 				 startActivity(homeIntent);
+                 
                 }
             }
         };
