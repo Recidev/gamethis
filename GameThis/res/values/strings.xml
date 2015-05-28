@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">GameThis</string>
-    <string name="hello_world">Hello world 2!</string>
+    <string name="hello_world">Chamar tela de login aqui</string>
     <string name="action_settings">Settings</string>
 
 </resources>
