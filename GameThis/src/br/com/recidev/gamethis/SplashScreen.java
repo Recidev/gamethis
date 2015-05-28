@@ -46,6 +46,7 @@ public class SplashScreen extends Activity{
         };
          
         mSplashThread.start();
+        
     }
      
     @Override
