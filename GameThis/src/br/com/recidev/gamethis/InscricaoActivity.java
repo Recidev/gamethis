@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class InscricaoActivity extends Activity {
-
+	
 	GerenciadorSessao sessao;
 	final String[] AVATAR = new String[] { "Warior", "Mage", "Thiev"};
 	
@@ -21,6 +21,7 @@ public class InscricaoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inscricao);
+		
 		
 		sessao = new GerenciadorSessao(getApplicationContext()); 
 
@@ -62,6 +63,11 @@ public class InscricaoActivity extends Activity {
 				//checagens e insercao no banco que serao feitas posteriormente
 				//...
 				//
+				
+				InscricaoUsuario inscricaoUsuario = new InscricaoUsuario();
+				inscricaoUsuario.inserirUsuario(nome, email, password, getApplicationContext());
+				//InscricaoServidor = 
+				
 				
 				Toast.makeText(getApplicationContext(), 
 						"Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();

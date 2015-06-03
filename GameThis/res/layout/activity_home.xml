@@ -8,9 +8,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.recidev.gamethis.HomeActivity" >
 
-    <TextView
+	<TextView
         android:id="@+id/nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/botao_novo_jogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:text="Novo Jogo" />
+
+    <Button
+        android:id="@+id/botao_meus_jogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:text="Meus Jogos" />
+
+    <Button
+        android:id="@+id/botao_logout_sair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
+        android:text="Logout" />
+
+    <TextView
+        android:id="@+id/nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/botao_logout_sair"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:textSize="26dp"
+        android:text="nome" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/nome"
+        android:layout_toLeftOf="@+id/botao_meus_jogos"
+        android:src="@drawable/samurai" />
 
 </RelativeLayout>
