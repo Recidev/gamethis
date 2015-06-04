@@ -26,15 +26,15 @@ public class LoginActivity extends Activity {
 		botaoLogin.setOnClickListener(new View.OnClickListener() {
 			 public void onClick(View v) {
 				 AutoCompleteTextView textEmail = (AutoCompleteTextView) findViewById(R.id.email);
-				 EditText textPassword = (EditText) findViewById(R.id.password);
+				 EditText textSenha = (EditText) findViewById(R.id.senha);
 				 
 				 String email = textEmail.getText().toString();
-				 String password = textPassword.getText().toString(); 
+				 String senha = textSenha.getText().toString(); 
 			      
 				 Toast.makeText(getApplicationContext(), 
 						 "Bem Vindo", Toast.LENGTH_LONG).show();
 				 
-				 sessao.criarSessaoLogin(email, password);
+				// sessao.criarSessaoLogin(email, senha);
 				 
 				 Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 	             startActivity(homeIntent);

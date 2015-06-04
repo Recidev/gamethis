@@ -14,46 +14,41 @@ public class SplashScreen extends Activity{
     /** Evento chamado quando a activity é executada pela primeira vez */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splashscreen);
-    
-        //thread para mostrar uma tela de Splash
-        mSplashThread = new Thread() {
-            @Override
-            public void run() {
-             try {
-                    synchronized(this){
-                        //Espera por 5 segundos or sai quando
-                     //o usuário tocar na tela
-                        wait(5000);
-                        mblnClicou = true;
-                    }
-                }
-                catch(InterruptedException ex){                    
-                }
-                 
-                if (mblnClicou){
-                 //fechar a tela de Splash
-                    finish();
-                     
-                 //Carrega a Activity Principal                 
-                                 
-                 Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
- 				 startActivity(homeIntent);
-                 
-                }
-            }
-        };
-         
-        mSplashThread.start();
-        
+    	super.onCreate(savedInstanceState);
+    	setContentView(R.layout.splashscreen);
+    	
+    	//thread para mostrar uma tela de Splash
+    	mSplashThread = new Thread() {
+    		@Override
+    		public void run() {
+    			try {
+    				synchronized(this){
+    					//Espera por 3 segundos or sai quando
+    					//o usuário tocar na tela
+    					wait(3000);
+    					mblnClicou = true;
+    				}
+    			}
+    			catch(InterruptedException ex){                    
+    			}
+    			
+    			if (mblnClicou){
+    				//fechar a tela de Splash
+    				finish();
+    				
+    				//Carrega a Activity Principal                 
+    				Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+    				startActivity(mainIntent);
+    			}
+    		}
+    	};
+    	
+    	mSplashThread.start();
     }
      
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
-         
         //garante que quando o usuário clicar no botão
         //"Voltar" o sistema deve finalizar a thread
         mSplashThread.interrupt();
@@ -62,13 +57,14 @@ public class SplashScreen extends Activity{
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        	
             //o método abaixo está relacionado a thread de splash
-         synchronized(mSplashThread){
-          mblnClicou = true;
-           
-             //o método abaixo finaliza o comando wait
-             //mesmo que ele não tenha terminado sua espera
-                mSplashThread.notifyAll();
+        	synchronized(mSplashThread){
+        		mblnClicou = true;
+        		
+        		//o método abaixo finaliza o comando wait
+        		//mesmo que ele não tenha terminado sua espera
+        		mSplashThread.notifyAll();
             }            
         }
         return true;

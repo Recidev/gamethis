@@ -17,7 +17,14 @@ public class GerenciadorSessao {
     private static final String PREF_NAME = "GameThisPrefs";
     private static final String ESTA_LOGADO = "estaLogado";
     public static final String EMAIL_KEY = "emailkey";
-    public static final String PASSWORD_KEY = "passwordkey";
+    public static final String SENHA_KEY = "senhakey";
+    public static final String NOME_KEY = "nomekey";
+    public static final String AVATAR_KEY = "avatarkey";
+    public static final int[] TIPOS_AVATAR = new int[] { 
+    	R.drawable.warcraft_undead_hero, 
+    	R.drawable.warcraft_elf_hero, 
+    	R.drawable.warcraft_hero};
+
      
     public GerenciadorSessao(Context context){
         this.contexto = context;
@@ -28,10 +35,12 @@ public class GerenciadorSessao {
     /**
      * 
      * */
-    public void criarSessaoLogin(String email, String password){
+    public void criarSessaoLogin(String email, String senha, String nome, int avatar){
         editor.putBoolean(ESTA_LOGADO, true);
         editor.putString(EMAIL_KEY, email);
-        editor.putString(PASSWORD_KEY, password);
+        editor.putString(SENHA_KEY, senha);
+        editor.putString(NOME_KEY, nome);
+        editor.putInt(AVATAR_KEY, avatar);
         editor.commit();
     }   
      
@@ -50,7 +59,7 @@ public class GerenciadorSessao {
     public HashMap<String, String> getDetalhesUsuario(){
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(EMAIL_KEY, preferencias.getString(EMAIL_KEY, null));
-        user.put(PASSWORD_KEY, preferencias.getString(PASSWORD_KEY, null));
+        user.put(SENHA_KEY, preferencias.getString(SENHA_KEY, null));
         return user;
     }
      

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Senha</string>
+    <string name="prompt_senha">Senha</string>
     <string name="botao_login_entrar">Entrar</string>
-    
 </resources>

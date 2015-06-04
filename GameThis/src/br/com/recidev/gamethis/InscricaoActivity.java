@@ -10,18 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import br.com.recidev.gamethis.repositorio.RepositorioUsuarioSQLite;
 
 public class InscricaoActivity extends Activity {
 	
 	GerenciadorSessao sessao;
 	final String[] AVATAR = new String[] { "Warior", "Mage", "Thiev"};
+	int tipoAvatar = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inscricao);
-		
 		
 		sessao = new GerenciadorSessao(getApplicationContext()); 
 
@@ -34,6 +36,8 @@ public class InscricaoActivity extends Activity {
 		dialogAvatar.setAdapter(avatarAdapter, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				tipoAvatar = which;
+				mudarImagem();
 			}
 		});
 		
@@ -54,35 +58,46 @@ public class InscricaoActivity extends Activity {
 				
 				EditText inputNome = (EditText) findViewById(R.id.input_nome);
 				EditText inputEmail = (EditText) findViewById(R.id.input_email);
-				EditText inputPassword = (EditText) findViewById(R.id.input_password);
+				EditText inputSenha = (EditText) findViewById(R.id.input_senha);
 				
-				String nome = inputNome.getText().toString();
 				String email = inputEmail.getText().toString();
-				String password = inputPassword.getText().toString(); 
+				String senha = inputSenha.getText().toString(); 
+				String nome = inputNome.getText().toString();
+				int avatar = tipoAvatar;
 				
-				//checagens e insercao no banco que serao feitas posteriormente
-				//...
-				//
+				//insere usuario localmente no sqlite
+				inserirUsuario(email, senha, nome, avatar);
 				
-				InscricaoUsuario inscricaoUsuario = new InscricaoUsuario();
-				inscricaoUsuario.inserirUsuario(nome, email, password, getApplicationContext());
-				//InscricaoServidor = 
+//				InscricaoUsuario inscricaoUsuario = new InscricaoUsuario();
+//				inscricaoUsuario.inserirUsuario(nome, email, senha, avatar, getApplicationContext());
 				
+				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
 				
-				Toast.makeText(getApplicationContext(), 
-						"Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
-				
-				sessao.criarSessaoLogin(email, password);
+				sessao.criarSessaoLogin(email, senha, nome, avatar);
 				
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-				homeIntent.putExtra("nome", nome);
 				startActivity(homeIntent);
 				finish();
 			}
 		});
-		
 	}
+	
+	
+	public void inserirUsuario(String email, String senha, String nome, int avatar){
+		RepositorioUsuarioSQLite repUsuario = new RepositorioUsuarioSQLite();
+		repUsuario.inserirUsuario(email, senha, nome, avatar, getApplicationContext());
+		
+		Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();		
+	}
+	
+	
+	public void mudarImagem(){
+		ImageView imagemDefinida = (ImageView) findViewById(R.id.imagemDefinida);
+		imagemDefinida.setImageResource(GerenciadorSessao.TIPOS_AVATAR[tipoAvatar]);
+	}
+		
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

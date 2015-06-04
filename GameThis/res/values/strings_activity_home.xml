@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello_world2">Bem-vindo!</string>
+    <string name="texto_botao_novo_jogo">Novo Jogo</string>
+    <string name="texto_botao_meus_jogos">Meus Jogos</string>
+    <string name="texto_botao_logout">Logout</string>
 </resources>

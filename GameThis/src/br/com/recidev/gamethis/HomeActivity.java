@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class HomeActivity extends Activity {
@@ -20,12 +21,13 @@ public class HomeActivity extends Activity {
 		
 		sessao = new GerenciadorSessao(getApplicationContext());
 		
-		Bundle bundle = getIntent().getExtras();
+		TextView nome = (TextView) findViewById(R.id.nome_usuario);
+		nome.setText(sessao.preferencias.getString(GerenciadorSessao.NOME_KEY, "none"));
+
+		int tipoAvatar = sessao.preferencias.getInt(GerenciadorSessao.AVATAR_KEY, 0);
+		ImageView avatarUsuario = (ImageView) findViewById(R.id.avatarUsuario);
+		avatarUsuario.setImageResource(GerenciadorSessao.TIPOS_AVATAR[tipoAvatar]);
 		
-		TextView nome = (TextView) findViewById(R.id.nome);
-		if(bundle != null && bundle.getString("nome") != null){
-			nome.setText(bundle.getString("nome"));
-		}
 		
 		final Button botaoNovoJogo = (Button) findViewById(R.id.botao_novo_jogo);
 		botaoNovoJogo.setOnClickListener(new View.OnClickListener() {
@@ -35,19 +37,17 @@ public class HomeActivity extends Activity {
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 	            startActivity(homeIntent);
 	            finish();
-				
 			}
 		});
 		
 		final Button botaoMeusJogos = (Button) findViewById(R.id.botao_meus_jogos);
-		botaoNovoJogo.setOnClickListener(new View.OnClickListener() {
+		botaoMeusJogos.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 	            startActivity(homeIntent);
 	            finish();
-				
 			}
 		});
 		
@@ -60,8 +60,6 @@ public class HomeActivity extends Activity {
 			}
 		});
 	}
-	
-	
 	
 	
 	@Override
@@ -80,6 +78,7 @@ public class HomeActivity extends Activity {
 		super.onBackPressed();
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

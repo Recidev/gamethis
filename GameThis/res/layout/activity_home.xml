@@ -8,52 +8,44 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.recidev.gamethis.HomeActivity" >
 
-	<TextView
-        android:id="@+id/nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
 
     <Button
         android:id="@+id/botao_novo_jogo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:text="Novo Jogo" />
+        android:layout_marginTop="140dp"
+        android:text="@string/texto_botao_novo_jogo" />
 
     <Button
-        android:id="@+id/botao_meus_jogo"
-        android:layout_width="wrap_content"
+        android:id="@+id/botao_meus_jogos"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        android:text="Meus Jogos" />
+        android:layout_marginTop="200dp"
+        android:text="@string/texto_botao_meus_jogos" />
 
     <Button
         android:id="@+id/botao_logout_sair"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="240dp"
-        android:text="Logout" />
-
-    <TextView
-        android:id="@+id/nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/botao_logout_sair"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="70dp"
-        android:textSize="26dp"
-        android:text="nome" />
+        android:layout_marginTop="260dp"
+        android:text="@string/texto_botao_logout" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/avatarUsuario"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/samurai" />
+
+    <TextView
+        android:id="@+id/nome_usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/nome"
-        android:layout_toLeftOf="@+id/botao_meus_jogos"
-        android:src="@drawable/samurai" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/avatarUsuario"
+        android:textSize="26sp" />
 
 </RelativeLayout>

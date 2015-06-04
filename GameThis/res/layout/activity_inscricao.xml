@@ -1,71 +1,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.recidev.gamethis.InscricaoActivity" >
-    
+
+    <ImageView
+        android:id="@+id/imagemDefinida"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center"
+        android:src="@drawable/interrogacao" />
+
     <EditText
-                    android:id="@+id/input_nome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/texto_botao_nome"                   
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-    
+        android:id="@+id/input_nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="@string/texto_botao_nome"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true" />
+
     <EditText
-                    android:id="@+id/input_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/texto_botao_email" 
-                     android:layout_marginTop="20dp"                  
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-    
+        android:id="@+id/input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/texto_botao_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true" />
+
     <EditText
-                    android:id="@+id/input_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/texto_botao_password"
-                    android:layout_marginTop="25dp"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-    	
-    	 <Button
-			        android:id="@+id/botao_avatar_inscricao"
-			        style="?android:textAppearanceSmall"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginTop="40dp"
-			        android:text="@string/texto_botao_avatar_inscricao" />
-    	 
-    	 <Button
-                    android:id="@+id/botao_inscricao_enviar"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  
-                    android:text="@string/texto_botao_inscricao_enviar"
-                    android:textStyle="bold" />
-    	
-    	 <RelativeLayout
-		    android:id="@+id/loadingInscricao"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:gravity="center" >
-		
-		    <ProgressBar
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:indeterminate="true" />
-		</RelativeLayout>
-    	
+        android:id="@+id/input_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/texto_botao_senha"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/botao_avatar_inscricao"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/texto_botao_avatar_inscricao" />
+
+    <Button
+        android:id="@+id/botao_inscricao_enviar"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_botao_inscricao_enviar"
+        android:textStyle="bold" />
 
 </LinearLayout>
