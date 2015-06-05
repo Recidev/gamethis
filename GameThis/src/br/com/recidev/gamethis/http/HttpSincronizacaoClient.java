@@ -11,7 +11,7 @@ import java.net.URL;
 public class HttpSincronizacaoClient {
 	
 	private static final String ENCODING = "UTF-8";
-	private final String URL = "http://150.161.4.22/webservice";
+	private final String URL = "http://192.168.25.5/webservice";
 	
 	
     public HttpSincronizacaoClient(){   
@@ -21,7 +21,7 @@ public class HttpSincronizacaoClient {
     public String post(String path, String json) throws IOException {
     	URL url = new URL(URL+path);
     	HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    	conn.setRequestMethod("POST");
+    	conn.setRequestMethod("GET");
     	conn.setRequestProperty("Content-Type", "application/json; charset=" + ENCODING);
     	conn.setRequestProperty("Accept", "application/json; charset=" + ENCODING);
     	conn.setDoOutput(true);

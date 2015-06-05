@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import br.com.recidev.gamethis.repositorio.RepositorioUsuarioSQLite;
+import br.com.recidev.gamethis.ws.UsuarioWS;
 
 public class InscricaoActivity extends Activity {
 	
@@ -30,9 +31,7 @@ public class InscricaoActivity extends Activity {
 		//Criacao de dialogo para selecao do avatar
 		final AlertDialog.Builder dialogAvatar = new AlertDialog.Builder(this);
 		dialogAvatar.setTitle("Selecione seu Avatar!!");
-		
 		AvatarAdapter avatarAdapter = new AvatarAdapter(this, AVATAR);
-		
 		dialogAvatar.setAdapter(avatarAdapter, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -41,8 +40,6 @@ public class InscricaoActivity extends Activity {
 			}
 		});
 		
-		
-		//Direciona para a tela de incricao
 		final Button botaoAvatarInscricao = (Button) findViewById(R.id.botao_avatar_inscricao);
 		botaoAvatarInscricao.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -50,12 +47,12 @@ public class InscricaoActivity extends Activity {
 			}
 		});
 		
-		
-		//Direciona para a tela de inscricao
 		final Button botaoInscricaoEnviar = (Button) findViewById(R.id.botao_inscricao_enviar);
 		botaoInscricaoEnviar.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
+				UsuarioWS usuarioWS = new UsuarioWS();
+				boolean conectado = false;
 				EditText inputNome = (EditText) findViewById(R.id.input_nome);
 				EditText inputEmail = (EditText) findViewById(R.id.input_email);
 				EditText inputSenha = (EditText) findViewById(R.id.input_senha);
@@ -65,19 +62,24 @@ public class InscricaoActivity extends Activity {
 				String nome = inputNome.getText().toString();
 				int avatar = tipoAvatar;
 				
-				//insere usuario localmente no sqlite
-				inserirUsuario(email, senha, nome, avatar);
+				conectado = Util.temConexao(getApplicationContext());
+				if(conectado){
+					//verifica se o usuario ja existe
+					usuarioWS.consultarUsuario(email, getApplicationContext());
+					
+					//insere usuario remotamente
+					usuarioWS.inserirUsuario(email, senha, nome, avatar, getApplicationContext());
+					
+					//insere usuario localmente no sqlite
+					inserirUsuario(email, senha, nome, avatar);
+					
+					Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
+					sessao.criarSessaoLogin(email, senha, nome, avatar);
+					Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+					startActivity(homeIntent);
+					finish();
+				}
 				
-//				InscricaoUsuario inscricaoUsuario = new InscricaoUsuario();
-//				inscricaoUsuario.inserirUsuario(nome, email, senha, avatar, getApplicationContext());
-				
-				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
-				
-				sessao.criarSessaoLogin(email, senha, nome, avatar);
-				
-				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-				startActivity(homeIntent);
-				finish();
 			}
 		});
 	}
