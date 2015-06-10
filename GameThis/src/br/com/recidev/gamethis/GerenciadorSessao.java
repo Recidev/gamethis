@@ -2,9 +2,8 @@ package br.com.recidev.gamethis;
 
 
 import java.util.HashMap;
- 
+
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
  
@@ -44,15 +43,7 @@ public class GerenciadorSessao {
         editor.commit();
     }   
      
-//    public void checaLogin(){
-//        if(!this.estaLogado()){
-//            Intent intent = new Intent(contexto, LoginActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            contexto.startActivity(intent);
-//        }
-//    }
-     
+
     /**
      *
      * */
@@ -69,11 +60,6 @@ public class GerenciadorSessao {
     public void logoutUsuario(){
         editor.clear();
         editor.commit();
-         
-        Intent intent = new Intent(contexto, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        contexto.startActivity(intent);
     }
      
     /**

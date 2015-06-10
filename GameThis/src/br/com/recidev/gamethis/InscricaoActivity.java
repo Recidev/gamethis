@@ -3,6 +3,7 @@ package br.com.recidev.gamethis;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,6 +32,7 @@ public class InscricaoActivity extends Activity {
 	private final String PATH_SHOW = "/usuarios/";
 	//private final String PATH_UPDATE = "/usuarios/:id"; 
 	//private final String PATH_DELETE = "/usuarios/:id";
+	private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
 	private String emailUsuario; 
 	private String senhaUsuario; 
@@ -82,13 +84,40 @@ public class InscricaoActivity extends Activity {
 				String nome = inputNome.getText().toString();
 				int avatar = tipoAvatar;
 				
-				conectado = Util.temConexao(getApplicationContext());
-				if(conectado){
-					// Verifica se o usuário ja existe
-					inserirUsuarioRemoto(email, senha,  nome, avatar);
-				}
+				String resultValidacao = validarCampos(email, senha, nome);
+				
+				if(resultValidacao.equals("")){
+					conectado = Util.temConexao(getApplicationContext());
+					if(conectado){
+						// Verifica se o usuário ja existe
+						inserirUsuarioRemoto(email, senha,  nome, avatar);
+					}
+				} else {
+					Toast.makeText(getApplicationContext(), resultValidacao, Toast.LENGTH_LONG).show();
+				}			
 			}
 		});
+	}
+	
+	
+	public String validarCampos(String email, String senha, String nome){
+		String msgErro = "";
+		
+		if(senha.equals("")){
+			msgErro = "Campo senha deve ser preenchido.";
+		}
+		
+		if(email.equals("")){
+			msgErro = "Campo email deve ser preenchido.";
+		} else if (!Pattern.matches(EMAIL_REGEX, email)) {
+			msgErro = "Email inválido.";
+		} 
+		
+		if(nome.equals("")){
+			msgErro = "Campo nome deve ser preenchido";
+		}
+		
+		return msgErro;
 	}
 	
 	
@@ -129,7 +158,7 @@ public class InscricaoActivity extends Activity {
 		    dialogo.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
 		    dialogo.setCancelable(false);
 		    dialogo.setTitle("Realizando inscrição.");
-		    dialogo.setMessage("Aguarde...");
+		    dialogo.setMessage("Por favor, aguarde...");
 		    dialogo.show(); 
 		};
 		

@@ -50,6 +50,15 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	@Override
+	public void onBackPressed() {
+		Intent mainIntent = this.getIntent();
+		mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		mainIntent.putExtra("EXIT", true);
+		finish();
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

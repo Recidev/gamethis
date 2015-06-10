@@ -56,26 +56,31 @@ public class HomeActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-	            sessao.logoutUsuario();
+	            logoutUsuario();
 			}
 		});
 	}
 	
 	
+	public void logoutUsuario(){
+		boolean fechaActivity = false;
+		sessao.logoutUsuario();
+		encerraMain(fechaActivity);
+    }
+	
 	@Override
 	public void onBackPressed() {
-		boolean estaLogado = sessao.estaLogado();
-		
-		if(!estaLogado){
-			Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
-			startActivity(loginIntent);
-		} else {
-			Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		boolean fechaActivity = true;
+		encerraMain(fechaActivity);
+	}
+
+	public void encerraMain(boolean fechaActivity){
+		Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+		mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		if(fechaActivity){
 			mainIntent.putExtra("EXIT", true);
-			startActivity(mainIntent);
 		}
-		super.onBackPressed();
+		startActivity(mainIntent);
 	}
 
 	

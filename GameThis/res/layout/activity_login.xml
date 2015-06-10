@@ -19,13 +19,14 @@
                     android:singleLine="true" />
     
     		<EditText
-                    android:id="@+id/senha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_senha"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+    		    android:id="@+id/senha"
+    		    android:layout_width="match_parent"
+    		    android:layout_height="wrap_content"
+    		    android:layout_marginTop="10dp"
+    		    android:hint="@string/prompt_senha"
+    		    android:inputType="textPassword"
+    		    android:maxLines="1"
+    		    android:singleLine="true" />
     
     		<Button
                     android:id="@+id/botao_login_entrar"
