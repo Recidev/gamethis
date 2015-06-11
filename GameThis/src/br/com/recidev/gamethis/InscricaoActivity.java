@@ -26,14 +26,6 @@ import com.google.gson.Gson;
 
 public class InscricaoActivity extends Activity {
 	
-	// Posteriormente serão criados arquivos com as constantes
-	private final String PATH_CREATE = "/usuarios/create";
-	//private final String PATH_INDEX = "/usuarios";
-	private final String PATH_SHOW = "/usuarios/";
-	//private final String PATH_UPDATE = "/usuarios/:id"; 
-	//private final String PATH_DELETE = "/usuarios/:id";
-	private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	
 	private String emailUsuario; 
 	private String senhaUsuario; 
 	private String nomeUsuario; 
@@ -89,7 +81,6 @@ public class InscricaoActivity extends Activity {
 				if(resultValidacao.equals("")){
 					conectado = Util.temConexao(getApplicationContext());
 					if(conectado){
-						// Verifica se o usuário ja existe
 						inserirUsuarioRemoto(email, senha,  nome, avatar);
 					}
 				} else {
@@ -109,7 +100,7 @@ public class InscricaoActivity extends Activity {
 		
 		if(email.equals("")){
 			msgErro = "Campo email deve ser preenchido.";
-		} else if (!Pattern.matches(EMAIL_REGEX, email)) {
+		} else if (!Pattern.matches(ConstantesGameThis.EMAIL_REGEX, email)) {
 			msgErro = "Email inválido.";
 		} 
 		
@@ -129,10 +120,10 @@ public class InscricaoActivity extends Activity {
 	
 	public void inserirUsuarioRemoto(String email, String senha, String nome, int avatar){
 		this.emailUsuario = email;
-		this.senhaUsuario = senha;
+		this.senhaUsuario = Util.stringToSha1(senha);
 		this.nomeUsuario = nome;
 		this.avatarUsuario = avatar;
-		String path = PATH_SHOW + this.emailUsuario;
+		String path = ConstantesGameThis.PATH_SHOW + this.emailUsuario;
 		
 		ArrayList<HashMap<String, Object>> listaPalavras = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -142,7 +133,6 @@ public class InscricaoActivity extends Activity {
 		map.put("avatar", avatarUsuario);
 		
 		listaPalavras.add(map);
-		
 		Gson gson = new Gson();
 		String convertedJson = gson.toJson(listaPalavras);
 		String json = convertedJson.substring(1, convertedJson.length() - 1);
@@ -174,7 +164,7 @@ public class InscricaoActivity extends Activity {
 			try {
 				msgResposta = httpClient.get(path);
 				if (msgResposta.equals("")) {
-					httpClient.post(PATH_CREATE, json);
+					httpClient.post(ConstantesGameThis.PATH_CREATE, json);
 					msgResposta = "sucesso";
 				} else {
 					msgResposta = "Usuário já existe.";
@@ -195,7 +185,7 @@ public class InscricaoActivity extends Activity {
 				// Insere usuário localmente no SQLite
 				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario);
 				
-				sessao.criarSessaoLogin(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario);
+				sessao.criarSessaoLogin(emailUsuario, nomeUsuario, avatarUsuario);
 				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 				startActivity(homeIntent);

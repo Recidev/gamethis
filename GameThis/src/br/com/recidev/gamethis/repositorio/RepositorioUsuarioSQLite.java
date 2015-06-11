@@ -19,8 +19,7 @@ public class RepositorioUsuarioSQLite {
 	public RepositorioUsuarioSQLite() {
 	}
 	
-	private ContentValues carregarContentValues(String email, String senha, 
-			String nome, int avatar) {
+	private ContentValues carregarContentValues(String email, String senha, String nome, int avatar) {
 		ContentValues valores = new ContentValues();
 		valores.put(EMAIL, email);
 		valores.put(SENHA, senha);
@@ -31,7 +30,7 @@ public class RepositorioUsuarioSQLite {
 	}
 
 	
-	public void inserirUsuario(String email, String senha, String nome, int avatar, Context c){
+	public void inserirUsuario(String email, String senha, String nome, int avatar, Context c) {
 		context = c;
 
 		SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);

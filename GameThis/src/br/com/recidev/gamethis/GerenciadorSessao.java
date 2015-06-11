@@ -34,10 +34,9 @@ public class GerenciadorSessao {
     /**
      * 
      * */
-    public void criarSessaoLogin(String email, String senha, String nome, int avatar){
+    public void criarSessaoLogin(String email, String nome, int avatar){
         editor.putBoolean(ESTA_LOGADO, true);
         editor.putString(EMAIL_KEY, email);
-        editor.putString(SENHA_KEY, senha);
         editor.putString(NOME_KEY, nome);
         editor.putInt(AVATAR_KEY, avatar);
         editor.commit();

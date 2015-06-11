@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.http.HttpSincronizacaoClient;
 
 import com.google.gson.Gson;
@@ -24,12 +25,7 @@ import com.google.gson.Gson;
 public class LoginActivity extends Activity {
 	
 	GerenciadorSessao sessao;
-	private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	
-	private String emailUsuario; 
-	private String senhaUsuario;
-	private final String PATH_LOGIN = "/usuarios/";
-	
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +49,6 @@ public class LoginActivity extends Activity {
 				 if(resultValidacao.equals("")){
 					 conectado = Util.temConexao(getApplicationContext());
 					 if(conectado){
-						 // Verifica se o usuário ja existe
 						 loginRemoto(email, senha);
 					 }
 				 } else {
@@ -61,22 +56,17 @@ public class LoginActivity extends Activity {
 				 }	
 			 }
 		});
-		
 	}
 	
 	
 	public void loginRemoto(String email, String senha){
-		this.emailUsuario = email;
-		this.senhaUsuario = senha;
-		
 		ArrayList<HashMap<String, Object>> listaPalavras = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("email", emailUsuario);
-		map.put("senha", senhaUsuario);
-
+		senha = Util.stringToSha1(senha);
+		map.put("email", email);
+		map.put("senha", senha);
 		
 		listaPalavras.add(map);
-		
 		Gson gson = new Gson();
 		String convertedJson = gson.toJson(listaPalavras);
 		String json = convertedJson.substring(1, convertedJson.length() - 1);
@@ -99,42 +89,42 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected String doInBackground(String... params) {
-			String msgResposta = "";
+			String stringResposta = "";
 			int indice = 0;
 			String json = params[indice++].toString();
 			HttpSincronizacaoClient httpClient = new HttpSincronizacaoClient();
 			
 			try {
-				msgResposta = httpClient.post(PATH_LOGIN, json);
-				if (!msgResposta.equals("")) {
-					msgResposta = "sucesso";
-				} else {
-					msgResposta = "Usuário ou senha incorreta.";
+				stringResposta = httpClient.post(ConstantesGameThis.PATH_LOGIN, json);
+				if (stringResposta.equals("")) {
+					stringResposta = "Usuário ou senha incorreta.";
 				}
 			} catch (IOException e) {
-				msgResposta = "Erro no servidor.";
+				stringResposta = "Erro no servidor.";
 				e.printStackTrace();
 			}
-			return msgResposta;
+			return stringResposta;
 		}; 
 		
 	 
 		@Override
-		protected void onPostExecute(String msgResposta){
+		protected void onPostExecute(String stringResposta){
 			dialogo.dismiss(); 
 			
-			if(msgResposta.equals("sucesso")){
-				sessao.criarSessaoLogin(emailUsuario, senhaUsuario, "", 0);
+			if(!stringResposta.equals("")){
+				Gson gson = new Gson();
+				Usuario usuario = gson.fromJson(stringResposta, Usuario.class);
+				
+				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar());
 				Toast.makeText(getApplicationContext(), "Bem vindo", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 				startActivity(homeIntent);
 				finish();
 			} else {
-				Toast.makeText(getApplicationContext(), msgResposta, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), stringResposta, Toast.LENGTH_LONG).show();
 			}
 		};
 	}
-	
 	
 	
 	public String validarCampos(String email, String senha){
@@ -146,21 +136,12 @@ public class LoginActivity extends Activity {
 		
 		if(email.equals("")){
 			msgErro = "Campo email deve ser preenchido.";
-		} else if (!Pattern.matches(EMAIL_REGEX, email)) {
+		} else if (!Pattern.matches(ConstantesGameThis.EMAIL_REGEX, email)) {
 			msgErro = "Email inválido.";
 		} 
 		
 		return msgErro;
 	}
-	
-//	@Override
-//	protected void onResume() {
-//		
-//		sessao.checaLogin();
-//		Toast.makeText(getApplicationContext(), 
-//				 "Toast de novo", Toast.LENGTH_LONG).show();
-//		super.onResume();
-//	}
 	
 
 	@Override
