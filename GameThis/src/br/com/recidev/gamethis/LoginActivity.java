@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 public class LoginActivity extends Activity {
 	
 	GerenciadorSessao sessao;
-
+	private String stringUsuario;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +95,10 @@ public class LoginActivity extends Activity {
 			HttpSincronizacaoClient httpClient = new HttpSincronizacaoClient();
 			
 			try {
-				stringResposta = httpClient.post(ConstantesGameThis.PATH_LOGIN, json);
-				if (stringResposta.equals("")) {
+				stringUsuario = httpClient.post(ConstantesGameThis.PATH_LOGIN, json);
+				if (!stringUsuario.equals("")) {
+					stringResposta = "sucesso";
+				} else {
 					stringResposta = "Usuário ou senha incorreta.";
 				}
 			} catch (IOException e) {
@@ -111,9 +113,9 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(String stringResposta){
 			dialogo.dismiss(); 
 			
-			if(!stringResposta.equals("")){
+			if(stringResposta.equals("sucesso")){
 				Gson gson = new Gson();
-				Usuario usuario = gson.fromJson(stringResposta, Usuario.class);
+				Usuario usuario = gson.fromJson(stringUsuario, Usuario.class);
 				
 				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar());
 				Toast.makeText(getApplicationContext(), "Bem vindo", Toast.LENGTH_LONG).show();
