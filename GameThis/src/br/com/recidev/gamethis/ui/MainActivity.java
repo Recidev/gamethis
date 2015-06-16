@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis;
+package br.com.recidev.gamethis.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import br.com.recidev.gamethis.R;
+import br.com.recidev.gamethis.util.GerenciadorSessao;
+import br.com.recidev.gamethis.util.SQLiteHelper;
 
 public class MainActivity extends Activity {
 	

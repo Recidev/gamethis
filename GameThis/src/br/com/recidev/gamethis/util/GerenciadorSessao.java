@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis;
+package br.com.recidev.gamethis.util;
 
 
 import java.util.HashMap;
@@ -6,15 +6,16 @@ import java.util.HashMap;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import br.com.recidev.gamethis.R;
  
 public class GerenciadorSessao {
-    SharedPreferences preferencias;
+    public SharedPreferences preferencias;
     Editor editor;
     Context contexto;
     int PRIVATE_MODE = 0;
     
-    private static final String PREF_NAME = "GameThisPrefs";
-    private static final String ESTA_LOGADO = "estaLogado";
+    public static final String PREF_NAME = "GameThisPrefs";
+    public static final String ESTA_LOGADO = "estaLogado";
     public static final String EMAIL_KEY = "emailkey";
     public static final String SENHA_KEY = "senhakey";
     public static final String NOME_KEY = "nomekey";

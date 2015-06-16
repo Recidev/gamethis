@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis;
+package br.com.recidev.gamethis.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import br.com.recidev.gamethis.R;
 
 public class AvatarAdapter extends ArrayAdapter<String>{
 

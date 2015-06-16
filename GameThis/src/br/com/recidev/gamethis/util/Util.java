@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis;
+package br.com.recidev.gamethis.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

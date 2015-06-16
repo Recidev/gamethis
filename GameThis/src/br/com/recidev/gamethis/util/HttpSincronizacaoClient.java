@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis.http;
+package br.com.recidev.gamethis.util;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

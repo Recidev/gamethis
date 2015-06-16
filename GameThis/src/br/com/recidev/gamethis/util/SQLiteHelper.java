@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis;
+package br.com.recidev.gamethis.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,6 +1,6 @@
 package br.com.recidev.gamethis.repositorio;
 
-import br.com.recidev.gamethis.SQLiteHelper;
+import br.com.recidev.gamethis.util.SQLiteHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

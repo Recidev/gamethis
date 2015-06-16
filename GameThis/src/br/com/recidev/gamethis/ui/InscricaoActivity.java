@@ -1,4 +1,4 @@
-package br.com.recidev.gamethis;
+package br.com.recidev.gamethis.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import br.com.recidev.gamethis.http.HttpSincronizacaoClient;
+import br.com.recidev.gamethis.R;
+import br.com.recidev.gamethis.adapter.AvatarAdapter;
 import br.com.recidev.gamethis.repositorio.RepositorioUsuarioSQLite;
+import br.com.recidev.gamethis.util.ConstantesGameThis;
+import br.com.recidev.gamethis.util.GerenciadorSessao;
+import br.com.recidev.gamethis.util.HttpSincronizacaoClient;
+import br.com.recidev.gamethis.util.Util;
 
 import com.google.gson.Gson;
 
