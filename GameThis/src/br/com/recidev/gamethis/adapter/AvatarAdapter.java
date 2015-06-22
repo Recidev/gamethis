@@ -33,11 +33,11 @@ public class AvatarAdapter extends ArrayAdapter<String>{
 		
 		String tipoAvatar = nomesAvatar[position];
 		
-		if(tipoAvatar.equals("Warior")){
+		if(tipoAvatar.equals("Warrior")){
 			imageView.setImageResource(R.drawable.warcraft_undead_hero);
 		} else if(tipoAvatar.equals("Mage")){
 			imageView.setImageResource(R.drawable.warcraft_elf_hero);
-		} else if(tipoAvatar.equals("Thiev")){
+		} else if(tipoAvatar.equals("Thief")){
 			imageView.setImageResource(R.drawable.warcraft_hero);
 		} else {
 			imageView.setImageResource(R.drawable.ic_launcher);

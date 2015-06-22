@@ -1,8 +1,12 @@
 package br.com.recidev.gamethis.ui;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
@@ -35,8 +39,10 @@ public class InscricaoActivity extends Activity {
 	private String senhaUsuario; 
 	private String nomeUsuario; 
 	private int avatarUsuario;
+	private String timestampUsuario;
+	
 	GerenciadorSessao sessao;
-	final String[] AVATAR = new String[] { "Warior", "Mage", "Thiev"};
+	final String[] AVATAR = new String[] { "Warrior", "Mage", "Thief"};
 	int tipoAvatar = 0;
 	
 	@Override
@@ -129,6 +135,8 @@ public class InscricaoActivity extends Activity {
 		this.nomeUsuario = nome;
 		this.avatarUsuario = avatar;
 		String path = ConstantesGameThis.PATH_SHOW + this.emailUsuario;
+		DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		this.timestampUsuario = dateFormatSQLite.format(new Timestamp(System.currentTimeMillis()));
 		
 		ArrayList<HashMap<String, Object>> listaPalavras = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -136,6 +144,7 @@ public class InscricaoActivity extends Activity {
 		map.put("senha", senhaUsuario);
 		map.put("nome", nomeUsuario);
 		map.put("avatar", avatarUsuario);
+		map.put("ts_usuario", timestampUsuario);
 		
 		listaPalavras.add(map);
 		Gson gson = new Gson();
@@ -188,7 +197,7 @@ public class InscricaoActivity extends Activity {
 			
 			if(msgResposta.equals("sucesso")){
 				// Insere usuário localmente no SQLite
-				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario);
+				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario);
 				
 				sessao.criarSessaoLogin(emailUsuario, nomeUsuario, avatarUsuario);
 				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
@@ -202,9 +211,9 @@ public class InscricaoActivity extends Activity {
 	}
 
 	
-	public void inserirUsuario(String email, String senha, String nome, int avatar){
+	public void inserirUsuario(String email, String senha, String nome, int avatar, String ts_usuario){
 		RepositorioUsuarioSQLite repUsuario = new RepositorioUsuarioSQLite();
-		repUsuario.inserirUsuario(email, senha, nome, avatar, getApplicationContext());
+		repUsuario.inserirUsuario(email, senha, nome, avatar, ts_usuario, getApplicationContext());
 	}
 	
 	

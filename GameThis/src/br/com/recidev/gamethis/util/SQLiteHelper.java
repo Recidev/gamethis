@@ -35,7 +35,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		query.append(" email VARCHAR(100), ");
 		query.append(" senha VARCHAR(100), ");
 		query.append(" nome VARCHAR(100), ");
-		query.append(" avatar INTEGER ");
+		query.append(" avatar INTEGER, ");
+		query.append(" ts_usuario DATETIME NOT NULL ");
 		query.append(")");
 		db.execSQL(query.toString());
 		
