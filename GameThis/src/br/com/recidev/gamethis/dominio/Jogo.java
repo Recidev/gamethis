@@ -1,14 +1,16 @@
 package br.com.recidev.gamethis.dominio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class Jogo {
 
 	private String descricao;
 	private Date dtInicial;
 	private Date dtFinal;
-	private int criador;
+	private String loginCriador;
 	private int ativado;
+	private Timestamp timestamp;
 	
 	public String getDescricao() {
 		return descricao;
@@ -28,16 +30,22 @@ public class Jogo {
 	public void setDtFinal(Date dtFinal) {
 		this.dtFinal = dtFinal;
 	}
-	public int getCriador() {
-		return criador;
+	public String getLoginCriador() {
+		return loginCriador;
 	}
-	public void setCriador(int criador) {
-		this.criador = criador;
+	public void setLoginCriador(String loginCriador) {
+		this.loginCriador = loginCriador;
 	}
 	public int getAtivado() {
 		return ativado;
 	}
 	public void setAtivado(int ativado) {
 		this.ativado = ativado;
+	}
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 }

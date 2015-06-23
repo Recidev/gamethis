@@ -118,7 +118,6 @@ public class InscricaoActivity extends Activity {
 		if(nome.equals("")){
 			msgErro = "Campo nome deve ser preenchido";
 		}
-		
 		return msgErro;
 	}
 	
@@ -200,7 +199,7 @@ public class InscricaoActivity extends Activity {
 				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario);
 				
 				sessao.criarSessaoLogin(emailUsuario, nomeUsuario, avatarUsuario);
-				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso!", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 				startActivity(homeIntent);
 				finish();

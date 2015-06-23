@@ -1,6 +1,7 @@
 package br.com.recidev.gamethis.ui;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.recidev.gamethis.R;
+import br.com.recidev.gamethis.dominio.Jogo;
 import br.com.recidev.gamethis.util.ConstantesGameThis;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 import br.com.recidev.gamethis.util.HttpSincronizacaoClient;
@@ -35,18 +37,13 @@ import com.google.gson.Gson;
 public class NovoJogoActivity extends Activity {
 	
 	GerenciadorSessao sessao;
+	private Jogo novoJogo;
 	
 	private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 	private Calendar dataInicio;
 	private Calendar dataTermino;
 	private TextView inputDataInicio;
 	private TextView inputDataTermino;
-	
-	private String descricaoJogo;
-	private String dataInicioJogo; 
-	private String dataTerminoJogo; 
-	private String emailUsuario;
-	private int flagAtivado;
 	
 	
 	private DatePickerDialog.OnDateSetListener datePickerInicio = new DatePickerDialog.OnDateSetListener() {
@@ -55,7 +52,12 @@ public class NovoJogoActivity extends Activity {
 	    	dataInicio = Calendar.getInstance();
 	    	dataInicio.set(Calendar.YEAR, year);
 	    	dataInicio.set(Calendar.MONTH, monthOfYear);
-	    	dataInicio.set(Calendar.DAY_OF_MONTH, dayOfMonth); 
+	    	dataInicio.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+	    	
+	    	dataInicio.set(Calendar.HOUR_OF_DAY, 0);
+	    	dataInicio.set(Calendar.MINUTE, 0);
+	    	dataInicio.set(Calendar.SECOND, 0);
+	    	dataInicio.set(Calendar.MILLISECOND, 0);
 	    	inputDataInicio.setText(dateFormat.format(dataInicio.getTime()));   	
 	    }
 	};
@@ -66,7 +68,12 @@ public class NovoJogoActivity extends Activity {
 	    	dataTermino = Calendar.getInstance();
 	    	dataTermino.set(Calendar.YEAR, year);
 	    	dataTermino.set(Calendar.MONTH, monthOfYear);
-	    	dataTermino.set(Calendar.DAY_OF_MONTH, dayOfMonth); 
+	    	dataTermino.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+	    	
+	    	dataTermino.set(Calendar.HOUR_OF_DAY, 0);
+	    	dataTermino.set(Calendar.MINUTE, 0);
+	    	dataTermino.set(Calendar.SECOND, 0);
+	    	dataTermino.set(Calendar.MILLISECOND, 0);
 	    	inputDataTermino.setText(dateFormat.format(dataTermino.getTime()));
 	    }
 	};
@@ -134,13 +141,16 @@ public class NovoJogoActivity extends Activity {
 				boolean conectado = false;
 				EditText inputDescricaoJogo = (EditText) findViewById(R.id.input_descricao_jogo);
 				
+				
 				String descricao = inputDescricaoJogo.getText().toString();
+				String strDataInicio = inputDataInicio.getText().toString();
+				String strDataTermino = inputDataTermino.getText().toString();
 				
-				//String resultValidacao = validarCampos(email, senha, nome);
-				String resultValidacao = "";
-				
+				String resultValidacao = validarCampos(descricao, strDataInicio, strDataTermino);
+
 				if(resultValidacao.equals("")){
 					conectado = Util.temConexao(getApplicationContext());
+					
 					if(conectado){
 						inserirJogoRemoto(descricao, dataInicio.getTime(),  dataTermino.getTime());
 					}
@@ -152,25 +162,57 @@ public class NovoJogoActivity extends Activity {
 		
 	}
 
+	
+	public String validarCampos(String descricao, String strDataInicio, String strDataTermino){
+		String msgErro = "";
+		
+		if(dataTermino.getTime().before(dataInicio.getTime()) || dataInicio.getTime().equals(dataTermino.getTime())){
+			msgErro = "Data de Término deve ser maior que a Data de Início.";
+		}
+		
+		if(strDataTermino.toString().equals("")){
+			msgErro = "A Data de Término deve ser preenchida.";
+		}
+		
+		if(strDataInicio.toString().equals("")){
+			msgErro = "A Data de Início deve ser preenchida.";
+		} 
+		
+		if(descricao.equals("")){
+			msgErro = "Campo descrição deve ser preenchido";
+		}
+		return msgErro;
+	}
+	
 
 	public void inserirJogoRemoto(String descricao, Date dataInicio, Date dataTermino){
-		this.descricaoJogo = descricao;		
+		int flagAtivado = 1;
+		novoJogo = new Jogo();
+		novoJogo.setDescricao(descricao);		
+		novoJogo.setDtInicial(dataInicio);
+		novoJogo.setDtFinal(dataTermino);
+		novoJogo.setAtivado(flagAtivado);
+		novoJogo.setLoginCriador(sessao.preferencias.getString(GerenciadorSessao.EMAIL_KEY, ""));
+		novoJogo.setTimestamp(new Timestamp(System.currentTimeMillis()));
 		
+		DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		String timestampJogo = dateFormatSQLite.format(novoJogo.getTimestamp());
+		
+		//Ajustes para enviar ao servico
 		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		this.dataInicioJogo = dateFormat2.format(dataInicio);
-		this.dataTerminoJogo = dateFormat2.format(dataTermino);
-		this.flagAtivado = 1;  
-		this.emailUsuario = sessao.preferencias.getString(GerenciadorSessao.EMAIL_KEY, "");
+		String strInicioJogo = dateFormat2.format(novoJogo.getDtInicial());
+		String strTerminoJogo = dateFormat2.format(novoJogo.getDtFinal());
 	
 		String path = ConstantesGameThis.PATH_JOGO_CREATE;
 		
 		ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("descricao", descricaoJogo);
-		map.put("dataInicio", dataInicioJogo);
-		map.put("dataTermino", dataTerminoJogo);
-		map.put("flagAtivado", this.flagAtivado);
-		map.put("emailCriadorJogo", this.emailUsuario);
+		map.put("descricao", novoJogo.getDescricao());
+		map.put("dataInicio", strInicioJogo);
+		map.put("dataTermino", strTerminoJogo);
+		map.put("flagAtivado", novoJogo.getAtivado());
+		map.put("loginCriador", novoJogo.getLoginCriador());
+		map.put("ts_jogo", timestampJogo);
 		
 		listaParametros.add(map);
 		Gson gson = new Gson();
@@ -178,7 +220,6 @@ public class NovoJogoActivity extends Activity {
 		String json = convertedJson.substring(1, convertedJson.length() - 1);
 		new InserirJogoTask().execute(path, json);
 	}
-	
 	
 	
 	
@@ -222,7 +263,7 @@ public class NovoJogoActivity extends Activity {
 				// Insere jogo localmente no SQLite
 				//inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario);
 				
-				Toast.makeText(getApplicationContext(), "Jogo criado com sucesso", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Jogo criado com sucesso!", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 				startActivity(homeIntent);
 				finish();
