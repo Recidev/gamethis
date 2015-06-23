@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">GameThis</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
@@ -7,4 +8,18 @@
     <string name="botao_tela_inscricao">Inscreva-se</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_inscricao">Inscrição</string>
+    <string name="title_activity_novo_jogo">Novo Jogo</string>
+    <string name="title_activity_jogadores">Jogadores</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_atividades">Atividades</string>
+
+    <!-- Tela Novo Jogo -->
+    <string name="texto_input_descricao_jogo">Descrição</string>
+    <string name="texto_data_inicio">Data Início: </string>
+    <string name="texto_data_termino">Data Término: </string>
+    <string name="texto_botao_add_jogadores">+ Jogadores </string>
+    <string name="texto_botao_add_atividades">+ Atividades </string>
+    <string name="texto_botao_iniciar_jogo">Criar Jogo </string>
+    
+
 </resources>

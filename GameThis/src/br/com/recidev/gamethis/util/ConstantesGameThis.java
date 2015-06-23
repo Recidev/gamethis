@@ -11,5 +11,11 @@ public final class ConstantesGameThis {
 	public static final String PATH_UPDATE = "/usuarios/:id"; 
 	public static final String PATH_DELETE = "/usuarios/:id";
 	public static final String PATH_LOGIN = "/usuarios";
-
+	
+	//Paths REST
+	public static final String PATH_JOGO_INDEX = "/jogos";
+	public static final String PATH_JOGO_SHOW = "/jogos/";
+	public static final String PATH_JOGO_CREATE = "/jogos/create";
+	public static final String PATH_JOGO_UPDATE = "/jogos/:id"; 
+	public static final String PATH_JOGO_DELETE = "/jogos/:id";
 }

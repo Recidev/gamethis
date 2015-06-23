@@ -36,9 +36,9 @@ public class HomeActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-	            startActivity(homeIntent);
-	            finish();
+				Intent novoJogoIntent = new Intent(getApplicationContext(), NovoJogoActivity.class);
+	            startActivity(novoJogoIntent);
+	            //finish();
 			}
 		});
 		

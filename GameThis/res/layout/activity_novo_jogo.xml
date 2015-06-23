@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.recidev.gamethis.ui.NovoJogoActivity" >
+
+    <EditText
+        android:id="@+id/input_descricao_jogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="@string/texto_input_descricao_jogo"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true" />
+    
+     <LinearLayout
+         android:layout_width="246dp"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="10dp"
+         android:orientation="horizontal" >
+
+		     <TextView
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="@string/texto_data_inicio"
+		         android:textSize="15sp" />
+		
+		      <EditText
+		          android:id="@+id/data_inicio"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"
+		          android:layout_marginLeft="30dp"
+		          android:focusable="false"
+		          android:inputType="date" />
+      </LinearLayout>
+      
+      <LinearLayout
+          android:layout_width="246dp"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_marginTop="10dp"
+          android:orientation="horizontal" >
+
+		     <TextView
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="@string/texto_data_termino"
+		         android:textSize="15sp" />
+		
+		      <EditText
+		          android:id="@+id/data_termino"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"
+		          android:layout_marginLeft="10dp"
+		          android:focusable="false"
+		          android:inputType="date" />
+      </LinearLayout>
+      
+      <Button
+          android:id="@+id/botao_add_jogadores"
+          style="?android:textAppearanceSmall"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:text="@string/texto_botao_add_jogadores" />
+
+      <Button
+          android:id="@+id/botao_add_atividades"
+          style="?android:textAppearanceSmall"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="0dp"
+          android:text="@string/texto_botao_add_atividades" />
+      
+      <Button
+          android:id="@+id/botao_criar_jogo"
+          style="?android:textAppearanceSmall"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:text="@string/texto_botao_iniciar_jogo" />
+
+</LinearLayout>

@@ -138,7 +138,7 @@ public class InscricaoActivity extends Activity {
 		DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		this.timestampUsuario = dateFormatSQLite.format(new Timestamp(System.currentTimeMillis()));
 		
-		ArrayList<HashMap<String, Object>> listaPalavras = new ArrayList<HashMap<String, Object>>();
+		ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", emailUsuario);
 		map.put("senha", senhaUsuario);
@@ -146,9 +146,9 @@ public class InscricaoActivity extends Activity {
 		map.put("avatar", avatarUsuario);
 		map.put("ts_usuario", timestampUsuario);
 		
-		listaPalavras.add(map);
+		listaParametros.add(map);
 		Gson gson = new Gson();
-		String convertedJson = gson.toJson(listaPalavras);
+		String convertedJson = gson.toJson(listaParametros);
 		String json = convertedJson.substring(1, convertedJson.length() - 1);
 		new InserirUsuarioTask().execute(path, json);
 	}
