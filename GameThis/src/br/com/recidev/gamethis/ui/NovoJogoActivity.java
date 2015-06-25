@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -27,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.dominio.Jogo;
+import br.com.recidev.gamethis.repositorio.RepositorioJogoSQLite;
 import br.com.recidev.gamethis.util.ConstantesGameThis;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 import br.com.recidev.gamethis.util.HttpSincronizacaoClient;
@@ -141,7 +141,6 @@ public class NovoJogoActivity extends Activity {
 				boolean conectado = false;
 				EditText inputDescricaoJogo = (EditText) findViewById(R.id.input_descricao_jogo);
 				
-				
 				String descricao = inputDescricaoJogo.getText().toString();
 				String strDataInicio = inputDataInicio.getText().toString();
 				String strDataTermino = inputDataTermino.getText().toString();
@@ -149,19 +148,47 @@ public class NovoJogoActivity extends Activity {
 				String resultValidacao = validarCampos(descricao, strDataInicio, strDataTermino);
 
 				if(resultValidacao.equals("")){
-					conectado = Util.temConexao(getApplicationContext());
+					int flagAtivado = 1;
+					int syncStatus = 1;
+					novoJogo = new Jogo();
+					novoJogo.setDescricao(descricao);		
+					novoJogo.setDtInicial(dataInicio.getTime());
+					novoJogo.setDtFinal(dataTermino.getTime());
+					novoJogo.setAtivado(flagAtivado);
+					novoJogo.setLoginCriador(sessao.preferencias.getString(GerenciadorSessao.EMAIL_KEY, ""));
+					novoJogo.setTimestamp(new Timestamp(System.currentTimeMillis()));
+					novoJogo.setSyncStatus(syncStatus);
 					
+					inserirJogo();
+					
+					conectado = Util.temConexao(getApplicationContext());
 					if(conectado){
-						inserirJogoRemoto(descricao, dataInicio.getTime(),  dataTermino.getTime());
+						syncStatus = 0;
+						novoJogo.setSyncStatus(syncStatus);
+						inserirJogoRemoto();
+					}  else {
+						direcionarTelaHome();
 					}
 				} else {
 					Toast.makeText(getApplicationContext(), resultValidacao, Toast.LENGTH_LONG).show();
 				}
 			}
 		});
-		
 	}
 
+	
+	
+	public void inserirJogo(){
+		RepositorioJogoSQLite repJogo = new RepositorioJogoSQLite();
+		repJogo.inserirJogo(novoJogo, getApplicationContext());
+	}
+	
+	public void atualizarSyncStatusJogo(String descricao, int syncStatus){
+		RepositorioJogoSQLite repJogo = new RepositorioJogoSQLite();
+		repJogo.atualizarSyncStatusJogo(descricao, syncStatus, getApplicationContext());
+	}
+	
+	
 	
 	public String validarCampos(String descricao, String strDataInicio, String strDataTermino){
 		String msgErro = "";
@@ -169,32 +196,21 @@ public class NovoJogoActivity extends Activity {
 		if(dataTermino.getTime().before(dataInicio.getTime()) || dataInicio.getTime().equals(dataTermino.getTime())){
 			msgErro = "Data de Término deve ser maior que a Data de Início.";
 		}
-		
 		if(strDataTermino.toString().equals("")){
 			msgErro = "A Data de Término deve ser preenchida.";
 		}
-		
 		if(strDataInicio.toString().equals("")){
 			msgErro = "A Data de Início deve ser preenchida.";
 		} 
-		
 		if(descricao.equals("")){
 			msgErro = "Campo descrição deve ser preenchido";
 		}
 		return msgErro;
 	}
 	
+	
 
-	public void inserirJogoRemoto(String descricao, Date dataInicio, Date dataTermino){
-		int flagAtivado = 1;
-		novoJogo = new Jogo();
-		novoJogo.setDescricao(descricao);		
-		novoJogo.setDtInicial(dataInicio);
-		novoJogo.setDtFinal(dataTermino);
-		novoJogo.setAtivado(flagAtivado);
-		novoJogo.setLoginCriador(sessao.preferencias.getString(GerenciadorSessao.EMAIL_KEY, ""));
-		novoJogo.setTimestamp(new Timestamp(System.currentTimeMillis()));
-		
+	public void inserirJogoRemoto(){
 		DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		String timestampJogo = dateFormatSQLite.format(novoJogo.getTimestamp());
 		
@@ -208,11 +224,12 @@ public class NovoJogoActivity extends Activity {
 		ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("descricao", novoJogo.getDescricao());
-		map.put("dataInicio", strInicioJogo);
-		map.put("dataTermino", strTerminoJogo);
-		map.put("flagAtivado", novoJogo.getAtivado());
-		map.put("loginCriador", novoJogo.getLoginCriador());
+		map.put("dt_inicio", strInicioJogo);
+		map.put("dt_termino", strTerminoJogo);
+		map.put("fl_ativado", novoJogo.getAtivado());
+		map.put("login_criador", novoJogo.getLoginCriador());
 		map.put("ts_jogo", timestampJogo);
+		map.put("sync_sts", novoJogo.getSyncStatus());
 		
 		listaParametros.add(map);
 		Gson gson = new Gson();
@@ -260,13 +277,9 @@ public class NovoJogoActivity extends Activity {
 			dialogo.dismiss(); 
 			
 			if(msgResposta.equals("sucesso")){
-				// Insere jogo localmente no SQLite
-				//inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario);
-				
-				Toast.makeText(getApplicationContext(), "Jogo criado com sucesso!", Toast.LENGTH_LONG).show();
-				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-				startActivity(homeIntent);
-				finish();
+				int syncStatus = 0;
+				atualizarSyncStatusJogo(novoJogo.getDescricao(), syncStatus);
+				direcionarTelaHome();
 			} else {
 				Toast.makeText(getApplicationContext(), msgResposta, Toast.LENGTH_LONG).show();
 			}
@@ -274,7 +287,12 @@ public class NovoJogoActivity extends Activity {
 	}
 	
 	
-	
+	public void direcionarTelaHome(){
+		Toast.makeText(getApplicationContext(), "Jogo criado com sucesso!", Toast.LENGTH_LONG).show();
+		Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+		startActivity(homeIntent);
+		finish();
+	}
 	
 	
 	

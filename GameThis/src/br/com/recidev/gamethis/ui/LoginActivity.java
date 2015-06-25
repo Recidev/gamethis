@@ -54,6 +54,9 @@ public class LoginActivity extends Activity {
 					 conectado = Util.temConexao(getApplicationContext());
 					 if(conectado){
 						 loginRemoto(email, senha);
+					 } else {
+						 Toast.makeText(getApplicationContext(), "Não foi possível realizar login, por favor tente mais tarde.", 
+								 Toast.LENGTH_LONG).show();
 					 }
 				 } else {
 					 Toast.makeText(getApplicationContext(), resultValidacao, Toast.LENGTH_LONG).show();

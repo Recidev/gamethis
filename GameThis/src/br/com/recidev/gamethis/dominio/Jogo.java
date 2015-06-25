@@ -11,6 +11,7 @@ public class Jogo {
 	private String loginCriador;
 	private int ativado;
 	private Timestamp timestamp;
+	private int syncStatus;
 	
 	public String getDescricao() {
 		return descricao;
@@ -47,5 +48,11 @@ public class Jogo {
 	}
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+	public int getSyncStatus() {
+		return syncStatus;
+	}
+	public void setSyncStatus(int syncStatus) {
+		this.syncStatus = syncStatus;
 	}
 }

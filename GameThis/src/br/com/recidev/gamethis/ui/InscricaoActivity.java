@@ -40,6 +40,7 @@ public class InscricaoActivity extends Activity {
 	private String nomeUsuario; 
 	private int avatarUsuario;
 	private String timestampUsuario;
+	private int syncStatus;
 	
 	GerenciadorSessao sessao;
 	final String[] AVATAR = new String[] { "Warrior", "Mage", "Thief"};
@@ -108,13 +109,11 @@ public class InscricaoActivity extends Activity {
 		if(senha.equals("")){
 			msgErro = "Campo senha deve ser preenchido.";
 		}
-		
 		if(email.equals("")){
 			msgErro = "Campo email deve ser preenchido.";
 		} else if (!Pattern.matches(ConstantesGameThis.EMAIL_REGEX, email)) {
 			msgErro = "Email inválido.";
 		} 
-		
 		if(nome.equals("")){
 			msgErro = "Campo nome deve ser preenchido";
 		}
@@ -136,6 +135,7 @@ public class InscricaoActivity extends Activity {
 		String path = ConstantesGameThis.PATH_SHOW + this.emailUsuario;
 		DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		this.timestampUsuario = dateFormatSQLite.format(new Timestamp(System.currentTimeMillis()));
+		this.syncStatus = 0;
 		
 		ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -144,6 +144,8 @@ public class InscricaoActivity extends Activity {
 		map.put("nome", nomeUsuario);
 		map.put("avatar", avatarUsuario);
 		map.put("ts_usuario", timestampUsuario);
+		map.put("sync_sts", syncStatus);
+		
 		
 		listaParametros.add(map);
 		Gson gson = new Gson();
@@ -196,7 +198,7 @@ public class InscricaoActivity extends Activity {
 			
 			if(msgResposta.equals("sucesso")){
 				// Insere usuário localmente no SQLite
-				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario);
+				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario, syncStatus);
 				
 				sessao.criarSessaoLogin(emailUsuario, nomeUsuario, avatarUsuario);
 				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso!", Toast.LENGTH_LONG).show();
@@ -210,9 +212,9 @@ public class InscricaoActivity extends Activity {
 	}
 
 	
-	public void inserirUsuario(String email, String senha, String nome, int avatar, String ts_usuario){
+	public void inserirUsuario(String email, String senha, String nome, int avatar, String ts_usuario, int syncStatus){
 		RepositorioUsuarioSQLite repUsuario = new RepositorioUsuarioSQLite();
-		repUsuario.inserirUsuario(email, senha, nome, avatar, ts_usuario, getApplicationContext());
+		repUsuario.inserirUsuario(email, senha, nome, avatar, ts_usuario, syncStatus, getApplicationContext());
 	}
 	
 	

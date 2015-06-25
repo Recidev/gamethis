@@ -31,22 +31,29 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		StringBuffer query = new StringBuffer();
 		query.append("CREATE TABLE usuario ( ");
-		query.append(" id INTEGER PRIMARY KEY  NOT NULL, ");
+		query.append(" id INTEGER PRIMARY KEY NOT NULL, ");
 		query.append(" email VARCHAR(100), ");
 		query.append(" senha VARCHAR(100), ");
 		query.append(" nome VARCHAR(100), ");
 		query.append(" avatar INTEGER, ");
-		query.append(" ts_usuario DATETIME NOT NULL ");
+		query.append(" ts_usuario DATETIME NOT NULL, ");
+		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0 "); 
 		query.append(")");
 		db.execSQL(query.toString());
 		
 		query = new StringBuffer();
+		query.append("CREATE UNIQUE INDEX email_UNIQUE ON usuario (email)");
+		db.execSQL(query.toString());
+		
+		
+		query = new StringBuffer();
 		query.append("CREATE TABLE atividade ( ");
-		query.append(" id INTEGER PRIMARY KEY  NOT NULL, ");
+		query.append(" id INTEGER PRIMARY KEY NOT NULL, ");
 		query.append(" descricao VARCHAR(100), ");
 		query.append(" duracao INTEGER, ");
 		query.append(" valor INTEGER, ");
 		query.append(" id_usuario INTEGER, ");
+		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0, ");
 		query.append(" FOREIGN KEY (id_usuario) REFERENCES usuario(id) ");
 		query.append(")");
 		db.execSQL(query.toString());
@@ -54,20 +61,22 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		query = new StringBuffer();
 		query.append("CREATE TABLE jogo ( ");
 		query.append(" id INTEGER PRIMARY KEY  NOT NULL, ");
-		query.append(" nome VARCHAR(100), ");
 		query.append(" descricao VARCHAR(100), ");
-		//query.append(" dt_inicial TEXT, ");
-		//query.append(" dt_final TEXT, ");
+		query.append(" dt_inicio DATETIME, ");
+		query.append(" dt_termino DATETIME, ");
 		query.append(" fl_ativado INTEGER, ");
-		query.append(" id_usuario_criador INTEGER, ");
-		query.append(" FOREIGN KEY (id_usuario_criador) REFERENCES usuario(id) ");
+		query.append(" login_criador VARCHAR(100), ");
+		query.append(" ts_jogo DATETIME NOT NULL, ");
+		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0, ");
+		query.append(" FOREIGN KEY (login_criador) REFERENCES usuario(email) ");
 		query.append(")");
 		db.execSQL(query.toString());
 		
 		query = new StringBuffer();
 		query.append("CREATE TABLE jogo_usuario ( ");
 		query.append(" id_jogo INTEGER, ");
-		query.append(" id_usuario INTEGER ");
+		query.append(" id_usuario INTEGER, ");
+		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0 ");
 		query.append(")");
 		db.execSQL(query.toString());
 	}

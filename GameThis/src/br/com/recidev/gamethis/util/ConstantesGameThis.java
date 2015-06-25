@@ -18,4 +18,6 @@ public final class ConstantesGameThis {
 	public static final String PATH_JOGO_CREATE = "/jogos/create";
 	public static final String PATH_JOGO_UPDATE = "/jogos/:id"; 
 	public static final String PATH_JOGO_DELETE = "/jogos/:id";
+	
+	public static final String PATH_SYNC_JOGO = "/sync/sqliteToService";
 }

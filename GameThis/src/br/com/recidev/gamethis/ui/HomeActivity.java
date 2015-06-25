@@ -1,6 +1,10 @@
 package br.com.recidev.gamethis.ui;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.recidev.gamethis.R;
+import br.com.recidev.gamethis.util.SincronizacaoReceiver;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 
 public class HomeActivity extends Activity {
@@ -29,8 +34,15 @@ public class HomeActivity extends Activity {
 		int tipoAvatar = sessao.preferencias.getInt(GerenciadorSessao.AVATAR_KEY, 0);
 		ImageView avatarUsuario = (ImageView) findViewById(R.id.avatarUsuario);
 		avatarUsuario.setImageResource(GerenciadorSessao.TIPOS_AVATAR[tipoAvatar]);
+
 		
-		
+		//Trecho responsável por buscar atualizações no sistema.
+//        Intent conectividadeIntent = new Intent(getApplicationContext(), SincronizacaoReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, conectividadeIntent, 0);
+//        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 10 * 3000, pendingIntent);
+        
+        
 		final Button botaoNovoJogo = (Button) findViewById(R.id.botao_novo_jogo);
 		botaoNovoJogo.setOnClickListener(new View.OnClickListener() {
 			
@@ -38,7 +50,6 @@ public class HomeActivity extends Activity {
 			public void onClick(View v) {
 				Intent novoJogoIntent = new Intent(getApplicationContext(), NovoJogoActivity.class);
 	            startActivity(novoJogoIntent);
-	            //finish();
 			}
 		});
 		
