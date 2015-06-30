@@ -1,11 +1,18 @@
 package br.com.recidev.gamethis.repositorio;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.util.SQLiteHelper;
 
 public class RepositorioUsuarioSQLite {
+	
+	DateFormat dateFormatTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 	
 	private static final String NOME_TABELA = "usuario";
 	private static final String EMAIL = "email";
@@ -22,26 +29,27 @@ public class RepositorioUsuarioSQLite {
 	public RepositorioUsuarioSQLite() {
 	}
 	
-	private ContentValues carregarContentValues(String email, String senha, String nome, int avatar, String ts_usuario, int syncStatus) {
+	
+	private ContentValues carregarContentValues(Usuario usuario) {
 		ContentValues valores = new ContentValues();
 		
-		valores.put(EMAIL, email);
-		valores.put(SENHA, senha);
-		valores.put(NOME, nome);
-		valores.put(AVATAR, avatar);
-		valores.put(TIMESTAMP, ts_usuario);
-		valores.put(SYNC_STATUS, syncStatus);
+		valores.put(EMAIL, usuario.getEmail());
+		valores.put(SENHA, usuario.getSenha());
+		valores.put(NOME, usuario.getNome());
+		valores.put(AVATAR, usuario.getAvatar());
+		valores.put(TIMESTAMP, dateFormatTimestamp.format(usuario.getTimestamp()));
+		valores.put(SYNC_STATUS, usuario.getSyncStatus());
 		
 		return valores;
 	}
 
 	
-	public void inserirUsuario(String email, String senha, String nome, int avatar, String ts_usuario, int syncStatus, Context c) {
+	public void inserirUsuario(Usuario usuario, Context c) {
 		context = c;
 		SQLiteHelper dbHelper = SQLiteHelper.getInstance(context);
 		SQLiteDatabase db;
 		
-		ContentValues values = carregarContentValues(email, senha, nome, avatar, ts_usuario, syncStatus);
+		ContentValues values = carregarContentValues(usuario);
 		db = dbHelper.getWritableDatabase();
 		try {
 			db.insert(NOME_TABELA, "", values);

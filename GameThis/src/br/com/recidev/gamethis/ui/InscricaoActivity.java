@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -25,33 +26,34 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.adapter.AvatarAdapter;
+import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.repositorio.RepositorioUsuarioSQLite;
 import br.com.recidev.gamethis.util.ConstantesGameThis;
+import br.com.recidev.gamethis.util.GCMMensagem;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 import br.com.recidev.gamethis.util.HttpSincronizacaoClient;
 import br.com.recidev.gamethis.util.Util;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 
 public class InscricaoActivity extends Activity {
 	
-	private String emailUsuario; 
-	private String senhaUsuario; 
-	private String nomeUsuario; 
-	private int avatarUsuario;
-	private String timestampUsuario;
-	private int syncStatus;
+	private Usuario usuario;
 	
 	GerenciadorSessao sessao;
 	final String[] AVATAR = new String[] { "Warrior", "Mage", "Thief"};
 	int tipoAvatar = 0;
+	Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inscricao);
 		
-		sessao = new GerenciadorSessao(getApplicationContext()); 
+		context = getApplicationContext();
+		
+		sessao = new GerenciadorSessao(context); 
 
 		// Criação de diálogo para seleção do avatar
 		final AlertDialog.Builder dialogAvatar = new AlertDialog.Builder(this);
@@ -91,12 +93,21 @@ public class InscricaoActivity extends Activity {
 				String resultValidacao = validarCampos(email, senha, nome);
 				
 				if(resultValidacao.equals("")){
-					conectado = Util.temConexao(getApplicationContext());
+					int syncStatus = 0;
+					usuario = new Usuario();
+					usuario.setEmail(email);
+					usuario.setSenha(Util.stringToSha1(senha));
+					usuario.setNome(nome);
+					usuario.setAvatar(avatar);
+					usuario.setTimestamp(new Timestamp(System.currentTimeMillis()));
+					usuario.setSyncStatus(syncStatus);
+					
+					conectado = Util.temConexao(context);
 					if(conectado){
-						inserirUsuarioRemoto(email, senha,  nome, avatar);
+						new InserirUsuarioTask().execute();
 					}
 				} else {
-					Toast.makeText(getApplicationContext(), resultValidacao, Toast.LENGTH_LONG).show();
+					Toast.makeText(context, resultValidacao, Toast.LENGTH_LONG).show();
 				}			
 			}
 		});
@@ -127,33 +138,6 @@ public class InscricaoActivity extends Activity {
 	}
 	
 	
-	public void inserirUsuarioRemoto(String email, String senha, String nome, int avatar){
-		this.emailUsuario = email;
-		this.senhaUsuario = Util.stringToSha1(senha);
-		this.nomeUsuario = nome;
-		this.avatarUsuario = avatar;
-		String path = ConstantesGameThis.PATH_SHOW + this.emailUsuario;
-		DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-		this.timestampUsuario = dateFormatSQLite.format(new Timestamp(System.currentTimeMillis()));
-		this.syncStatus = 0;
-		
-		ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("email", emailUsuario);
-		map.put("senha", senhaUsuario);
-		map.put("nome", nomeUsuario);
-		map.put("avatar", avatarUsuario);
-		map.put("ts_usuario", timestampUsuario);
-		map.put("sync_sts", syncStatus);
-		
-		
-		listaParametros.add(map);
-		Gson gson = new Gson();
-		String convertedJson = gson.toJson(listaParametros);
-		String json = convertedJson.substring(1, convertedJson.length() - 1);
-		new InserirUsuarioTask().execute(path, json);
-	}
-	
 	
 	private class InserirUsuarioTask extends AsyncTask<String, String, String> {
 		protected ProgressDialog dialogo = new ProgressDialog(InscricaoActivity.this);
@@ -164,22 +148,61 @@ public class InscricaoActivity extends Activity {
 		    dialogo.setCancelable(false);
 		    dialogo.setTitle("Realizando inscrição.");
 		    dialogo.setMessage("Por favor, aguarde...");
-		    dialogo.show(); 
+		    dialogo.show();
 		};
 		
 		
 		@Override
 		protected String doInBackground(String... params) {
 			String msgResposta = "";
-			int indice = 0;
-			String path = params[indice++].toString();
-			String json = params[indice++].toString();
 			HttpSincronizacaoClient httpClient = new HttpSincronizacaoClient();
 			
 			try {
+				//Gera GCM Id para usuario
+				GoogleCloudMessaging gcm;
+				gcm = GoogleCloudMessaging.getInstance(context);
+				String gcm_id;
+				gcm_id = gcm.register(ConstantesGameThis.SENDER_ID);
+				usuario.setGcm_id(gcm_id);
+				
+				//Prepara dados para envio
+				DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+				String timestampUsuario = dateFormatSQLite.format(usuario.getTimestamp());
+				
+				String path = ConstantesGameThis.PATH_SHOW + usuario.getEmail();
+				
+//				ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
+//				HashMap<String, Object> map = new HashMap<String, Object>();
+//				map.put("email", usuario.getEmail());
+//				map.put("senha", usuario.getSenha());
+//				map.put("nome", usuario.getNome());
+//				map.put("avatar", usuario.getAvatar());
+//				map.put("ts_usuario", timestampUsuario);
+//				map.put("sync_sts", usuario.getSyncStatus());
+//				map.put("gcm_id", usuario.getGcm_id());
+//				
+//				listaParametros.add(map);
+//				Gson gson = new Gson();
+//				String convertedJson = gson.toJson(listaParametros);
+//				String json = convertedJson.substring(1, convertedJson.length() - 1);
+				
+				
+				String[] usuariosGcm = {usuario.getGcm_id()};
+				Object dadosGcm = new Object();
+				dadosGcm = usuario;
+				
+				GCMMensagem gcmMsg = new GCMMensagem();
+				gcmMsg.setRegistration_ids(usuariosGcm);
+				gcmMsg.setData(dadosGcm);
+				gcmMsg.setCollapse_key("Novo Usuario");
+				
+				Gson gsonGcm = new Gson();
+				String convertedJsonGcm = gsonGcm.toJson(gcmMsg);
+				
+				//Envia requisicao para inscricao
 				msgResposta = httpClient.get(path);
 				if (msgResposta.equals("")) {
-					httpClient.post(ConstantesGameThis.PATH_CREATE, json);
+					httpClient.post(ConstantesGameThis.PATH_CREATE, convertedJsonGcm);
 					msgResposta = "sucesso";
 				} else {
 					msgResposta = "Usuário já existe.";
@@ -198,23 +221,23 @@ public class InscricaoActivity extends Activity {
 			
 			if(msgResposta.equals("sucesso")){
 				// Insere usuário localmente no SQLite
-				inserirUsuario(emailUsuario, senhaUsuario, nomeUsuario, avatarUsuario, timestampUsuario, syncStatus);
+				inserirUsuario();
 				
-				sessao.criarSessaoLogin(emailUsuario, nomeUsuario, avatarUsuario);
-				Toast.makeText(getApplicationContext(), "Inscrição realizada com sucesso!", Toast.LENGTH_LONG).show();
-				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar(), usuario.getGcm_id());
+				Toast.makeText(context, "Inscrição realizada com sucesso!", Toast.LENGTH_LONG).show();
+				Intent homeIntent = new Intent(context, HomeActivity.class);
 				startActivity(homeIntent);
 				finish();
 			} else {
-				Toast.makeText(getApplicationContext(), msgResposta, Toast.LENGTH_LONG).show();
+				Toast.makeText(context, msgResposta, Toast.LENGTH_LONG).show();
 			}
 		};
 	}
 
 	
-	public void inserirUsuario(String email, String senha, String nome, int avatar, String ts_usuario, int syncStatus){
+	public void inserirUsuario(){
 		RepositorioUsuarioSQLite repUsuario = new RepositorioUsuarioSQLite();
-		repUsuario.inserirUsuario(email, senha, nome, avatar, ts_usuario, syncStatus, getApplicationContext());
+		repUsuario.inserirUsuario(usuario, context);
 	}
 	
 	

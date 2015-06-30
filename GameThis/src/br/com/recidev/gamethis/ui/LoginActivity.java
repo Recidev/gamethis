@@ -124,8 +124,8 @@ public class LoginActivity extends Activity {
 				Gson gson = new Gson();
 				Usuario usuario = gson.fromJson(stringUsuario, Usuario.class);
 				
-				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar());
-				Toast.makeText(getApplicationContext(), "Bem vindo", Toast.LENGTH_LONG).show();
+				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar(), usuario.getGcm_id());
+				Toast.makeText(getApplicationContext(), "Bem-vindo!", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
 				startActivity(homeIntent);
 				finish();

@@ -20,6 +20,7 @@ public class GerenciadorSessao {
     public static final String SENHA_KEY = "senhakey";
     public static final String NOME_KEY = "nomekey";
     public static final String AVATAR_KEY = "avatarkey";
+    public static final String GCM_STS_KEY = "gcmstskey";
     public static final int[] TIPOS_AVATAR = new int[] { 
     	R.drawable.warcraft_undead_hero, 
     	R.drawable.warcraft_elf_hero, 
@@ -35,11 +36,12 @@ public class GerenciadorSessao {
     /**
      * 
      * */
-    public void criarSessaoLogin(String email, String nome, int avatar){
+    public void criarSessaoLogin(String email, String nome, int avatar, String gcm_sts){
         editor.putBoolean(ESTA_LOGADO, true);
         editor.putString(EMAIL_KEY, email);
         editor.putString(NOME_KEY, nome);
         editor.putInt(AVATAR_KEY, avatar);
+        editor.putString(GCM_STS_KEY, gcm_sts);
         editor.commit();
     }   
      

@@ -1,10 +1,6 @@
 package br.com.recidev.gamethis.ui;
 
-import java.util.Calendar;
-
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.recidev.gamethis.R;
-import br.com.recidev.gamethis.util.SincronizacaoReceiver;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 
 public class HomeActivity extends Activity {
