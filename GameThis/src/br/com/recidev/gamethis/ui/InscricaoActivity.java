@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -93,14 +91,14 @@ public class InscricaoActivity extends Activity {
 				String resultValidacao = validarCampos(email, senha, nome);
 				
 				if(resultValidacao.equals("")){
-					int syncStatus = 0;
+					int sync_sts = 0;
 					usuario = new Usuario();
 					usuario.setEmail(email);
 					usuario.setSenha(Util.stringToSha1(senha));
 					usuario.setNome(nome);
 					usuario.setAvatar(avatar);
-					usuario.setTimestamp(new Timestamp(System.currentTimeMillis()));
-					usuario.setSyncStatus(syncStatus);
+					usuario.setTs_usuario(new Timestamp(System.currentTimeMillis()));
+					usuario.setSync_sts(sync_sts);
 					
 					conectado = Util.temConexao(context);
 					if(conectado){
@@ -167,25 +165,10 @@ public class InscricaoActivity extends Activity {
 				
 				//Prepara dados para envio
 				DateFormat dateFormatSQLite = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-				String timestampUsuario = dateFormatSQLite.format(usuario.getTimestamp());
+				String timestampUsuario = dateFormatSQLite.format(usuario.getTs_usuario());
 				
 				String path = ConstantesGameThis.PATH_SHOW + usuario.getEmail();
-				
-//				ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
-//				HashMap<String, Object> map = new HashMap<String, Object>();
-//				map.put("email", usuario.getEmail());
-//				map.put("senha", usuario.getSenha());
-//				map.put("nome", usuario.getNome());
-//				map.put("avatar", usuario.getAvatar());
-//				map.put("ts_usuario", timestampUsuario);
-//				map.put("sync_sts", usuario.getSyncStatus());
-//				map.put("gcm_id", usuario.getGcm_id());
-//				
-//				listaParametros.add(map);
-//				Gson gson = new Gson();
-//				String convertedJson = gson.toJson(listaParametros);
-//				String json = convertedJson.substring(1, convertedJson.length() - 1);
-				
+
 				
 				String[] usuariosGcm = {usuario.getGcm_id()};
 				Object dadosGcm = new Object();

@@ -122,6 +122,7 @@ public class LoginActivity extends Activity {
 			
 			if(stringResposta.equals("sucesso")){
 				Gson gson = new Gson();
+				//gson.
 				Usuario usuario = gson.fromJson(stringUsuario, Usuario.class);
 				
 				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar(), usuario.getGcm_id());

@@ -36,7 +36,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		query.append(" senha VARCHAR(100), ");
 		query.append(" nome VARCHAR(100), ");
 		query.append(" avatar INTEGER, ");
-		query.append(" ts_usuario DATETIME NOT NULL, ");
+		query.append(" ts_usuario DATETIME, ");
 		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0 "); 
 		query.append(")");
 		db.execSQL(query.toString());
@@ -66,7 +66,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		query.append(" dt_termino DATETIME, ");
 		query.append(" fl_ativado INTEGER, ");
 		query.append(" login_criador VARCHAR(100), ");
-		query.append(" ts_jogo DATETIME NOT NULL, ");
+		query.append(" ts_jogo DATETIME, ");
 		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0, ");
 		query.append(" FOREIGN KEY (login_criador) REFERENCES usuario(email) ");
 		query.append(")");

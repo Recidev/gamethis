@@ -24,9 +24,9 @@ public class SplashScreen extends Activity{
     		public void run() {
     			try {
     				synchronized(this){
-    					//Espera por 3 segundos or sai quando
+    					//Espera por 2 segundos or sai quando
     					//o usuário tocar na tela
-    					wait(3000);
+    					wait(2000);
     					mblnClicou = true;
     				}
     			}

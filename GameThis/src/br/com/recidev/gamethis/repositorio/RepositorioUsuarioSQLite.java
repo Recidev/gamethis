@@ -37,8 +37,8 @@ public class RepositorioUsuarioSQLite {
 		valores.put(SENHA, usuario.getSenha());
 		valores.put(NOME, usuario.getNome());
 		valores.put(AVATAR, usuario.getAvatar());
-		valores.put(TIMESTAMP, dateFormatTimestamp.format(usuario.getTimestamp()));
-		valores.put(SYNC_STATUS, usuario.getSyncStatus());
+		valores.put(TIMESTAMP, dateFormatTimestamp.format(usuario.getTs_usuario()));
+		valores.put(SYNC_STATUS, usuario.getSync_sts());
 		
 		return valores;
 	}

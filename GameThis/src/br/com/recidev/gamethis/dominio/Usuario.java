@@ -8,8 +8,8 @@ public class Usuario {
 	private String senha;
 	private String nome;
 	private int avatar;
-	private Timestamp timestamp;
-	private int syncStatus;
+	private Timestamp ts_usuario;
+	private int sync_sts;
 	private String gcm_id;
 	
 	
@@ -38,23 +38,25 @@ public class Usuario {
 		this.avatar = avatar;
 	}
 	
-	public int getSyncStatus() {
-		return syncStatus;
-	}
-	public void setSyncStatus(int syncStatus) {
-		this.syncStatus = syncStatus;
-	}
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
+	
+	
 	public String getGcm_id() {
 		return gcm_id;
 	}
 	public void setGcm_id(String gcm_id) {
 		this.gcm_id = gcm_id;
+	}
+	public Timestamp getTs_usuario() {
+		return ts_usuario;
+	}
+	public void setTs_usuario(Timestamp ts_usuario) {
+		this.ts_usuario = ts_usuario;
+	}
+	public int getSync_sts() {
+		return sync_sts;
+	}
+	public void setSync_sts(int sync_sts) {
+		this.sync_sts = sync_sts;
 	}
 	
 }

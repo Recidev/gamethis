@@ -16,20 +16,19 @@
 
 package br.com.recidev.gamethis.util;
 
-import br.com.recidev.gamethis.R;
-import br.com.recidev.gamethis.ui.HomeActivity;
-
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
+import br.com.recidev.gamethis.R;
+import br.com.recidev.gamethis.dominio.Usuario;
+import br.com.recidev.gamethis.ui.HomeActivity;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 /**
  * This {@code IntentService} does the actual handling of the GCM message.
@@ -65,13 +64,22 @@ public class GcmIntentService extends IntentService {
              * not interested in, or that you don't recognize.
              */
             if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
+                sendNotification("Send error: " + extras.toString(), "", null);
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " + extras.toString());
+                sendNotification("Deleted messages on server: " + extras.toString(), "", null);
             // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-            	System.out.println(extras.toString());
-                sendNotification("GameThis: " + extras.toString());
+            	String tipoNotificacao = intent.getStringExtra("collapse_key");
+            	if(tipoNotificacao != null && !tipoNotificacao.equals("")){
+            		
+            		if(tipoNotificacao.equals("Novo Usuario")){
+            			System.out.println(extras.toString());
+            			sendNotification("GameThis: Novo usuário criado com sucesso!", tipoNotificacao, extras);
+            		}
+            		
+            		
+            		
+            	}
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -81,23 +89,39 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
+    private void sendNotification(String msg, String tipoNotificacao, Bundle extras) {
 
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        PendingIntent contentIntent = null;
+        if(tipoNotificacao.equals("Novo Usuario")){
+        	Usuario usuario = new Usuario();
+        	usuario.setNome(extras.getString("nome"));
+        	usuario.setEmail(extras.getString("email"));
+        	usuario.setSenha(extras.getString("senha"));
+        	usuario.setAvatar(Integer.parseInt(extras.getString("avatar")));
+        	usuario.setNome(extras.getString("syncStatus"));
+        	usuario.setGcm_id(extras.getString("gcm_id"));
+        	
+        	contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, HomeActivity.class), 0);
+        }
         
-        //Para mudar depois - null
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, HomeActivity.class), 0);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_launcher)
-        .setContentTitle("GCM Notification Test")
-        .setStyle(new NotificationCompat.BigTextStyle()
-        .bigText(msg))
-        .setContentText(msg);
-
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.game_this_2)
+        		.setContentTitle("GameThis")
+        		.setStyle(new NotificationCompat.BigTextStyle()
+        		.bigText(msg))
+        		.setContentText(msg);
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        
+		 int defaults = 0;
+		 defaults = defaults | Notification.DEFAULT_LIGHTS;
+		 defaults = defaults | Notification.DEFAULT_VIBRATE;
+		 defaults = defaults | Notification.DEFAULT_SOUND;
+		 mBuilder.setDefaults(defaults);
+		 mBuilder.setAutoCancel(true);
+        
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());        
     }
 }
