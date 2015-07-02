@@ -20,6 +20,14 @@
     <string name="texto_botao_add_jogadores">+ Jogadores </string>
     <string name="texto_botao_add_atividades">+ Atividades </string>
     <string name="texto_botao_iniciar_jogo">Criar Jogo </string>
+    <string name="title_activity_pesquisar_usuario">PesquisarUsuarioActivity</string>
+    
+    
+    <!-- Tela Pesquisar Usuario -->
+    <string name="search_pesquisar_jogador">Pesquisar Usuário</string>
+    <string name="search_hint_jogadores">email do jogador</string>
+    
+    
     
 
 </resources>

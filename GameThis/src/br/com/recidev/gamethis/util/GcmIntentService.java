@@ -22,6 +22,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import br.com.recidev.gamethis.R;
@@ -73,7 +75,6 @@ public class GcmIntentService extends IntentService {
             	if(tipoNotificacao != null && !tipoNotificacao.equals("")){
             		
             		if(tipoNotificacao.equals("Novo Usuario")){
-            			System.out.println(extras.toString());
             			sendNotification("GameThis: Novo usuário criado com sucesso!", tipoNotificacao, extras);
             		}
             		
@@ -114,11 +115,13 @@ public class GcmIntentService extends IntentService {
         		.bigText(msg))
         		.setContentText(msg);
         mBuilder.setContentIntent(contentIntent);
+        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.toasty);
+        mBuilder.setSound(sound);
         
 		 int defaults = 0;
 		 defaults = defaults | Notification.DEFAULT_LIGHTS;
 		 defaults = defaults | Notification.DEFAULT_VIBRATE;
-		 defaults = defaults | Notification.DEFAULT_SOUND;
+		 //defaults = defaults | Notification.DEFAULT_SOUND;
 		 mBuilder.setDefaults(defaults);
 		 mBuilder.setAutoCancel(true);
         

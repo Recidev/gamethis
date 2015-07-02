@@ -11,8 +11,8 @@ import java.net.URL;
 public class HttpSincronizacaoClient {
 	
 	private static final String ENCODING = "UTF-8";
-	private final String URL = "http://192.168.25.5/webservice";
-	//private final String URL = "http://gamethis-recidev.rhcloud.com/webservice";
+	//private final String URL = "http://192.168.25.5/webservice";
+	private final String URL = "http://gamethis-recidev.rhcloud.com/webservice";
 	
 	
     public HttpSincronizacaoClient(){   
