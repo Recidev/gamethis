@@ -25,9 +25,10 @@
     
     <!-- Tela Pesquisar Usuario -->
     <string name="search_pesquisar_jogador">Pesquisar Usuário</string>
-    <string name="search_hint_jogadores">email do jogador</string>
-    
+    <string name="search_hint_jogadores">Email do jogador</string>
+	<string name="texto_jogadores_adicionados">Jogadores adicionados:</string>    
     
     
 
 </resources>
+

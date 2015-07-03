@@ -10,10 +10,26 @@
 
     
      <ListView  android:layout_width="fill_parent"   
-			    android:layout_height="fill_parent"   
+			    android:layout_height="100dp"  
 			    android:id="@+id/jogadoresListView">  
      </ListView>
+     
+     <TextView 
+                 android:id="@+id/textoListaJogadoresAdicionados"
+                 android:layout_width="match_parent"
+              	 android:layout_height="40dp"
+              	 android:layout_marginTop="80dp"
+              	 android:gravity="left"
+              	 android:text="@string/texto_jogadores_adicionados"
+              	 android:textSize="15sp"
+              	 android:textAppearance="?android:attr/textAppearanceListItem"
+                 />  
     
+     <ListView  android:layout_width="fill_parent"   
+			    android:layout_height="150dp"   
+			    android:id="@+id/jogadoresAddedListView"
+			    android:layout_marginTop="110dp">  
+     </ListView>
     
  
 

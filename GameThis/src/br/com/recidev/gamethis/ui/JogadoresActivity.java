@@ -2,8 +2,6 @@ package br.com.recidev.gamethis.ui;
 
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -11,15 +9,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.adapter.JogadorAdapter;
 import br.com.recidev.gamethis.dominio.Usuario;
 
+import com.google.gson.Gson;
+
 public class JogadoresActivity extends Activity {
 
-
+	private JogadorAdapter jogadorAdapter;
+	private ListView jogadoresListView;
+	private JogadorAdapter jogadorAdicionadoAdapter;
+	private ListView jogadoresAddedListView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +38,49 @@ public class JogadoresActivity extends Activity {
 			 
 			 Gson gson = new Gson();
 			 
-			 ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
+			 final ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
 			 Usuario jogador = gson.fromJson(result, Usuario.class);
 			 listaJogadores.add(jogador);
 			 
 			 
-			 JogadorAdapter jogadorAdapter = new JogadorAdapter(this, listaJogadores);
-			 ListView jogadoresListView = (ListView) findViewById(R.id.jogadoresListView);
+			 jogadorAdapter = new JogadorAdapter(this, listaJogadores);
+			 jogadoresListView = (ListView) findViewById(R.id.jogadoresListView);
 			 jogadoresListView.setAdapter(jogadorAdapter);
 			 
+			 
+			 final ArrayList<Usuario> listaJogadoresAdded = new ArrayList<Usuario>();
+			 
+			 jogadorAdicionadoAdapter = new JogadorAdapter(this, listaJogadoresAdded);
+			 jogadoresAddedListView = (ListView) findViewById(R.id.jogadoresAddedListView);
+			 jogadoresAddedListView.setAdapter(jogadorAdicionadoAdapter);
+			 
+			 
+			 jogadoresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				   @Override
+				   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				      Object listItem = parent.getItemAtPosition(position);
+				      
+				      listaJogadoresAdded.add((Usuario) listItem);
+				      jogadorAdicionadoAdapter.notifyDataSetChanged();
+				      
+				      listaJogadores.remove(listItem);
+				      jogadorAdapter.notifyDataSetChanged();
+				      
+				      Toast.makeText(getApplicationContext(), "Jogador adicionado!", Toast.LENGTH_LONG).show();
+				   } 
+				});
+
 		 }		
 	}
+	
+	
+	 @Override
+	 protected void onNewIntent(Intent intent) {
+		 System.out.println("Neeww");
+		 
 
+		 
+	 }
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

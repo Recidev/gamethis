@@ -62,7 +62,8 @@
         
         
         <activity
-            android:name=".ui.JogadoresActivity" >
+            android:name=".ui.JogadoresActivity"
+             android:launchMode="singleTask">
             
             <meta-data
                 android:name="android.app.default_searchable"

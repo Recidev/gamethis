@@ -2,4 +2,6 @@
 
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
         android:label="@string/app_name"
-        android:hint="@string/search_hint_jogadores" />
+        android:hint="@string/search_hint_jogadores"
+        android:inputType="textEmailAddress"
+        android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" />

@@ -28,24 +28,11 @@ public class SearchResultsJogadoresActivity extends Activity {
 	    }
 
 	    private void handleIntent(Intent intent) {
-
 	    	//use the query to search your data somehow
 	        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	            query = intent.getStringExtra(SearchManager.QUERY);
 	            
 				new ConsultarUsuarioTask().execute();
-	            
-//	            Usuario usuarioTeste = new Usuario();
-//	            usuarioTeste.setEmail("new@gmail.com");
-//	            usuarioTeste.setAvatar(2);
-//	            
-//	            System.out.println(query);
-	            
-	            
-//	            Intent jogadoresIntent = new Intent(getApplicationContext(), JogadoresActivity.class);
-//	            jogadoresIntent.putExtra("resultadoPesquisa", "{email:new@gmail.com, avatar:2}");
-//	            startActivity(jogadoresIntent);
-	            
 	        }
 	    }
 	
@@ -78,7 +65,6 @@ public class SearchResultsJogadoresActivity extends Activity {
 		 
 			@Override
 			protected void onPostExecute(String resultado){
-				
 				Intent jogadoresIntent = new Intent(getApplicationContext(), JogadoresActivity.class);
 	            jogadoresIntent.putExtra("resultadoPesquisa", resultado);
 	            startActivity(jogadoresIntent);
