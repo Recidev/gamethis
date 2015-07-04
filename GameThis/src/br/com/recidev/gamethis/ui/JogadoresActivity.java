@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -27,71 +28,85 @@ public class JogadoresActivity extends Activity {
 	private JogadorAdapter jogadorAdicionadoAdapter;
 	private ListView jogadoresAddedListView;
 	
+	final ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
+	final ArrayList<Usuario> listaJogadoresAdded = new ArrayList<Usuario>();
+	
+
+    SearchManager searchManager;
+    SearchView searchView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jogadores);
 		
-		 Intent resultadoIntent = getIntent();
-		 if(resultadoIntent.getExtras() != null){
-			 String result = resultadoIntent.getStringExtra("resultadoPesquisa");
-			 
-			 Gson gson = new Gson();
-			 
-			 final ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
-			 Usuario jogador = gson.fromJson(result, Usuario.class);
-			 listaJogadores.add(jogador);
-			 
-			 
-			 jogadorAdapter = new JogadorAdapter(this, listaJogadores);
-			 jogadoresListView = (ListView) findViewById(R.id.jogadoresListView);
-			 jogadoresListView.setAdapter(jogadorAdapter);
-			 
-			 
-			 final ArrayList<Usuario> listaJogadoresAdded = new ArrayList<Usuario>();
-			 
-			 jogadorAdicionadoAdapter = new JogadorAdapter(this, listaJogadoresAdded);
-			 jogadoresAddedListView = (ListView) findViewById(R.id.jogadoresAddedListView);
-			 jogadoresAddedListView.setAdapter(jogadorAdicionadoAdapter);
-			 
-			 
-			 jogadoresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				   @Override
-				   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				      Object listItem = parent.getItemAtPosition(position);
-				      
-				      listaJogadoresAdded.add((Usuario) listItem);
-				      jogadorAdicionadoAdapter.notifyDataSetChanged();
-				      
-				      listaJogadores.remove(listItem);
-				      jogadorAdapter.notifyDataSetChanged();
-				      
-				      Toast.makeText(getApplicationContext(), "Jogador adicionado!", Toast.LENGTH_LONG).show();
-				   } 
-				});
-
-		 }		
+		jogadorAdapter = new JogadorAdapter(this, listaJogadores);
+		jogadoresListView = (ListView) findViewById(R.id.jogadoresListView);
+		jogadoresListView.setAdapter(jogadorAdapter);
+		
+		jogadorAdicionadoAdapter = new JogadorAdapter(this, listaJogadoresAdded);
+		jogadoresAddedListView = (ListView) findViewById(R.id.jogadoresAddedListView);
+		jogadoresAddedListView.setAdapter(jogadorAdicionadoAdapter);
+		
 	}
+
+			 
+			 
 	
 	
 	 @Override
 	 protected void onNewIntent(Intent intent) {
-		 System.out.println("Neeww");
+		 String result;
 		 
-
+		 jogadoresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			 @Override
+			 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				 Object listItem = parent.getItemAtPosition(position);
+				 
+				 listaJogadoresAdded.add((Usuario) listItem);
+				 jogadorAdicionadoAdapter.notifyDataSetChanged();
+				 
+				 listaJogadores.remove(listItem);
+				 jogadorAdapter.notifyDataSetChanged();
+				 
+				 Toast.makeText(getApplicationContext(), "Jogador adicionado!", Toast.LENGTH_LONG).show();
+				 searchView.setQuery("", false);
+				 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+			 } 
+		 });
 		 
+		 if(intent.getStringExtra("resultadoPesquisa") != null){
+			 result = intent.getStringExtra("resultadoPesquisa");
+		
+			 Gson gson = new Gson();
+			 Usuario jogador = gson.fromJson(result, Usuario.class);
+			 
+			 listaJogadores.add(jogador);
+			 jogadorAdapter.notifyDataSetChanged();
+			 
+			 searchView.setQuery("", false);
+			 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+			 
+		 	} else {
+		 		Toast.makeText(getApplicationContext(), "Jogador não encontrado.", Toast.LENGTH_LONG).show();
+		 		searchView.setQuery("", false);
+		 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+		 		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+		 	}
 	 }
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.jogadores, menu);
 		
-	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-	    SearchView searchView = (SearchView) menu.findItem(R.id.searchJogador).getActionView();
+	    searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+	    searchView = (SearchView) menu.findItem(R.id.searchJogador).getActionView();
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		
-		
+	    
 		return true;
 	}
 	

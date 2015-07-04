@@ -3,6 +3,7 @@ package br.com.recidev.gamethis.ui;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -38,9 +39,15 @@ public class SearchResultsJogadoresActivity extends Activity {
 	
 	    
 	    private class ConsultarUsuarioTask extends AsyncTask<String, String, String> {
-			
+	    	protected ProgressDialog dialogo = new ProgressDialog(SearchResultsJogadoresActivity.this);
+	    	
 			@Override
 			protected void onPreExecute(){
+				dialogo.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
+				dialogo.setCancelable(false);
+				dialogo.setTitle("Pesquisando Jogador");
+				dialogo.setMessage("Por favor, aguarde...");
+				dialogo.show();
 			};
 			
 			@Override
@@ -51,10 +58,6 @@ public class SearchResultsJogadoresActivity extends Activity {
 				try {
 					String path = ConstantesGameThis.PATH_SHOW + query;
 					resultado = httpClient.get(path);
-					
-					if (resultado.equals("")) {
-						resultado = "Usuário já existe.";
-					} 
 				} catch (IOException e) {
 					resultado = "Erro no servidor.";
 					e.printStackTrace();
@@ -66,8 +69,11 @@ public class SearchResultsJogadoresActivity extends Activity {
 			@Override
 			protected void onPostExecute(String resultado){
 				Intent jogadoresIntent = new Intent(getApplicationContext(), JogadoresActivity.class);
-	            jogadoresIntent.putExtra("resultadoPesquisa", resultado);
-	            startActivity(jogadoresIntent);
+				
+				if(!resultado.equals("")){
+					jogadoresIntent.putExtra("resultadoPesquisa", resultado);
+				}
+				startActivity(jogadoresIntent);
 			};
 		}
 	    
