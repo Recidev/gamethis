@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 
-import android.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -27,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.dominio.Jogo;
 import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.repositorio.RepositorioJogoSQLite;
@@ -189,7 +189,6 @@ public class NovoJogoActivity extends Activity {
 		
 		while(itJogadoresTeste.hasNext()){
 			Usuario jogador = itJogadoresTeste.next();
-			Toast.makeText(getApplicationContext(), jogador.getEmail(), Toast.LENGTH_LONG).show();
 		}
 	}
 	
