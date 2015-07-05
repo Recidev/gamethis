@@ -68,12 +68,14 @@ public class SearchResultsJogadoresActivity extends Activity {
 		 
 			@Override
 			protected void onPostExecute(String resultado){
-				Intent jogadoresIntent = new Intent(getApplicationContext(), JogadoresActivity.class);
+				dialogo.dismiss();
 				
+				Intent jogadoresIntent = new Intent(getApplicationContext(), JogadoresActivity.class);
 				if(!resultado.equals("")){
 					jogadoresIntent.putExtra("resultadoPesquisa", resultado);
 				}
 				startActivity(jogadoresIntent);
+				finish();
 			};
 		}
 	    

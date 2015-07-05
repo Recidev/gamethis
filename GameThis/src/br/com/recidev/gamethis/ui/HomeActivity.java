@@ -31,7 +31,7 @@ public class HomeActivity extends Activity {
 		avatarUsuario.setImageResource(GerenciadorSessao.TIPOS_AVATAR[tipoAvatar]);
 
 		
-		//Trecho responsável por buscar atualizações no sistema.
+//		  Trecho responsável por buscar atualizações no sistema.
 //        Intent conectividadeIntent = new Intent(getApplicationContext(), SincronizacaoReceiver.class);
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, conectividadeIntent, 0);
 //        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
@@ -47,6 +47,7 @@ public class HomeActivity extends Activity {
 	            startActivity(novoJogoIntent);
 			}
 		});
+		
 		
 		final Button botaoMeusJogos = (Button) findViewById(R.id.botao_meus_jogos);
 		botaoMeusJogos.setOnClickListener(new View.OnClickListener() {
@@ -70,11 +71,14 @@ public class HomeActivity extends Activity {
 	}
 	
 	
+	
 	public void logoutUsuario(){
 		boolean fechaActivity = false;
 		sessao.logoutUsuario();
 		encerraMain(fechaActivity);
     }
+	
+	
 	
 	@Override
 	public void onBackPressed() {
@@ -82,6 +86,8 @@ public class HomeActivity extends Activity {
 		encerraMain(fechaActivity);
 	}
 
+	
+	
 	public void encerraMain(boolean fechaActivity){
 		Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
 		mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -92,12 +98,15 @@ public class HomeActivity extends Activity {
 	}
 
 	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
 	}
+	
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

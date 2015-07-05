@@ -52,21 +52,18 @@ public class JogadorAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return listaJogadores.size();
 	}
 
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return listaJogadores.get(position);
 	}
 
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 

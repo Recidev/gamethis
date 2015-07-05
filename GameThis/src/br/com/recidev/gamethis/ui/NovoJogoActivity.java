@@ -1,14 +1,17 @@
 package br.com.recidev.gamethis.ui;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
+import android.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -24,8 +27,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.dominio.Jogo;
+import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.repositorio.RepositorioJogoSQLite;
 import br.com.recidev.gamethis.util.ConstantesGameThis;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
@@ -132,7 +135,6 @@ public class NovoJogoActivity extends Activity {
 		});
 		
 		
-		
 		//Botao para criar o jogo
 		final Button botaoCriarJogo = (Button) findViewById(R.id.botao_criar_jogo);
 		botaoCriarJogo.setOnClickListener(new View.OnClickListener() {
@@ -176,12 +178,30 @@ public class NovoJogoActivity extends Activity {
 		});
 	}
 
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		Serializable teste = intent.getSerializableExtra("listaJogadoresAdded");
+
+		@SuppressWarnings("unchecked")
+		ArrayList<Usuario> listaJogadoresTeste = (ArrayList<Usuario>) teste;
+		Iterator<Usuario> itJogadoresTeste = listaJogadoresTeste.iterator();
+		
+		while(itJogadoresTeste.hasNext()){
+			Usuario jogador = itJogadoresTeste.next();
+			Toast.makeText(getApplicationContext(), jogador.getEmail(), Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	
 	
 	
 	public void inserirJogo(){
 		RepositorioJogoSQLite repJogo = new RepositorioJogoSQLite();
 		repJogo.inserirJogo(novoJogo, getApplicationContext());
 	}
+	
+	
 	
 	public void atualizarSyncStatusJogo(String descricao, int syncStatus){
 		RepositorioJogoSQLite repJogo = new RepositorioJogoSQLite();
@@ -287,6 +307,7 @@ public class NovoJogoActivity extends Activity {
 	}
 	
 	
+	
 	public void direcionarTelaHome(){
 		Toast.makeText(getApplicationContext(), "Jogo criado com sucesso!", Toast.LENGTH_LONG).show();
 		Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -301,6 +322,8 @@ public class NovoJogoActivity extends Activity {
 		getMenuInflater().inflate(R.menu.novo_jogo, menu);
 		return true;
 	}
+	
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

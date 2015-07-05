@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -121,8 +122,9 @@ public class LoginActivity extends Activity {
 			dialogo.dismiss(); 
 			
 			if(stringResposta.equals("sucesso")){
+				InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 				Gson gson = new Gson();
-				//gson.
 				Usuario usuario = gson.fromJson(stringUsuario, Usuario.class);
 				
 				sessao.criarSessaoLogin(usuario.getEmail(), usuario.getNome(), usuario.getAvatar(), usuario.getGcm_id());

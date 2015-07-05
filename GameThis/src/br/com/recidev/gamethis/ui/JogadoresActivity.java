@@ -1,6 +1,7 @@
 package br.com.recidev.gamethis.ui;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -12,12 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.adapter.JogadorAdapter;
 import br.com.recidev.gamethis.dominio.Usuario;
+import br.com.recidev.gamethis.util.ConstantesGameThis;
 
 import com.google.gson.Gson;
 
@@ -30,11 +33,11 @@ public class JogadoresActivity extends Activity {
 	
 	final ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
 	final ArrayList<Usuario> listaJogadoresAdded = new ArrayList<Usuario>();
-	
 
     SearchManager searchManager;
     SearchView searchView;
 	
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,15 +51,48 @@ public class JogadoresActivity extends Activity {
 		jogadoresAddedListView = (ListView) findViewById(R.id.jogadoresAddedListView);
 		jogadoresAddedListView.setAdapter(jogadorAdicionadoAdapter);
 		
+		
+		final Button botaoConfirmarListaJogadores = (Button) findViewById(R.id.botao_confirmar_lista_jogadores);
+		botaoConfirmarListaJogadores.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				if(!listaJogadoresAdded.isEmpty()){
+					Intent novoJogoIntent = new Intent(getApplicationContext(), NovoJogoActivity.class);
+					novoJogoIntent.putExtra("listaJogadoresAdded", listaJogadoresAdded);
+					startActivity(novoJogoIntent);
+					finish();
+				} else {
+					Toast.makeText(getApplicationContext(), "Nenhum jogador adicionado à lista.", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 	}
 
-			 
-			 
 	
 	
 	 @Override
 	 protected void onNewIntent(Intent intent) {
 		 String result;
+		 
+		 if(intent.getStringExtra("resultadoPesquisa") != null){
+			 result = intent.getStringExtra("resultadoPesquisa");
+			 
+			 Gson gson = new Gson();
+			 Usuario jogador = gson.fromJson(result, Usuario.class);
+			 
+			 listaJogadores.add(jogador);
+			 jogadorAdapter.notifyDataSetChanged();
+			 
+			 searchView.setQuery("", false);
+			 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+			 
+		 } else {
+			 Toast.makeText(getApplicationContext(), "Jogador não encontrado.", Toast.LENGTH_LONG).show();
+			 searchView.setQuery("", false);
+			 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+		 }
 		 
 		 jogadoresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			 @Override
@@ -69,34 +105,14 @@ public class JogadoresActivity extends Activity {
 				 listaJogadores.remove(listItem);
 				 jogadorAdapter.notifyDataSetChanged();
 				 
-				 Toast.makeText(getApplicationContext(), "Jogador adicionado!", Toast.LENGTH_LONG).show();
 				 searchView.setQuery("", false);
 				 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 				 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 			 } 
 		 });
-		 
-		 if(intent.getStringExtra("resultadoPesquisa") != null){
-			 result = intent.getStringExtra("resultadoPesquisa");
-		
-			 Gson gson = new Gson();
-			 Usuario jogador = gson.fromJson(result, Usuario.class);
-			 
-			 listaJogadores.add(jogador);
-			 jogadorAdapter.notifyDataSetChanged();
-			 
-			 searchView.setQuery("", false);
-			 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-			 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-			 
-		 	} else {
-		 		Toast.makeText(getApplicationContext(), "Jogador não encontrado.", Toast.LENGTH_LONG).show();
-		 		searchView.setQuery("", false);
-		 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		 		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-		 	}
 	 }
 
+	 
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,6 +123,24 @@ public class JogadoresActivity extends Activity {
 	    searchView = (SearchView) menu.findItem(R.id.searchJogador).getActionView();
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 	    
+	    SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+	        @Override
+	        public boolean onQueryTextSubmit(String s) {
+	        	boolean ok = false;
+	        	if (!Pattern.matches(ConstantesGameThis.EMAIL_REGEX, s)) {
+	        		Toast.makeText(getApplicationContext(), "Email inválido.", Toast.LENGTH_LONG).show();
+	        		ok = true;
+	        	}
+	        	return ok;
+	        }
+
+	        @Override
+	        public boolean onQueryTextChange(String s) {
+	            return true;
+	        }
+	    };
+	    
+	    searchView.setOnQueryTextListener(queryTextListener);
 		return true;
 	}
 	
@@ -123,4 +157,5 @@ public class JogadoresActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

@@ -2,8 +2,9 @@ package br.com.recidev.gamethis.dominio;
 
 import java.sql.Timestamp;
 
-public class Usuario {
+public class Usuario implements java.io.Serializable{
 
+	private static final long serialVersionUID = -7336715932324205974L;
 	private String email;
 	private String senha;
 	private String nome;

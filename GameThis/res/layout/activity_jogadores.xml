@@ -24,11 +24,18 @@
               	 android:textSize="15sp"
               	 android:textAppearance="?android:attr/textAppearanceListItem"
                  />  
+                 
+     <Button
+         android:id="@+id/botao_confirmar_lista_jogadores"
+         style="?android:textAppearanceSmall"
+         android:layout_width="50dp"
+         android:layout_height="40dp"
+         android:layout_alignParentRight="true"
     
      <ListView  android:layout_width="fill_parent"   
 			    android:layout_height="150dp"   
 			    android:id="@+id/jogadoresAddedListView"
-			    android:layout_marginTop="110dp">  
+			    android:layout_marginTop="140dp">  
      </ListView>
     
  

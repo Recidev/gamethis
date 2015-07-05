@@ -57,6 +57,7 @@
         </activity>
         <activity
             android:name=".ui.NovoJogoActivity"
+            android:launchMode="singleTask"
             android:label="@string/title_activity_novo_jogo" >
         </activity>
         
