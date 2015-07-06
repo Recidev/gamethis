@@ -57,35 +57,29 @@
         </activity>
         <activity
             android:name=".ui.NovoJogoActivity"
-            android:launchMode="singleTask"
-            android:label="@string/title_activity_novo_jogo" >
+            android:label="@string/title_activity_novo_jogo"
+            android:launchMode="singleTask" >
         </activity>
-        
-        
         <activity
             android:name=".ui.JogadoresActivity"
-             android:launchMode="singleTask">
-            
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ui.SearchResultsJogadoresActivity" />
-            
         </activity>
-        
         <activity android:name=".ui.SearchResultsJogadoresActivity" >
-		    <intent-filter>
-		        <action android:name="android.intent.action.SEARCH" />
-		    </intent-filter>
-		    
-		    <meta-data android:name="android.app.searchable"
-            android:resource="@xml/searchable_jogadores" />
-		</activity>
-        
-        
-        
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable_jogadores" />
+        </activity>
         <activity
             android:name=".ui.AtividadesActivity"
-            android:label="@string/title_activity_atividades" >
+            android:label="@string/title_activity_atividades"
+            android:launchMode="singleTask" >
         </activity>
 
         <service
@@ -105,8 +99,10 @@
 
         <service android:name=".util.GcmIntentService" />
 
-        
-        
+        <activity
+            android:name=".ui.CadastroAtividadeActivity"
+            android:label="@string/title_activity_cadastro_atividade" >
+        </activity>
     </application>
 
 </manifest>

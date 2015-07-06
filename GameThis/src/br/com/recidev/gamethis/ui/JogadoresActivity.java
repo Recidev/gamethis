@@ -1,5 +1,6 @@
 package br.com.recidev.gamethis.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -31,8 +32,8 @@ public class JogadoresActivity extends Activity {
 	private JogadorAdapter jogadorAdicionadoAdapter;
 	private ListView jogadoresAddedListView;
 	
-	final ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
-	final ArrayList<Usuario> listaJogadoresAdded = new ArrayList<Usuario>();
+	ArrayList<Usuario> listaJogadores = new ArrayList<Usuario>();
+	ArrayList<Usuario> listaJogadoresAdded = new ArrayList<Usuario>();
 
     SearchManager searchManager;
     SearchView searchView;
@@ -42,6 +43,14 @@ public class JogadoresActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jogadores);
+		
+		Serializable dadosJogadoresAdicionados = getIntent().getSerializableExtra("listaJogadoresAdded");
+		if(dadosJogadoresAdicionados != null){
+			@SuppressWarnings("unchecked")
+			ArrayList<Usuario> listaJogadoresAdicionados = (ArrayList<Usuario>) dadosJogadoresAdicionados;
+			listaJogadoresAdded = listaJogadoresAdicionados;
+		}
+		
 		
 		jogadorAdapter = new JogadorAdapter(this, listaJogadores);
 		jogadoresListView = (ListView) findViewById(R.id.jogadoresListView);

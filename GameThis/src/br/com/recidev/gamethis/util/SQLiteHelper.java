@@ -51,8 +51,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		query.append(" id INTEGER PRIMARY KEY NOT NULL, ");
 		query.append(" descricao VARCHAR(100), ");
 		query.append(" duracao INTEGER, ");
-		query.append(" valor INTEGER, ");
-		query.append(" id_usuario INTEGER, ");
+		query.append(" pontos INTEGER, ");
+		query.append(" login_jogador INTEGER, ");
 		query.append(" sync_sts INTEGER(11) NOT NULL DEFAULT 0, ");
 		query.append(" FOREIGN KEY (id_usuario) REFERENCES usuario(id) ");
 		query.append(")");

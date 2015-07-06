@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.recidev.gamethis.R;
+import br.com.recidev.gamethis.dominio.Atividade;
 import br.com.recidev.gamethis.dominio.Jogo;
 import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.repositorio.RepositorioJogoSQLite;
@@ -47,6 +48,9 @@ public class NovoJogoActivity extends Activity {
 	private Calendar dataTermino;
 	private TextView inputDataInicio;
 	private TextView inputDataTermino;
+	
+	private ArrayList<Usuario> listaJogadoresAdicionados;
+	private ArrayList<Atividade> listaAtividadesAdicionadas;
 	
 	
 	private DatePickerDialog.OnDateSetListener datePickerInicio = new DatePickerDialog.OnDateSetListener() {
@@ -119,6 +123,7 @@ public class NovoJogoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent jogadoresIntent = new Intent(getApplicationContext(), JogadoresActivity.class);
+				jogadoresIntent.putExtra("listaJogadoresAdded", listaJogadoresAdicionados);
 	            startActivity(jogadoresIntent);
 			}
 		});
@@ -130,6 +135,7 @@ public class NovoJogoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent atividadesIntent = new Intent(getApplicationContext(), AtividadesActivity.class);
+				atividadesIntent.putExtra("listaAtividadesAdded", listaAtividadesAdicionadas);
 				startActivity(atividadesIntent);
 			}
 		});
@@ -179,16 +185,30 @@ public class NovoJogoActivity extends Activity {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onNewIntent(Intent intent) {
-		Serializable teste = intent.getSerializableExtra("listaJogadoresAdded");
+		Serializable dadosJogadores = intent.getSerializableExtra("listaJogadoresAdded");
+		Serializable dadosAtividades = intent.getSerializableExtra("listaAtividadesAdded");
 
-		@SuppressWarnings("unchecked")
-		ArrayList<Usuario> listaJogadoresTeste = (ArrayList<Usuario>) teste;
-		Iterator<Usuario> itJogadoresTeste = listaJogadoresTeste.iterator();
+		if(dadosJogadores != null){
+			listaJogadoresAdicionados = (ArrayList<Usuario>) dadosJogadores;
+			
+			Iterator<Usuario> itJogadores = listaJogadoresAdicionados.iterator();
+			while(itJogadores.hasNext()){
+				Usuario jogador = itJogadores.next();
+				Toast.makeText(getApplicationContext(), jogador.getEmail(), Toast.LENGTH_SHORT).show();
+			}
+		}
 		
-		while(itJogadoresTeste.hasNext()){
-			Usuario jogador = itJogadoresTeste.next();
+		if(dadosAtividades != null){
+			listaAtividadesAdicionadas = (ArrayList<Atividade>) dadosAtividades;
+			
+			Iterator<Atividade> itAtividades = listaAtividadesAdicionadas.iterator();
+			while(itAtividades.hasNext()){
+				Atividade atividade = itAtividades.next();
+				Toast.makeText(getApplicationContext(), atividade.getDescricao(), Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 	

@@ -29,24 +29,24 @@ public class JogadorAdapter extends BaseAdapter{
 		final LayoutInflater inflater = (LayoutInflater) contexto.getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		
-		View viewAvatar = inflater.inflate(R.layout.list_pesquisar_jogador, parent, false);
-		TextView textView = (TextView) viewAvatar.findViewById(R.id.textoEmailJogadorLinha);
-		ImageView imageView = (ImageView) viewAvatar.findViewById(R.id.imagemJogadorLinha);
+		View viewJogador = inflater.inflate(R.layout.list_pesquisar_jogador, parent, false);
+		TextView textViewEmailJogador = (TextView) viewJogador.findViewById(R.id.textoEmailJogadorLinha);
+		ImageView imageViewJogador = (ImageView) viewJogador.findViewById(R.id.imagemJogadorLinha);
 		
-		textView.setText(listaJogadores.get(position).getEmail());
+		textViewEmailJogador.setText(listaJogadores.get(position).getEmail());
 		int tipoAvatar = listaJogadores.get(position).getAvatar();
 		
 		if(tipoAvatar == 0){
-			imageView.setImageResource(R.drawable.warcraft_undead_hero);
+			imageViewJogador.setImageResource(R.drawable.warcraft_undead_hero);
 		} else if(tipoAvatar == 1){
-			imageView.setImageResource(R.drawable.warcraft_elf_hero);
+			imageViewJogador.setImageResource(R.drawable.warcraft_elf_hero);
 		} else if(tipoAvatar == 2){
-			imageView.setImageResource(R.drawable.warcraft_hero);
+			imageViewJogador.setImageResource(R.drawable.warcraft_hero);
 		} else {
-			imageView.setImageResource(R.drawable.ic_launcher);
+			imageViewJogador.setImageResource(R.drawable.ic_launcher);
 		}
 		
-		return viewAvatar;
+		return viewJogador;
 	}
 
 
@@ -55,12 +55,10 @@ public class JogadorAdapter extends BaseAdapter{
 		return listaJogadores.size();
 	}
 
-
 	@Override
 	public Object getItem(int position) {
 		return listaJogadores.get(position);
 	}
-
 
 	@Override
 	public long getItemId(int position) {
