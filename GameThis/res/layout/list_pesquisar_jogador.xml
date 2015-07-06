@@ -29,6 +29,8 @@
               	 android:layout_height="match_parent"
               	 android:gravity="center"
               	 android:textAppearance="?android:attr/textAppearanceListItem"
+              	 android:ellipsize="end"
+              	 android:maxLines="1"
                  />
          </LinearLayout>
  

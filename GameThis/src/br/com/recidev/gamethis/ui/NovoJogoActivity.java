@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -193,25 +192,11 @@ public class NovoJogoActivity extends Activity {
 
 		if(dadosJogadores != null){
 			listaJogadoresAdicionados = (ArrayList<Usuario>) dadosJogadores;
-			
-			Iterator<Usuario> itJogadores = listaJogadoresAdicionados.iterator();
-			while(itJogadores.hasNext()){
-				Usuario jogador = itJogadores.next();
-				Toast.makeText(getApplicationContext(), jogador.getEmail(), Toast.LENGTH_SHORT).show();
-			}
 		}
-		
 		if(dadosAtividades != null){
 			listaAtividadesAdicionadas = (ArrayList<Atividade>) dadosAtividades;
-			
-			Iterator<Atividade> itAtividades = listaAtividadesAdicionadas.iterator();
-			while(itAtividades.hasNext()){
-				Atividade atividade = itAtividades.next();
-				Toast.makeText(getApplicationContext(), atividade.getDescricao(), Toast.LENGTH_SHORT).show();
-			}
 		}
 	}
-	
 	
 	
 	
