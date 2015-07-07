@@ -71,7 +71,7 @@ public class CadastroAtividadeActivity extends Activity {
 					atividade.setDescricao(descricao);
 					atividade.setPontos(Integer.parseInt(pontos));
 					atividade.setDuracao(Integer.parseInt(duracao));
-					atividade.setSyncStatus(syncStatus);
+					atividade.setSync_sts(syncStatus);
 					
 					Intent atividadesIntent = new Intent(getApplicationContext(), AtividadesActivity.class);
 					if(atividade != null){

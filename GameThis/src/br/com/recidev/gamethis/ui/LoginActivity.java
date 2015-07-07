@@ -89,7 +89,7 @@ public class LoginActivity extends Activity {
 		protected void onPreExecute(){
 		    dialogo.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
 		    dialogo.setCancelable(false);
-		    dialogo.setTitle("Realizando login.");
+		    dialogo.setTitle("Realizando login");
 		    dialogo.setMessage("Por favor, aguarde...");
 		    dialogo.show(); 
 		};

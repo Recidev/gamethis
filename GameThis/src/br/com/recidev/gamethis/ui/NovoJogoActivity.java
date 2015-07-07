@@ -1,6 +1,5 @@
 package br.com.recidev.gamethis.ui;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -166,7 +165,7 @@ public class NovoJogoActivity extends Activity {
 					novoJogo.setTimestamp(new Timestamp(System.currentTimeMillis()));
 					novoJogo.setSyncStatus(syncStatus);
 					
-					inserirJogo();
+					//inserirJogo();
 					
 					conectado = Util.temConexao(getApplicationContext());
 					if(conectado){
@@ -271,7 +270,7 @@ public class NovoJogoActivity extends Activity {
 		protected void onPreExecute(){
 		    dialogo.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
 		    dialogo.setCancelable(false);
-		    dialogo.setTitle("Criando jogo.");
+		    dialogo.setTitle("Criando jogo");
 		    dialogo.setMessage("Por favor, aguarde...");
 		    dialogo.show(); 
 		};
@@ -286,9 +285,34 @@ public class NovoJogoActivity extends Activity {
 			HttpSincronizacaoClient httpClient = new HttpSincronizacaoClient();
 			
 			try {
-				httpClient.post(path, json);
+				Gson gson = new Gson();
+				
+				String convertedJsonJogadores;
+				String convertedJsonAtividades;
+				String jsonJogadores = "";
+				
+				//Requisicao para criar jogo
+				String idRemotoJogo = httpClient.post(path, json);
+				
+				if(listaAtividadesAdicionadas != null && !listaAtividadesAdicionadas.isEmpty()){
+					convertedJsonAtividades = gson.toJson(listaAtividadesAdicionadas);
+					String pathAtividades = ConstantesGameThis.PATH_ATIVIDADE_CREATE; 
+					httpClient.post(pathAtividades, convertedJsonAtividades);
+				}
+				
+				if(listaJogadoresAdicionados != null && !listaJogadoresAdicionados.isEmpty()){
+					convertedJsonJogadores = gson.toJson(listaJogadoresAdicionados);
+					
+					String jsonParteInicial = 
+						"{\"emailCriadorJogo\":\"" + novoJogo.getLoginCriador() + "\", \"id_jogo\":" + idRemotoJogo + ", \"jogadores\":";
+					jsonJogadores = jsonParteInicial + convertedJsonJogadores + "}";
+					
+					String pathJogoJogadores = ConstantesGameThis.PATH_JOGO_JOGADOR;
+					httpClient.post(pathJogoJogadores, jsonJogadores);
+				}
+				
 				msgResposta = "sucesso";
-			} catch (IOException e) {
+			} catch (Exception e) {
 				msgResposta = "Erro no servidor.";
 				e.printStackTrace();
 			}
