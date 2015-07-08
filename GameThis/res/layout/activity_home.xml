@@ -8,14 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.recidev.gamethis.ui.HomeActivity" >
 
-
     <Button
         android:id="@+id/botao_novo_jogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="140dp"
-        android:text="@string/texto_botao_novo_jogo" />
+        android:text="@string/texto_botao_novo_jogo"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/botao_meus_jogos"
@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
-        android:text="@string/texto_botao_meus_jogos" />
+        android:text="@string/texto_botao_meus_jogos"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/botao_logout_sair"
@@ -31,12 +32,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="260dp"
-        android:text="@string/texto_botao_logout" />
+        android:text="@string/texto_botao_logout"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/avatarUsuario"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:contentDescription="@string/descricaoImgAvatar"
         android:src="@drawable/samurai" />
 
     <TextView
@@ -46,6 +49,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/avatarUsuario"
-        android:textSize="26sp" />
+        android:textSize="21sp"
+        android:ellipsize="end"
+        android:maxLines="2" />
 
 </RelativeLayout>

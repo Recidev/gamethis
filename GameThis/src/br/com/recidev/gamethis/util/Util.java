@@ -2,6 +2,7 @@ package br.com.recidev.gamethis.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -12,6 +13,7 @@ public final class Util {
 	private Util() {
 	}
 	
+	public static SecureRandom prng;
 	
 	/** 
 	 * Checa se o usario esta conectado a wifi  3G

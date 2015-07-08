@@ -30,21 +30,15 @@
 
     <!-- Tela Inserir Atividades -->
     <string name="texto_input_descricao_atividade">Descrição</string>
-    <!-- <string name="search_hint_jogadores">Email do jogador</string> -->
-    <!-- <string name="texto_jogadores_adicionados">Jogadores adicionados</string> -->
-    <!-- <string name="ok_confirmar_lista_jogadores">Ok!</string> -->
-
     <string name="title_activity_cadastro_atividade">Cadastro de Atividade</string>
     <string name="texto_pontos">Pontos:</string>
     <string name="texto_duracao_atividade">Duração:</string>
+    <string name="texto_detalhe_duracao_atividade">(dias)</string>
     <string name="botao_cadastrar_atividade">Cadastrar Atividade</string>
     <string name="texto_atividades_cadastradas">Atividades cadastradas</string>
     <string name="ok_confirmar_lista_atividades">OK!</string>
-    
     <string name="texto_botao_add_nova_atividade">Nova Atividade</string>
     <string name="textoPontosAtividadeInfo">Pts.</string>
-    
-    
     
 
 </resources>

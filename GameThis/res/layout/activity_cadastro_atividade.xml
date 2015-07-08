@@ -63,6 +63,13 @@
 		          android:layout_marginLeft="18dp"
 		          android:inputType="number"
 		          android:maxLength="4" />
+		      
+		      <TextView
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="@string/texto_detalhe_duracao_atividade"
+		         android:layout_marginTop="8dp"
+		         android:textSize="15sp" />
       </LinearLayout>
       
     

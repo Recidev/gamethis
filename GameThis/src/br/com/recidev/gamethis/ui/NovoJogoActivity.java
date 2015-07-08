@@ -156,7 +156,11 @@ public class NovoJogoActivity extends Activity {
 				if(resultValidacao.equals("")){
 					int flagAtivado = 1;
 					int syncStatus = 1;
+					String randomNum = Integer.valueOf(Util.prng.nextInt()).toString();
+					String naturalId = Util.stringToSha1(randomNum);
+					
 					novoJogo = new Jogo();
+					novoJogo.setNaturalId(naturalId);
 					novoJogo.setDescricao(descricao);		
 					novoJogo.setDtInicial(dataInicio.getTime());
 					novoJogo.setDtFinal(dataTermino.getTime());
@@ -247,6 +251,7 @@ public class NovoJogoActivity extends Activity {
 		ArrayList<HashMap<String, Object>> listaParametros = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("descricao", novoJogo.getDescricao());
+		map.put("natural_id", novoJogo.getNaturalId());
 		map.put("dt_inicio", strInicioJogo);
 		map.put("dt_termino", strTerminoJogo);
 		map.put("fl_ativado", novoJogo.getAtivado());
@@ -281,35 +286,38 @@ public class NovoJogoActivity extends Activity {
 			String msgResposta = "";
 			int indice = 0;
 			String path = params[indice++].toString();
-			String json = params[indice++].toString();
+			String jsonJogo = params[indice++].toString();
 			HttpSincronizacaoClient httpClient = new HttpSincronizacaoClient();
 			
 			try {
 				Gson gson = new Gson();
 				
 				String convertedJsonJogadores;
-				String convertedJsonAtividades;
+				String convertedJsonAtividades = "";
 				String jsonJogadores = "";
 				
 				//Requisicao para criar jogo
-				String idRemotoJogo = httpClient.post(path, json);
-				
 				if(listaAtividadesAdicionadas != null && !listaAtividadesAdicionadas.isEmpty()){
 					convertedJsonAtividades = gson.toJson(listaAtividadesAdicionadas);
-					String pathAtividades = ConstantesGameThis.PATH_ATIVIDADE_CREATE; 
-					httpClient.post(pathAtividades, convertedJsonAtividades);
+				} else {
+					convertedJsonAtividades = "\"none\"";
 				}
 				
 				if(listaJogadoresAdicionados != null && !listaJogadoresAdicionados.isEmpty()){
 					convertedJsonJogadores = gson.toJson(listaJogadoresAdicionados);
 					
 					String jsonParteInicial = 
-						"{\"emailCriadorJogo\":\"" + novoJogo.getLoginCriador() + "\", \"id_jogo\":" + idRemotoJogo + ", \"jogadores\":";
+						"{\"emailCriadorJogo\":\"" + novoJogo.getLoginCriador() + "\", \"id_jogo\": \"" + novoJogo.getNaturalId() + "\", \"jogadores\":";
 					jsonJogadores = jsonParteInicial + convertedJsonJogadores + "}";
-					
-					String pathJogoJogadores = ConstantesGameThis.PATH_JOGO_JOGADOR;
-					httpClient.post(pathJogoJogadores, jsonJogadores);
+				} else {
+					jsonJogadores = "\"none\"";
 				}
+				
+				String json = "{\"jogo\": " + jsonJogo + ", \"atividades\": " + convertedJsonAtividades + ", \"jogoJogadores\": " + jsonJogadores + " }";
+				
+				
+				
+				httpClient.post(path, json);
 				
 				msgResposta = "sucesso";
 			} catch (Exception e) {

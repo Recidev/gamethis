@@ -1,13 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:orientation="horizontal" >
-    
-     	<LinearLayout
               android:id="@+id/listAtividadePontos"
-              android:layout_width="60dp"
-              android:layout_height="match_parent"
-              
+              android:layout_width="400dp"
+              android:layout_height="40dp"
               android:orientation="horizontal">
              
              <TextView 
@@ -19,38 +13,25 @@
               	 android:text="@string/textoPontosAtividadeInfo"
               	 android:textSize="15sp"
                  />
-         </LinearLayout>
- 
-         <LinearLayout
-              android:id="@+id/listAtividadesDescricao"
-              android:layout_width="180dp"
-              android:layout_height="match_parent">
-             
+
              <TextView 
                  android:id="@+id/textoDescricaoAtividade"
-                 android:layout_width="match_parent"
-              	 android:layout_height="match_parent"
-              	 android:gravity="left"
-              	 android:textAppearance="?android:attr/textAppearanceListItem"
-              	 android:textSize="15sp"
-              	 android:ellipsize="end"
-              	 android:maxLines="1"
+                 android:layout_width="180dp"
+                 android:layout_height="match_parent"
+                 android:gravity="center|left"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp"
+                 android:ellipsize="end"
+                 android:maxLines="1"
                  />
-         </LinearLayout>
-         
-         <LinearLayout
-              android:id="@+id/listAtividadesDuracao"
-              android:layout_width="40dp"
-              android:layout_height="match_parent">
-             
+
              <TextView 
                  android:id="@+id/textoDuracaoAtividade"
-                 android:layout_width="match_parent"
-              	 android:layout_height="match_parent"
-              	 android:gravity="center"
-              	 android:textAppearance="?android:attr/textAppearanceListItem"
-              	 android:textSize="15sp"
+                 android:layout_width="40dp"
+                 android:layout_height="match_parent"
+                 android:gravity="center"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp"
                  />
-         </LinearLayout>
- 
+
 </LinearLayout>

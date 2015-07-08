@@ -2,6 +2,7 @@ package br.com.recidev.gamethis.ui;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
@@ -22,6 +23,7 @@ import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.adapter.JogadorAdapter;
 import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.util.ConstantesGameThis;
+import br.com.recidev.gamethis.util.GerenciadorSessao;
 
 import com.google.gson.Gson;
 
@@ -38,11 +40,13 @@ public class JogadoresActivity extends Activity {
     SearchManager searchManager;
     SearchView searchView;
 	
+    GerenciadorSessao sessao;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jogadores);
+		sessao = new GerenciadorSessao(getApplicationContext());
 		
 		Serializable dadosJogadoresAdicionados = getIntent().getSerializableExtra("listaJogadoresAdded");
 		if(dadosJogadoresAdicionados != null){
@@ -89,6 +93,7 @@ public class JogadoresActivity extends Activity {
 			 Gson gson = new Gson();
 			 Usuario jogador = gson.fromJson(result, Usuario.class);
 			 
+			 listaJogadores.clear();
 			 listaJogadores.add(jogador);
 			 jogadorAdapter.notifyDataSetChanged();
 			 
@@ -107,16 +112,39 @@ public class JogadoresActivity extends Activity {
 			 @Override
 			 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				 Object listItem = parent.getItemAtPosition(position);
+				 Usuario jogadorAdicionado = (Usuario) listItem;
 				 
-				 listaJogadoresAdded.add((Usuario) listItem);
-				 jogadorAdicionadoAdapter.notifyDataSetChanged();
+				 String msg = "";
+				 String loginCriadorJogo = sessao.preferencias.getString(GerenciadorSessao.EMAIL_KEY, "none");
 				 
-				 listaJogadores.remove(listItem);
-				 jogadorAdapter.notifyDataSetChanged();
+				 boolean ehJogadorJaAdicionado = false;
+				 Iterator<Usuario> itListaJogadoresAdded = listaJogadoresAdded.iterator();
 				 
-				 searchView.setQuery("", false);
-				 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-				 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+				 while(itListaJogadoresAdded.hasNext() && !ehJogadorJaAdicionado){
+					 Usuario jogadorJaAdicionado = itListaJogadoresAdded.next();
+					 if(jogadorJaAdicionado.getEmail().equals(jogadorAdicionado.getEmail())){
+						 ehJogadorJaAdicionado = true;
+						 msg = "Jogador já adicionado à lista.";
+					 }
+				 }
+				 if(loginCriadorJogo.equals(jogadorAdicionado.getEmail())){
+					 ehJogadorJaAdicionado = true;
+					 msg = "Você não pode ser adicionado à lista de jogadores.";
+				 }
+				 
+				 if(!ehJogadorJaAdicionado){
+					 listaJogadoresAdded.add(jogadorAdicionado);
+					 jogadorAdicionadoAdapter.notifyDataSetChanged();
+					 
+					 listaJogadores.remove(listItem);
+					 jogadorAdapter.notifyDataSetChanged();
+					 
+					 searchView.setQuery("", false);
+					 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+					 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+				 } else {
+					 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+				 }
 			 } 
 		 });
 	 }

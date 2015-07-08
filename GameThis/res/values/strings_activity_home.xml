@@ -4,4 +4,5 @@
     <string name="texto_botao_novo_jogo">Novo Jogo</string>
     <string name="texto_botao_meus_jogos">Meus Jogos</string>
     <string name="texto_botao_logout">Logout</string>
+    <string name="descricaoImgAvatar">Avatar</string>
 </resources>

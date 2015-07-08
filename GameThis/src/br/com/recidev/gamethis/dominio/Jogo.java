@@ -9,6 +9,7 @@ public class Jogo {
 	private Date dtInicial;
 	private Date dtFinal;
 	private String loginCriador;
+	private String naturalId;
 	private int ativado;
 	private Timestamp timestamp;
 	private int syncStatus;
@@ -54,5 +55,11 @@ public class Jogo {
 	}
 	public void setSyncStatus(int syncStatus) {
 		this.syncStatus = syncStatus;
+	}
+	public String getNaturalId() {
+		return naturalId;
+	}
+	public void setNaturalId(String naturalId) {
+		this.naturalId = naturalId;
 	}
 }

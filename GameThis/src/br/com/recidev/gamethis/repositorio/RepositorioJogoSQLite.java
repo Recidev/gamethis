@@ -27,11 +27,12 @@ public class RepositorioJogoSQLite {
 	private static final String DATA_TERMINO = "dt_termino";
 	private static final String FLAG_ATIVADO = "fl_ativado";
 	private static final String LOGIN_CRIADOR = "login_criador";
+	private static final String NATURAL_ID = "natural_id";
 	private static final String TIMESTAMP = "ts_jogo";
 	private static final String SYNC_STATUS = "sync_sts";
 	
 	private static String[] colunas = new String[] {
-		DESCRICAO, DATA_INICIO, DATA_TERMINO, FLAG_ATIVADO, LOGIN_CRIADOR, TIMESTAMP, SYNC_STATUS};
+		DESCRICAO, DATA_INICIO, DATA_TERMINO, FLAG_ATIVADO, LOGIN_CRIADOR, NATURAL_ID, TIMESTAMP, SYNC_STATUS};
 	
 	protected SQLiteDatabase db;
 	protected Context context;

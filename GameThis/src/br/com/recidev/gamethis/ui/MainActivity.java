@@ -1,5 +1,9 @@
 package br.com.recidev.gamethis.ui;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +14,22 @@ import android.widget.Button;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 import br.com.recidev.gamethis.util.SQLiteHelper;
+import br.com.recidev.gamethis.util.Util;
 
 public class MainActivity extends Activity {
 	
 	GerenciadorSessao sessao;
 	
+	@SuppressLint("TrulyRandom")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		try {
+			Util.prng = SecureRandom.getInstance("SHA1PRNG");
+		} catch (NoSuchAlgorithmException e) {
+		}
 		
 		new SQLiteHelper(this);
 		
