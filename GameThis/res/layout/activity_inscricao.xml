@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/imagemDefinida"
-        android:layout_width="53dp"
-        android:layout_height="53dp"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
         android:layout_gravity="center"
         android:src="@drawable/interrogacao" />
 

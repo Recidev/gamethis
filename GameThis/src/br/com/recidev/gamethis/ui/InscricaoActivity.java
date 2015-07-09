@@ -40,8 +40,8 @@ public class InscricaoActivity extends Activity {
 	private Usuario usuario;
 	
 	GerenciadorSessao sessao;
-	final String[] AVATAR = new String[] { "Warrior", "Mage", "Thief"};
-	int tipoAvatar = 0;
+	final String[] AVATAR = new String[] {"Warrior", "Mage", "Thief"};
+	int tipoAvatar = 3;
 	Context context;
 	
 	@Override

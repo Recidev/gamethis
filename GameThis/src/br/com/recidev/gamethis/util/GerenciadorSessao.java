@@ -21,10 +21,11 @@ public class GerenciadorSessao {
     public static final String NOME_KEY = "nomekey";
     public static final String AVATAR_KEY = "avatarkey";
     public static final String GCM_STS_KEY = "gcmstskey";
-    public static final int[] TIPOS_AVATAR = new int[] { 
+    public static final int[] TIPOS_AVATAR = new int[] {
     	R.drawable.warcraft_undead_hero, 
     	R.drawable.warcraft_elf_hero, 
-    	R.drawable.warcraft_hero};
+    	R.drawable.warcraft_hero, 
+    	R.drawable.interrogacao};
 
      
     public GerenciadorSessao(Context context){
