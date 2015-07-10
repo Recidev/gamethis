@@ -54,11 +54,11 @@ public class HomeActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-	            startActivity(homeIntent);
-	            finish();
+				Intent meusJogosIntent = new Intent(getApplicationContext(), MeusJogosActivity.class);
+	            startActivity(meusJogosIntent);
 			}
 		});
+		
 		
 		final Button botaoLogout = (Button) findViewById(R.id.botao_logout_sair);
 		botaoLogout.setOnClickListener(new View.OnClickListener() {

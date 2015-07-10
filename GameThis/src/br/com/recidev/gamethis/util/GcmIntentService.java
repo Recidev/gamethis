@@ -109,6 +109,10 @@ public class GcmIntentService extends IntentService {
         	
         	contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, HomeActivity.class), 0);
         }
+        if(tipoNotificacao.equals("Novo Jogo")){
+        	//TODO Ajustar depois o encaminhamento para meus jogos
+        	contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, HomeActivity.class), 0);
+        }
         
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.game_this_2)

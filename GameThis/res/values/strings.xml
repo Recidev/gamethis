@@ -39,6 +39,17 @@
     <string name="ok_confirmar_lista_atividades">OK!</string>
     <string name="texto_botao_add_nova_atividade">Nova Atividade</string>
     <string name="textoPontosAtividadeInfo">Pts.</string>
-    
 
+    <!-- Tela Meus Jogos (tela principal) -->
+    <string name="title_activity_meus_jogos">Meus Jogos</string>
+    <string name="texto_botao_jogos_gerenciados">Gerenciados</string>
+    <string name="texto_botao_jogos_convidados">Convidado</string>
+    
+    <!-- Tela Jogos Gerenciados -->
+    <string name="title_activity_jogos_gerenciados">Jogos Gerenciados</string>
+    
+    <!-- Tela Jogos Convidado -->
+    <string name="title_activity_jogos_convidado">Convidado</string>
+
+    
 </resources>

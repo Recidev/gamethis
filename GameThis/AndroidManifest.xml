@@ -103,6 +103,18 @@
             android:name=".ui.CadastroAtividadeActivity"
             android:label="@string/title_activity_cadastro_atividade" >
         </activity>
+        <activity
+            android:name=".ui.MeusJogosActivity"
+            android:label="@string/title_activity_meus_jogos" >
+        </activity>
+        <activity
+            android:name=".ui.JogosGerenciadosActivity"
+            android:label="@string/title_activity_jogos_gerenciados" >
+        </activity>
+        <activity
+            android:name=".ui.JogosConvidadoActivity"
+            android:label="@string/title_activity_jogos_convidado" >
+        </activity>
     </application>
 
 </manifest>
