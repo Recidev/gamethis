@@ -46,7 +46,7 @@ public class JogosConvidadoActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				 Object listItem = parent.getItemAtPosition(position);
 				 Jogo jogoConvidado = (Jogo) listItem;
-				 System.out.println(jogoConvidado.getDescricao() + " - " + jogoConvidado.getLoginCriador());
+				 System.out.println(jogoConvidado.getDescricao() + " - " + jogoConvidado.getLoginCriador();
 				 System.out.println("uhu");
 				 //String loginCriadorJogo = sessao.preferencias.getString(GerenciadorSessao.EMAIL_KEY, "none");
 			} 
