@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -30,6 +31,7 @@ import br.com.recidev.gamethis.dominio.Jogo;
 import br.com.recidev.gamethis.dominio.Usuario;
 import br.com.recidev.gamethis.repositorio.RepositorioJogoSQLite;
 import br.com.recidev.gamethis.util.ConstantesGameThis;
+import br.com.recidev.gamethis.util.GCMMensagem;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 import br.com.recidev.gamethis.util.HttpSincronizacaoClient;
 import br.com.recidev.gamethis.util.Util;
@@ -315,9 +317,27 @@ public class NovoJogoActivity extends Activity {
 				
 				String json = "{\"jogo\": " + jsonJogo + ", \"atividades\": " + convertedJsonAtividades + ", \"jogoJogadores\": " + jsonJogadores + " }";
 				
+				Iterator<Usuario> itJogadoresAdicionados = listaJogadoresAdicionados.iterator();
+				String[] jogadoresGcm = {""};
+				int cont = 0;
+				while(itJogadoresAdicionados.hasNext()){
+					Usuario jogadorAdicionado = itJogadoresAdicionados.next();
+					jogadoresGcm[cont] = jogadorAdicionado.getGcm_id();
+					cont = cont + 1;
+				}
 				
+				GCMMensagem gcmMsg = new GCMMensagem();
+				gcmMsg.setRegistration_ids(jogadoresGcm);
+				gcmMsg.setData(json);
+				gcmMsg.setCollapse_key("Novo Jogo");
 				
-				httpClient.post(path, json);
+				Gson gsonGcm = new Gson();
+				String convertedJsonGcm = gsonGcm.toJson(gcmMsg);
+				convertedJsonGcm = convertedJsonGcm.replace("\\\"", "\"");				
+				convertedJsonGcm = convertedJsonGcm.replace("\"{", "{");
+				convertedJsonGcm = convertedJsonGcm.replace("}\"", "}");
+
+				httpClient.post(path, convertedJsonGcm);
 				
 				msgResposta = "sucesso";
 			} catch (Exception e) {

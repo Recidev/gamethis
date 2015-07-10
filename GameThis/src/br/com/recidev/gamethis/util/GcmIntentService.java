@@ -75,10 +75,12 @@ public class GcmIntentService extends IntentService {
             	if(tipoNotificacao != null && !tipoNotificacao.equals("")){
             		
             		if(tipoNotificacao.equals("Novo Usuario")){
-            			sendNotification("GameThis: Novo usuário criado com sucesso!", tipoNotificacao, extras);
+            			sendNotification("Novo usuário criado com sucesso!", tipoNotificacao, extras);
             		}
             		
-            		
+            		if(tipoNotificacao.equals("Novo Jogo")){
+            			sendNotification("Você foi adicionado em um Novo Jogo!", tipoNotificacao, extras);
+            		}
             		
             	}
             }
