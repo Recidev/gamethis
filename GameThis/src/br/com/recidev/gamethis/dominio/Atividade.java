@@ -8,6 +8,7 @@ public class Atividade implements java.io.Serializable{
 	private int pontos;
 	private int duracao;
 	private String loginJogador;
+	private String id_jogo;
 	private int sync_sts;
 	
 	public String getDescricao() {
@@ -33,6 +34,12 @@ public class Atividade implements java.io.Serializable{
 	}
 	public void setLoginJogador(String loginJogador) {
 		this.loginJogador = loginJogador;
+	}
+	public String getId_jogo() {
+		return id_jogo;
+	}
+	public void setId_jogo(String id_jogo) {
+		this.id_jogo = id_jogo;
 	}
 	public int getSync_sts() {
 		return sync_sts;

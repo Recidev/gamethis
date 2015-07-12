@@ -158,6 +158,7 @@ public class NovoJogoActivity extends Activity {
 				if(resultValidacao.equals("")){
 					int flagAtivado = 1;
 					int syncStatus = 1;
+					//Gera id para o novo jogo que será utilizado pra realizar as juncoes das tabelas
 					String randomNum = Integer.valueOf(Util.prng.nextInt()).toString();
 					String naturalId = Util.stringToSha1(randomNum);
 					
@@ -297,6 +298,12 @@ public class NovoJogoActivity extends Activity {
 				String convertedJsonJogadores;
 				String convertedJsonAtividades = "";
 				String jsonJogadores = "";
+	
+				int tamLista = listaAtividadesAdicionadas.size();
+				
+				for(int i = 0; i < tamLista; i++){
+					listaAtividadesAdicionadas.get(i).setId_jogo(novoJogo.getNaturalId());
+				}
 				
 				//Requisicao para criar jogo
 				if(listaAtividadesAdicionadas != null && !listaAtividadesAdicionadas.isEmpty()){

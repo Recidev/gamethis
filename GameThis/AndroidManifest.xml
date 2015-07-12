@@ -115,6 +115,10 @@
             android:name=".ui.JogosConvidadoActivity"
             android:label="@string/title_activity_jogos_convidado" >
         </activity>
+        <activity
+            android:name=".ui.DetalhesJogoConvidadoActivity"
+            android:label="@string/title_activity_detalhes_jogo_convidado" >
+        </activity>
     </application>
 
 </manifest>

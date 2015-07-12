@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.recidev.gamethis.ui.DetalhesJogoConvidadoActivity" >
+
+    <TextView 
+        android:id="@+id/textoDescricaoJogoConvidadoDetalhes"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="05dp"
+        android:gravity="left"
+        android:textSize="15sp"
+        android:text="Jogo: "
+        android:textAppearance="?android:attr/textAppearanceListItem"/>
+    
+    <TextView 
+        android:id="@+id/textoDescricaoJogoConvidadoDetalhesValor"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="05dp"
+        android:gravity="left"
+        android:layout_marginLeft="50dp"
+        android:textSize="15sp"
+        android:text="Game This"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        />  
+                 
+    <TextView
+        android:id="@+id/textoLoginCriadorJogoDetalhes"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:gravity="left"
+        android:text="Admin do Jogo: "
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textoLoginCriadorJogoValor"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:gravity="right"
+        android:text="valcilene@gmail.com"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textSize="15sp" />
+    
+    <Button
+        android:id="@+id/botao_inscricao_enviar"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Ranking!"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/textoAtividadesConvidado"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="170dp"
+        android:gravity="left"
+        android:text="Atividades:"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textSize="15sp" />
+    
+     <ListView  
+         android:layout_width="fill_parent"   
+		 android:layout_height="fill_parent"  
+		 android:id="@+id/atividadesConvidadoListView"
+		 android:layout_marginTop="210dp">  
+     </ListView>
+
+</RelativeLayout>

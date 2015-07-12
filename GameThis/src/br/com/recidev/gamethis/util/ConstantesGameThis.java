@@ -25,6 +25,7 @@ public final class ConstantesGameThis {
 	
 	//Paths REST - Atividades
 	public static final String PATH_ATIVIDADE_CREATE = "/atividades/create";
+	public static final String PATH_ATIVIDADE_SHOW_ID_JOGO = "/atividades/";
 	
 	//Paths REST - Jogo-Jogador
 	public static final String PATH_JOGO_JOGADOR_CREATE = "/jogo_jogador/create";
