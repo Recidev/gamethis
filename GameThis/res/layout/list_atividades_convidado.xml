@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="400dp"
+	    	  android:layout_width="400dp"
               android:layout_height="40dp"
-	    android:orientation="horizontal" >
+	    	  android:orientation="horizontal" >
    
     	<TextView 
                  android:id="@+id/textoPontosAtividadeConvidado"
@@ -10,12 +10,12 @@
               	 android:layout_height="match_parent"
               	 android:gravity="center"
               	 android:textAppearance="?android:attr/textAppearanceListItem"
-              	 android:text="@string/textoPontosAtividadeInfo"
+              	 android:text="@string/textoPontosAtividadeConvidadoInfo"
               	 android:textSize="15sp"
                  />
 
              <TextView
-                 android:id="@+id/textoDescricaoAtiviadadeConvidado"
+                 android:id="@+id/textoDescricaoAtividadeConvidado"
                  android:layout_width="180dp"
                  android:layout_height="match_parent"
                  android:ellipsize="end"

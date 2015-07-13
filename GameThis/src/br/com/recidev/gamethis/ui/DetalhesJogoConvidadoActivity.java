@@ -3,6 +3,7 @@ package br.com.recidev.gamethis.ui;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +18,7 @@ import br.com.recidev.gamethis.dominio.Jogo;
 
 public class DetalhesJogoConvidadoActivity extends Activity {
 	
-	private Atividade aitividadeConvidado;
+	private Atividade atividadeConvidado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,12 @@ public class DetalhesJogoConvidadoActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					Object listItem = parent.getItemAtPosition(position);
-					aitividadeConvidado = (Atividade) listItem;
+					atividadeConvidado = (Atividade) listItem;
 					
-					//new JogoConvidadoTask().execute();
+					Intent detalhesAtividadeConvidadoIntent = new Intent(getApplicationContext(), 
+							DetalhesAtividadeConvidadoActivity.class);
+					detalhesAtividadeConvidadoIntent.putExtra("atividadeConvidado", atividadeConvidado);
+		            startActivity(detalhesAtividadeConvidadoIntent);
 				} 
 			});
 		}

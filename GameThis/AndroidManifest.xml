@@ -119,6 +119,10 @@
             android:name=".ui.DetalhesJogoConvidadoActivity"
             android:label="@string/title_activity_detalhes_jogo_convidado" >
         </activity>
+        <activity
+            android:name=".ui.DetalhesAtividadeConvidadoActivity"
+            android:label="@string/title_activity_detalhes_atividade_convidado" >
+        </activity>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@
     <string name="title_activity_detalhes_jogo_convidado">Detalhes do Jogo</string>
     <string name="title_activity_meus_jogos">Meus Jogos</string>
     <string name="title_activity_jogos_gerenciados">Jogos Gerenciados</string>
+    <string name="title_activity_detalhes_atividade_convidado">Detalhes da Atividade</string>
 
     <!-- Tela Novo Jogo -->
     <string name="texto_input_descricao_jogo">Descrição</string>
@@ -37,7 +38,7 @@
     <string name="texto_input_descricao_atividade">Descrição</string>
     <string name="texto_pontos">Pontos:</string>
     <string name="texto_duracao_atividade">Duração:</string>
-    <string name="texto_detalhe_duracao_atividade">(dias)</string>
+    <string name="texto_detalhe_duracao_atividade">dia(s)</string>
     <string name="botao_cadastrar_atividade">Cadastrar Atividade</string>
     <string name="texto_atividades_cadastradas">Atividades cadastradas</string>
     <string name="ok_confirmar_lista_atividades">OK!</string>
@@ -50,13 +51,9 @@
 
     <!-- Tela Jogos Gerenciados -->
 
+
     <!-- Tela Jogos Convidado -->
-    
-    
-    
-    
-    
-    
+    <string name="textoPontosAtividadeConvidadoInfo">Pts.</string>
     
 
 </resources>

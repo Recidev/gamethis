@@ -31,11 +31,12 @@ public class AtividadesConvidadoAdapter  extends BaseAdapter{
 		
 		View viewAtividade = inflater.inflate(R.layout.list_atividades_convidado, parent, false);
 		TextView textViewPontosAtividadeConvidado = (TextView) viewAtividade.findViewById(R.id.textoPontosAtividadeConvidado);
-		TextView textViewDescricaoAtividadeConvidado = (TextView) viewAtividade.findViewById(R.id.textoDescricaoAtiviadadeConvidado);
+		TextView textViewDescricaoAtividadeConvidado = (TextView) viewAtividade.findViewById(R.id.textoDescricaoAtividadeConvidado);
 		TextView textViewDuracaoAtividadeConvidado = (TextView) viewAtividade.findViewById(R.id.textoDuracaoAtividadeConvidado);
 		
 		
-		textViewPontosAtividadeConvidado.setText(String.valueOf(listaAtividadesJogoConvidado.get(position).getPontos()));
+		textViewPontosAtividadeConvidado.setText(
+			textViewPontosAtividadeConvidado.getText().toString() + " " + String.valueOf(listaAtividadesJogoConvidado.get(position).getPontos()));
 		textViewDescricaoAtividadeConvidado.setText(listaAtividadesJogoConvidado.get(position).getDescricao());
 		textViewDuracaoAtividadeConvidado.setText(String.valueOf(listaAtividadesJogoConvidado.get(position).getDuracao()));
 		
