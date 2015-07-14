@@ -3,8 +3,6 @@ package br.com.recidev.gamethis.util;
 public final class ConstantesGameThis {
 
 	public static final String SENDER_ID = "481824738264";
-	//public static final String[] SENDER_ID = {"481824738264"};
-	
 	public static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
 	//Paths REST - Usuario
@@ -32,7 +30,6 @@ public final class ConstantesGameThis {
 	public static final String PATH_JOGO_JOGADOR_CREATE = "/jogo_jogador/create";
 	public static final String PATH_JOGO_JOGADOR_SHOW = "/jogo_jogador/";
 	
-	
-	
+	//Paths REST - Sincronização do App
 	public static final String PATH_SYNC_JOGO = "/sync/sqliteToService";
 }

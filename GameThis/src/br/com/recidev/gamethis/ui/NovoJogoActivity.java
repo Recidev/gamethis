@@ -299,14 +299,19 @@ public class NovoJogoActivity extends Activity {
 				String convertedJsonAtividades = "";
 				String jsonJogadores = "";
 	
-				int tamLista = listaAtividadesAdicionadas.size();
-				
-				for(int i = 0; i < tamLista; i++){
-					listaAtividadesAdicionadas.get(i).setId_jogo(novoJogo.getNaturalId());
-				}
 				
 				//Requisicao para criar jogo
 				if(listaAtividadesAdicionadas != null && !listaAtividadesAdicionadas.isEmpty()){
+					int tamLista = listaAtividadesAdicionadas.size();
+					
+					for(int i = 0; i < tamLista; i++){
+						listaAtividadesAdicionadas.get(i).setId_jogo(novoJogo.getNaturalId());
+						
+						//Gera id para a atividade que será utilizado pra realizar as juncoes das tabelas
+						String randomNum = Integer.valueOf(Util.prng.nextInt()).toString();
+						String naturalIdAtividade = Util.stringToSha1(randomNum);
+						listaAtividadesAdicionadas.get(i).setNaturalId(naturalIdAtividade);
+					}
 					convertedJsonAtividades = gson.toJson(listaAtividadesAdicionadas);
 				} else {
 					convertedJsonAtividades = "\"none\"";
@@ -324,29 +329,36 @@ public class NovoJogoActivity extends Activity {
 				
 				String json = "{\"jogo\": " + jsonJogo + ", \"atividades\": " + convertedJsonAtividades + ", \"jogoJogadores\": " + jsonJogadores + " }";
 				
-				Iterator<Usuario> itJogadoresAdicionados = listaJogadoresAdicionados.iterator();
-				String[] jogadoresGcm = {""};
-				int cont = 0;
-				while(itJogadoresAdicionados.hasNext()){
-					Usuario jogadorAdicionado = itJogadoresAdicionados.next();
-					jogadoresGcm[cont] = jogadorAdicionado.getGcm_id();
-					cont = cont + 1;
+				//Alteracao realizada posteriormente para permitir a criacao do jogo apenas se no minimo um jogador tiver sido selecionado
+				if(listaJogadoresAdicionados != null && !listaJogadoresAdicionados.isEmpty()){
+					Iterator<Usuario> itJogadoresAdicionados = listaJogadoresAdicionados.iterator();
+					String[] jogadoresGcm = new String[100];
+					int cont = 0;
+					while(itJogadoresAdicionados.hasNext()){
+						Usuario jogadorAdicionado = itJogadoresAdicionados.next();
+						jogadoresGcm[cont] = jogadorAdicionado.getGcm_id();
+						cont = cont + 1;
+					}
+					
+					GCMMensagem gcmMsg = new GCMMensagem();
+					gcmMsg.setRegistration_ids(jogadoresGcm);
+					gcmMsg.setData(json);
+					Integer valor = (int) (Math.random() * 100); 
+					String valor2 = valor.toString();
+					gcmMsg.setCollapse_key(valor2 + "Novo Jogo");
+					
+					Gson gsonGcm = new Gson();
+					String convertedJsonGcm = gsonGcm.toJson(gcmMsg);
+					convertedJsonGcm = convertedJsonGcm.replace("\\\"", "\"");				
+					convertedJsonGcm = convertedJsonGcm.replace("\"{", "{");
+					convertedJsonGcm = convertedJsonGcm.replace("}\"", "}");
+					
+					httpClient.post(path, convertedJsonGcm);
+					
+					msgResposta = "sucesso";
+				} else {
+					msgResposta = "É preciso adicionar no mínimo um jogador";
 				}
-				
-				GCMMensagem gcmMsg = new GCMMensagem();
-				gcmMsg.setRegistration_ids(jogadoresGcm);
-				gcmMsg.setData(json);
-				gcmMsg.setCollapse_key("Novo Jogo");
-				
-				Gson gsonGcm = new Gson();
-				String convertedJsonGcm = gsonGcm.toJson(gcmMsg);
-				convertedJsonGcm = convertedJsonGcm.replace("\\\"", "\"");				
-				convertedJsonGcm = convertedJsonGcm.replace("\"{", "{");
-				convertedJsonGcm = convertedJsonGcm.replace("}\"", "}");
-
-				httpClient.post(path, convertedJsonGcm);
-				
-				msgResposta = "sucesso";
 			} catch (Exception e) {
 				msgResposta = "Erro no servidor.";
 				e.printStackTrace();

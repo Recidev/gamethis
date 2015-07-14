@@ -52,6 +52,9 @@ public class InscricaoActivity extends Activity {
 		context = getApplicationContext();
 		
 		sessao = new GerenciadorSessao(context); 
+		
+		EditText inputNome = (EditText) findViewById(R.id.input_nome);
+		inputNome.requestFocus();
 
 		// Criação de diálogo para seleção do avatar
 		final AlertDialog.Builder dialogAvatar = new AlertDialog.Builder(this);
@@ -174,10 +177,14 @@ public class InscricaoActivity extends Activity {
 				Object dadosGcm = new Object();
 				dadosGcm = usuario;
 				
+				
 				GCMMensagem gcmMsg = new GCMMensagem();
 				gcmMsg.setRegistration_ids(usuariosGcm);
 				gcmMsg.setData(dadosGcm);
-				gcmMsg.setCollapse_key("Novo Usuario");
+				Integer valor = (int) (Math.random() * 100); 
+				String valor2 = valor.toString();
+				gcmMsg.setCollapse_key(valor2 + "Novo Usuario");
+				
 				
 				Gson gsonGcm = new Gson();
 				String convertedJsonGcm = gsonGcm.toJson(gcmMsg);

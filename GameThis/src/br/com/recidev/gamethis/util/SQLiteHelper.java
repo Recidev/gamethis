@@ -49,6 +49,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		query = new StringBuffer();
 		query.append("CREATE TABLE atividade ( ");
 		query.append(" id INTEGER PRIMARY KEY NOT NULL, ");
+		query.append(" natural_id VARCHAR(100) NOT NULL, ");
 		query.append(" descricao VARCHAR(100), ");
 		query.append(" duracao INTEGER, ");
 		query.append(" pontos INTEGER, ");

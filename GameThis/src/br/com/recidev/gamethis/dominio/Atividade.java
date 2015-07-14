@@ -4,6 +4,7 @@ package br.com.recidev.gamethis.dominio;
 public class Atividade implements java.io.Serializable{
 
 	private static final long serialVersionUID = -3809318758592231779L;
+	private String naturalId;
 	private String descricao;
 	private int pontos;
 	private int duracao;
@@ -46,5 +47,11 @@ public class Atividade implements java.io.Serializable{
 	}
 	public void setSync_sts(int sync_sts) {
 		this.sync_sts = sync_sts;
+	}
+	public String getNaturalId() {
+		return naturalId;
+	}
+	public void setNaturalId(String naturalId) {
+		this.naturalId = naturalId;
 	}
 }

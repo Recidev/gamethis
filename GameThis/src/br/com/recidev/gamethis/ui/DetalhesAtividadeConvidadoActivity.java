@@ -153,8 +153,8 @@ public class DetalhesAtividadeConvidadoActivity extends Activity {
 				//inserirUsuario();
 				
 				Toast.makeText(getApplicationContext(), "Atividade atribuída com sucesso!", Toast.LENGTH_LONG).show();
-				Intent detalhesJogoConvidadoIntent = new Intent(getApplicationContext(), DetalhesJogoConvidadoActivity.class);
-				startActivity(detalhesJogoConvidadoIntent);
+				Intent meusJogosIntent = new Intent(getApplicationContext(), MeusJogosActivity.class);
+				startActivity(meusJogosIntent);
 				finish();
 			} else {
 				Toast.makeText(getApplicationContext(), msgResposta, Toast.LENGTH_LONG).show();

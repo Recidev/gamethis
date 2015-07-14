@@ -36,11 +36,12 @@
          android:layout_marginRight="20dp"
          android:text="@string/ok_confirmar_lista_atividades" />
      
-     <ListView  
-         android:layout_width="fill_parent"   
-		 android:layout_height="150dp"   
-		 android:id="@+id/atividadesAddedListView"
-		 android:layout_marginTop="130dp">  
+     <ListView
+         android:id="@+id/atividadesAddedListView"
+         android:layout_width="fill_parent"
+         android:layout_height="280dp"
+         android:layout_marginTop="130dp" >
+  
      </ListView>
     
 </RelativeLayout>

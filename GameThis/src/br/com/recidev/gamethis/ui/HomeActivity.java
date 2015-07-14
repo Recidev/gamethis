@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.util.GerenciadorSessao;
 
@@ -22,6 +23,15 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.activity_home);
 		
 		sessao = new GerenciadorSessao(getApplicationContext());
+		
+		boolean estaLogado = sessao.preferencias.getBoolean(GerenciadorSessao.ESTA_LOGADO, false);
+		
+		if(!estaLogado){
+			Intent loginIntent = new Intent(getApplicationContext(), MainActivity.class);
+			loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(loginIntent);
+			finish();
+		}
 		
 		TextView nome = (TextView) findViewById(R.id.nome_usuario);
 		nome.setText(sessao.preferencias.getString(GerenciadorSessao.NOME_KEY, "none"));

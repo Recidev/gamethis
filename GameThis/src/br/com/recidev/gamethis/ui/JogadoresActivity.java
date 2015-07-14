@@ -66,6 +66,7 @@ public class JogadoresActivity extends Activity {
 		
 		
 		final Button botaoConfirmarListaJogadores = (Button) findViewById(R.id.botao_confirmar_lista_jogadores);
+		botaoConfirmarListaJogadores.setEnabled(false);
 		botaoConfirmarListaJogadores.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
@@ -142,6 +143,8 @@ public class JogadoresActivity extends Activity {
 					 searchView.setQuery("", false);
 					 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 					 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+					 Button botaoConfirmarListaJogadores = (Button) findViewById(R.id.botao_confirmar_lista_jogadores);
+					 botaoConfirmarListaJogadores.setEnabled(true);
 				 } else {
 					 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 				 }

@@ -49,6 +49,7 @@ public class AtividadesActivity extends Activity {
 		
 		
 		final Button botaoConfirmarListaAtividades = (Button) findViewById(R.id.botao_confirmar_lista_atividades);
+		botaoConfirmarListaAtividades.setEnabled(false);
 		botaoConfirmarListaAtividades.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
@@ -74,6 +75,9 @@ public class AtividadesActivity extends Activity {
 			 
 			 listaAtividadesAdded.add(atividade);
 			 atividadesAdicionadasAdapter.notifyDataSetChanged();
+			 
+			 Button botaoConfirmarListaAtividades = (Button) findViewById(R.id.botao_confirmar_lista_atividades);
+			 botaoConfirmarListaAtividades.setEnabled(true);
 		 }
 	}
 	

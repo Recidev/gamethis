@@ -74,6 +74,8 @@ public class GcmIntentService extends IntentService {
             	String tipoNotificacao = intent.getStringExtra("collapse_key");
             	if(tipoNotificacao != null && !tipoNotificacao.equals("")){
             		
+            		tipoNotificacao = tipoNotificacao.substring(2);
+            		
             		if(tipoNotificacao.equals("Novo Usuario")){
             			sendNotification("Novo usuário criado com sucesso!", tipoNotificacao, extras);
             		}

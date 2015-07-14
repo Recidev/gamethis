@@ -19,15 +19,17 @@ import br.com.recidev.gamethis.dominio.Jogo;
 public class DetalhesJogoConvidadoActivity extends Activity {
 	
 	private Atividade atividadeConvidado;
-
+	private Jogo jogoSelecionado;
+	private ArrayList<Atividade> listaAtividadesJogoConvidado;
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalhes_jogo_convidado);
 		
-		Jogo jogoSelecionado = (Jogo) getIntent().getSerializableExtra("jogoConvidadoSelecionado");
-		@SuppressWarnings("unchecked")
-		ArrayList<Atividade> listaAtividadesJogoConvidado = 
+		jogoSelecionado = (Jogo) getIntent().getSerializableExtra("jogoConvidadoSelecionado");
+		listaAtividadesJogoConvidado = 
 			(ArrayList<Atividade>) getIntent().getSerializableExtra("listaAtividadesJogoConvidado");
 		
 		TextView textoDescricaoJogo  = (TextView) findViewById(R.id.textoDescricaoJogoConvidadoDetalhesValor);
