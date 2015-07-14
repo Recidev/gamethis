@@ -35,10 +35,11 @@ public class AtividadesConvidadoAdapter  extends BaseAdapter{
 		TextView textViewDuracaoAtividadeConvidado = (TextView) viewAtividade.findViewById(R.id.textoDuracaoAtividadeConvidado);
 		
 		
-		textViewPontosAtividadeConvidado.setText(
-			textViewPontosAtividadeConvidado.getText().toString() + " " + String.valueOf(listaAtividadesJogoConvidado.get(position).getPontos()));
+		textViewPontosAtividadeConvidado.setText(textViewPontosAtividadeConvidado.getText().toString() + 
+				" " + String.valueOf(listaAtividadesJogoConvidado.get(position).getPontos()));
 		textViewDescricaoAtividadeConvidado.setText(listaAtividadesJogoConvidado.get(position).getDescricao());
-		textViewDuracaoAtividadeConvidado.setText(String.valueOf(listaAtividadesJogoConvidado.get(position).getDuracao()));
+		textViewDuracaoAtividadeConvidado.setText(textViewDuracaoAtividadeConvidado.getText().toString() +
+				" " + String.valueOf(listaAtividadesJogoConvidado.get(position).getDuracao()));
 		
 		return viewAtividade;
 	}

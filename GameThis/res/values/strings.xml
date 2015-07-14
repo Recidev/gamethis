@@ -14,7 +14,7 @@
     <string name="title_activity_atividades">Atividades</string>
     <string name="title_activity_pesquisar_usuario">Pesquisar Jogador</string>
     <string name="title_activity_cadastro_atividade">Cadastro de Atividade</string>
-    <string name="title_activity_jogos_convidado">Convidado</string>
+    <string name="title_activity_jogos_convidado"> Jogos como Convidado</string>
     <string name="title_activity_detalhes_jogo_convidado">Detalhes do Jogo</string>
     <string name="title_activity_meus_jogos">Meus Jogos</string>
     <string name="title_activity_jogos_gerenciados">Jogos Gerenciados</string>
@@ -44,6 +44,8 @@
     <string name="ok_confirmar_lista_atividades">OK!</string>
     <string name="texto_botao_add_nova_atividade">Nova Atividade</string>
     <string name="textoPontosAtividadeInfo">Pts.</string>
+    <string name="textoDuracaoAtividadeInfo">Dur.</string>
+    
 
     <!-- Tela Meus Jogos (tela principal) -->
     <string name="texto_botao_jogos_gerenciados">Gerenciados</string>
@@ -54,6 +56,7 @@
 
     <!-- Tela Jogos Convidado -->
     <string name="textoPontosAtividadeConvidadoInfo">Pts.</string>
+    <string name="textoDuracaoAtividadeConvidadoInfo">Dur.</string>
     
 
 </resources>

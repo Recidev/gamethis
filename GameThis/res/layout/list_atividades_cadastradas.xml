@@ -14,23 +14,23 @@
               	 android:textSize="15sp"
                  />
 
-             <TextView 
+             <TextView
                  android:id="@+id/textoDescricaoAtividade"
-                 android:layout_width="180dp"
+                 android:layout_width="155dp"
                  android:layout_height="match_parent"
-                 android:gravity="center|left"
-                 android:textAppearance="?android:attr/textAppearanceListItem"
-                 android:textSize="15sp"
                  android:ellipsize="end"
+                 android:gravity="center|left"
                  android:maxLines="1"
-                 />
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp" />
 
              <TextView 
                  android:id="@+id/textoDuracaoAtividade"
-                 android:layout_width="40dp"
+                 android:layout_width="75dp"
                  android:layout_height="match_parent"
-                 android:gravity="center"
+                 android:gravity="center|left"
                  android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:text="@string/textoDuracaoAtividadeInfo"
                  android:textSize="15sp"
                  />
 

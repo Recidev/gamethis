@@ -33,9 +33,11 @@ public class AtividadeAdapter extends BaseAdapter{
 		TextView textViewDescricaoAtividade = (TextView) viewAtividade.findViewById(R.id.textoDescricaoAtividade);
 		TextView textViewDuracaoAtividade = (TextView) viewAtividade.findViewById(R.id.textoDuracaoAtividade);
 		
-		textViewPontosAtividade.setText(textViewPontosAtividade.getText().toString() + " " + String.valueOf(listaAtividades.get(position).getPontos()));
+		textViewPontosAtividade.setText(textViewPontosAtividade.getText().toString() + 
+				" " + String.valueOf(listaAtividades.get(position).getPontos()));
 		textViewDescricaoAtividade.setText(listaAtividades.get(position).getDescricao());
-		textViewDuracaoAtividade.setText(String.valueOf(listaAtividades.get(position).getDuracao()));
+		textViewDuracaoAtividade.setText(textViewDuracaoAtividade.getText().toString() + 
+				" " + String.valueOf(listaAtividades.get(position).getDuracao()));
 		
 		return viewAtividade;
 	}
