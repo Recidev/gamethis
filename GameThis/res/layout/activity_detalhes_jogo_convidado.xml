@@ -52,7 +52,7 @@
         android:textSize="15sp" />
     
     <Button
-        android:id="@+id/botao_inscricao_enviar"
+        android:id="@+id/botao_ranking"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

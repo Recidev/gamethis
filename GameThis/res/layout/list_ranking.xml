@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp"
+	    android:orientation="horizontal" >
+    
+    		 <TextView
+                 android:id="@+id/textoPosicaoRankingValor"
+                 android:layout_width="40dp"
+                 android:layout_height="match_parent"
+                 android:gravity="center|left"
+                 android:maxLines="1"
+                 android:layout_marginLeft="10dp"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp" 
+                 />
+    
+             <ImageView 
+                 android:id="@+id/imagemJogadorRankingLinha"
+                 android:layout_width="35dp"
+                 android:layout_marginLeft="5dp"
+              	 android:layout_height="match_parent"
+              	 android:src="@drawable/interrogacao"
+                 />
+    
+             <TextView
+                 android:id="@+id/textoLoginJogadorRankingLinha"
+                 android:layout_width="150dp"
+                 android:layout_height="match_parent"
+                 android:ellipsize="end"
+                 android:gravity="center|left"
+                 android:maxLines="1"
+                 android:layout_marginLeft="2dp"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp"
+                 />
+             
+             <TextView
+                 android:id="@+id/textoPontuacaoRankingLinha"
+                 android:layout_width="35dp"
+                 android:layout_height="match_parent"
+                 android:ellipsize="end"
+                 android:gravity="center|right"
+                 android:maxLines="1"
+                 android:layout_marginLeft="0dp"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp" 
+                 android:text="300"
+                 />
+                	
+</LinearLayout>

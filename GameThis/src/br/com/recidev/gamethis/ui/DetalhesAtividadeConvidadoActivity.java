@@ -56,7 +56,9 @@ public class DetalhesAtividadeConvidadoActivity extends Activity {
 		final Button botaoConcluirAtividade = (Button) findViewById(R.id.botao_concluir_atividade);
 		botaoConcluirAtividade.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//dialogAvatar.show();
+				int flagConcluida = 1;
+				atividadeSelecionada.setFlagConcluida(flagConcluida);
+				new AtividadeConclusaoTask().execute();
 			}
 		});
 		
@@ -87,8 +89,15 @@ public class DetalhesAtividadeConvidadoActivity extends Activity {
 		        } else {
 		        	avatarJogador.setImageResource(R.drawable.interrogacao);
 		        	textoJogadorAtividade.setText("");
-		        	botaoConfirmarAtribuicaoAtividade.setEnabled(true);
-		    		botaoConcluirAtividade.setEnabled(false);
+		        	if(atividadeSelecionada.getLoginJogador() == null){
+		        		
+		        		botaoConfirmarAtribuicaoAtividade.setEnabled(false);
+		        		botaoConcluirAtividade.setEnabled(false);
+		        	} else {
+		        		botaoConfirmarAtribuicaoAtividade.setEnabled(true);
+		        		botaoConcluirAtividade.setEnabled(false);
+		        	}
+		        	
 		        }
 		    }
 		});
@@ -97,7 +106,8 @@ public class DetalhesAtividadeConvidadoActivity extends Activity {
 		if(atividadeSelecionada.getLoginJogador() != null && !atividadeSelecionada.getLoginJogador().equals("")){
 			//avatarJogador.setImageResource(GerenciadorSessao.TIPOS_AVATAR[tipoAvatar]);
 			textoJogadorAtividade.setText(atividadeSelecionada.getLoginJogador());
-			if(!atividadeSelecionada.getLoginJogador().equals(login)){
+			if(!atividadeSelecionada.getLoginJogador().equals(login) || 
+					atividadeSelecionada.getFlagConcluida() == ConstantesGameThis.ATIVIDADE_CONCLUIDA){
 				checkBoxRealizarAtividade.setEnabled(false);
 				botaoConfirmarAtribuicaoAtividade.setEnabled(false);
 	    		botaoConcluirAtividade.setEnabled(false);
@@ -162,6 +172,58 @@ public class DetalhesAtividadeConvidadoActivity extends Activity {
 		};
 	}
 	
+	
+
+	private class AtividadeConclusaoTask extends AsyncTask<String, String, String> {
+		protected ProgressDialog dialogo = new ProgressDialog(DetalhesAtividadeConvidadoActivity.this);
+		
+		@Override
+		protected void onPreExecute(){
+		    dialogo.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
+		    dialogo.setCancelable(false);
+		    dialogo.setTitle("Concluindo atividade");
+		    dialogo.setMessage("Por favor, aguarde...");
+		    dialogo.show();
+		};
+		
+		@Override
+		protected String doInBackground(String... params) {
+			String msgResposta = "";
+			HttpSincronizacaoClient httpClient = new HttpSincronizacaoClient();
+			
+			try {
+				String path = ConstantesGameThis.PATH_ATIVIDADE_RANKING_UPDATE;
+
+				Gson gson = new Gson();
+				String json = gson.toJson(atividadeSelecionada);
+				
+				httpClient.post(path, json);
+				msgResposta = "sucesso";
+			
+			} catch (IOException e) {
+				msgResposta = "Erro no servidor.";
+				e.printStackTrace();
+			}
+			return msgResposta;
+		}; 
+		
+		@Override
+		protected void onPostExecute(String msgResposta){
+			dialogo.dismiss(); 
+			
+			if(msgResposta.equals("sucesso")){
+				// Insere usuário localmente no SQLite
+				//inserirUsuario();
+				
+				Toast.makeText(getApplicationContext(), "Atividade concluída com sucesso!", Toast.LENGTH_LONG).show();
+				Intent meusJogosIntent = new Intent(getApplicationContext(), MeusJogosActivity.class);
+				startActivity(meusJogosIntent);
+				finish();
+			} else {
+				Toast.makeText(getApplicationContext(), msgResposta, Toast.LENGTH_LONG).show();
+			}
+		};
+	}
 	
 	
 	

@@ -66,11 +66,13 @@ public class CadastroAtividadeActivity extends Activity {
 				String resultValidacao = validarCampos(descricao, pontos, duracao);
 				
 				if(resultValidacao.equals("")){
-					int syncStatus = 1;
+					int syncStatus = 0;
+					int flagConcluida = 0;
 					atividade = new Atividade();
 					atividade.setDescricao(descricao);
 					atividade.setPontos(Integer.parseInt(pontos));
 					atividade.setDuracao(Integer.parseInt(duracao));
+					atividade.setFlagConcluida(flagConcluida);
 					atividade.setSync_sts(syncStatus);
 					
 					Intent atividadesIntent = new Intent(getApplicationContext(), AtividadesActivity.class);

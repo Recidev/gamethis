@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.recidev.gamethis.ui.RankingActivity" >
+
+    <LinearLayout 
+         android:layout_width="match_parent"
+    	 android:layout_height="60dp"
+         android:orientation="horizontal">
+        
+    		<TextView
+                 android:id="@+id/textoPosicaoRankingValor"
+                 android:layout_width="58dp"
+                 android:layout_height="match_parent"
+                 android:gravity="center|left"
+                 android:maxLines="1"
+                 android:layout_marginLeft="5dp"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp" 
+                 android:text="@string/textoPosicaoRankingInfo"
+                 />
+    
+             <TextView
+                 android:id="@+id/textoLoginJogadorRankingLinha"
+                 android:layout_width="170dp"
+                 android:layout_height="match_parent"
+                 android:ellipsize="end"
+                 android:gravity="center"
+                 android:maxLines="1"
+                 android:layout_marginLeft="0dp"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp" 
+                 android:text="@string/textoLoginJogadorRankingInfo"
+                 />
+             
+             <TextView
+                 android:id="@+id/textoPontuacaoRankingLinha"
+                 android:layout_width="35dp"
+                 android:layout_height="match_parent"
+                 android:ellipsize="end"
+                 android:gravity="center|right"
+                 android:maxLines="1"
+                 android:layout_marginLeft="5dp"
+                 android:textAppearance="?android:attr/textAppearanceListItem"
+                 android:textSize="15sp" 
+                 android:text="@string/textoPontuacaoRankingInfo"
+                 />
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/rankingListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="60dp" >
+     </ListView>
+         
+</RelativeLayout>

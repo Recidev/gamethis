@@ -19,6 +19,7 @@
     <string name="title_activity_meus_jogos">Meus Jogos</string>
     <string name="title_activity_jogos_gerenciados">Jogos Gerenciados</string>
     <string name="title_activity_detalhes_atividade_convidado">Detalhes da Atividade</string>
+    <string name="title_activity_ranking">Ranking</string>
 
     <!-- Tela Novo Jogo -->
     <string name="texto_input_descricao_jogo">Descrição</string>
@@ -45,11 +46,10 @@
     <string name="texto_botao_add_nova_atividade">Nova Atividade</string>
     <string name="textoPontosAtividadeInfo">Pts.</string>
     <string name="textoDuracaoAtividadeInfo">Dur.</string>
-    
 
     <!-- Tela Meus Jogos (tela principal) -->
-    <string name="texto_botao_jogos_gerenciados">Gerenciados</string>
-    <string name="texto_botao_jogos_convidados">Convidado</string>
+    <string name="texto_botao_jogos_gerenciados">Jogos Gerenciados</string>
+    <string name="texto_botao_jogos_convidados">Jogos como Convidado</string>
 
     <!-- Tela Jogos Gerenciados -->
 
@@ -58,5 +58,10 @@
     <string name="textoPontosAtividadeConvidadoInfo">Pts.</string>
     <string name="textoDuracaoAtividadeConvidadoInfo">Dur.</string>
     
+    <!-- Tela Ranking -->
+    <string name="textoPosicaoRankingInfo">Pos.</string>
+    <string name="textoPontuacaoRankingInfo">Pts.</string>
+    <string name="textoLoginJogadorRankingInfo">Jogador</string>
+     
 
 </resources>

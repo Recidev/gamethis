@@ -4,6 +4,8 @@ public final class ConstantesGameThis {
 
 	public static final String SENDER_ID = "481824738264";
 	public static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	public static final int ATIVIDADE_CONCLUIDA = 1;	
+	
 	
 	//Paths REST - Usuario
 	public static final String PATH_INDEX = "/usuarios";
@@ -25,10 +27,15 @@ public final class ConstantesGameThis {
 	public static final String PATH_ATIVIDADE_CREATE = "/atividades/create";
 	public static final String PATH_ATIVIDADE_SHOW_ID_JOGO = "/atividades/";
 	public static final String PATH_ATIVIDADE_UPDATE = "/atividades/update";
+	public static final String PATH_ATIVIDADE_RANKING_UPDATE = "/atividades/situacao/update";
 	
 	//Paths REST - Jogo-Jogador
 	public static final String PATH_JOGO_JOGADOR_CREATE = "/jogo_jogador/create";
 	public static final String PATH_JOGO_JOGADOR_SHOW = "/jogo_jogador/";
+	
+	//Paths REST - Ranking
+	public static final String PATH_RANKING_SHOW = "/ranking/";
+
 	
 	//Paths REST - Sincronização do App
 	public static final String PATH_SYNC_JOGO = "/sync/sqliteToService";

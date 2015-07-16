@@ -147,7 +147,7 @@ public class InscricaoActivity extends Activity {
 		protected void onPreExecute(){
 		    dialogo.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
 		    dialogo.setCancelable(false);
-		    dialogo.setTitle("Realizando inscrição.");
+		    dialogo.setTitle("Realizando inscrição");
 		    dialogo.setMessage("Por favor, aguarde...");
 		    dialogo.show();
 		};

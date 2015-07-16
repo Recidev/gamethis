@@ -10,6 +10,7 @@ public class Atividade implements java.io.Serializable{
 	private int duracao;
 	private String loginJogador;
 	private String id_jogo;
+	private int flagConcluida;
 	private int sync_sts;
 	
 	public String getDescricao() {
@@ -41,6 +42,12 @@ public class Atividade implements java.io.Serializable{
 	}
 	public void setId_jogo(String id_jogo) {
 		this.id_jogo = id_jogo;
+	}
+	public int getFlagConcluida() {
+		return flagConcluida;
+	}
+	public void setFlagConcluida(int flagConcluida) {
+		this.flagConcluida = flagConcluida;
 	}
 	public int getSync_sts() {
 		return sync_sts;

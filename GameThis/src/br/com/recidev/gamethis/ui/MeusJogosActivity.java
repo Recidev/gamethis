@@ -22,8 +22,7 @@ public class MeusJogosActivity extends Activity {
 	GerenciadorSessao sessao;
 	private boolean opcaoGerenciados = false;
 	private boolean opcaoConvidado = false;
-	String dadosRequisicao;
-	
+	String dadosRequisicao;	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,6 +31,7 @@ public class MeusJogosActivity extends Activity {
 		sessao = new GerenciadorSessao(getApplicationContext());
 		
 		final Button botaoJogosGerenciados = (Button) findViewById(R.id.botao_jogos_gerenciados);
+		botaoJogosGerenciados.setEnabled(false);
 		botaoJogosGerenciados.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -54,7 +54,6 @@ public class MeusJogosActivity extends Activity {
 			}
 		});
 	}
-	
 	
 	
 	private class MeusJogosTask extends AsyncTask<String, String, String> {
