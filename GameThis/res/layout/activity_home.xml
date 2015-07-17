@@ -33,6 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="260dp"
         android:text="@string/texto_botao_logout"
+        style="?android:textAppearanceSmall"
         android:textSize="16sp" />
 
     <ImageView
@@ -40,7 +41,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:contentDescription="@string/descricaoImgAvatar"
-        android:src="@drawable/samurai" />
+        android:src="@drawable/interrogacao" />
 
     <TextView
         android:id="@+id/nome_usuario"
