@@ -108,9 +108,13 @@ public class DetalhesJogoConvidadoActivity extends Activity {
 			dialogo.dismiss(); 
 			
 			if(msgResposta.equals("sucesso")){
-				Intent rankingIntent = new Intent(getApplicationContext(), RankingActivity.class);
-				rankingIntent.putExtra("dadosRequisicao", dadosRequisicao);
-				startActivity(rankingIntent);
+				if(!dadosRequisicao.equals("")){
+					Intent rankingIntent = new Intent(getApplicationContext(), RankingActivity.class);
+					rankingIntent.putExtra("dadosRequisicao", dadosRequisicao);
+					startActivity(rankingIntent);
+				} else {
+					Toast.makeText(getApplicationContext(), "Não há ranking para ser exibido.", Toast.LENGTH_LONG).show();
+				}
 			} else {
 				Toast.makeText(getApplicationContext(), msgResposta, Toast.LENGTH_LONG).show();
 			}

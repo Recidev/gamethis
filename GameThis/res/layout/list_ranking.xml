@@ -44,8 +44,7 @@
                  android:maxLines="1"
                  android:layout_marginLeft="0dp"
                  android:textAppearance="?android:attr/textAppearanceListItem"
-                 android:textSize="15sp" 
-                 android:text="300"
+                 android:textSize="15sp"
                  />
                 	
 </LinearLayout>

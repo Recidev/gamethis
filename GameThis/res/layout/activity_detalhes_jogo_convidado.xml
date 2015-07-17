@@ -27,7 +27,6 @@
         android:gravity="left"
         android:layout_marginLeft="50dp"
         android:textSize="15sp"
-        android:text="Game This"
         android:textAppearance="?android:attr/textAppearanceListItem"
         />  
                  
@@ -47,13 +46,12 @@
         android:layout_height="40dp"
         android:layout_marginTop="40dp"
         android:gravity="right"
-        android:text="valcilene@gmail.com"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textSize="15sp" />
     
     <Button
         android:id="@+id/botao_ranking"
-        style="?android:textAppearanceSmall"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"

@@ -52,19 +52,18 @@
 
     <Button
         android:id="@+id/botao_avatar_inscricao"
-        style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/texto_botao_avatar_inscricao" />
+        android:text="@string/texto_botao_avatar_inscricao"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/botao_inscricao_enviar"
-        style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/texto_botao_inscricao_enviar"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textStyle="normal"
+        android:textSize="15sp" />
 
 </LinearLayout>

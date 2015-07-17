@@ -12,6 +12,7 @@ import android.widget.TextView;
 import br.com.recidev.gamethis.R;
 import br.com.recidev.gamethis.dominio.Ranking;
 import br.com.recidev.gamethis.dominio.Usuario;
+import br.com.recidev.gamethis.util.GerenciadorSessao;
 
 public class RankingAdapter extends BaseAdapter{
 
@@ -42,8 +43,10 @@ public class RankingAdapter extends BaseAdapter{
 		textoPontuacaoRankingLinha.setText(
 				" " + String.valueOf(listaRanking.get(position).getPontuacao()));
 		
-		//ImageView imageViewJogador = (ImageView) viewRanking.findViewById(R.id.imagemJogadorLinha);
+		ImageView imagemJogadorRankingLinha = (ImageView) viewRanking.findViewById(R.id.imagemJogadorRankingLinha);
+		imagemJogadorRankingLinha.setImageResource(GerenciadorSessao.TIPOS_AVATAR[listaRanking.get(position).getAvatar()]);
 		
+		//imagemJogadorRankingLinha.setImageResource(R.drawable.warcraft_undead_hero);
 		//int tipoAvatar = 0;
 		
 //		if(tipoAvatar == 0){

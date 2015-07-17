@@ -6,6 +6,7 @@ public class Ranking implements java.io.Serializable{
 	private String id_jogo;
 	private String loginJogador;
 	private int pontuacao;
+	private int avatar;
 	private int sync_sts;
 	
 	
@@ -26,6 +27,12 @@ public class Ranking implements java.io.Serializable{
 	}
 	public void setPontuacao(int pontuacao) {
 		this.pontuacao = pontuacao;
+	}
+	public int getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(int avatar) {
+		this.avatar = avatar;
 	}
 	public int getSync_sts() {
 		return sync_sts;

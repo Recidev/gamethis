@@ -65,26 +65,26 @@
       
       <Button
           android:id="@+id/botao_add_jogadores"
-          style="?android:textAppearanceSmall"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
+          android:textSize="15sp"
           android:text="@string/texto_botao_add_jogadores" />
 
       <Button
           android:id="@+id/botao_add_atividades"
-          style="?android:textAppearanceSmall"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="0dp"
+          android:textSize="15sp"
           android:text="@string/texto_botao_add_atividades" />
       
       <Button
           android:id="@+id/botao_criar_jogo"
-          style="?android:textAppearanceSmall"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="30dp"
+          android:textSize="15sp"
           android:text="@string/texto_botao_iniciar_jogo" />
 
 </LinearLayout>

@@ -46,7 +46,6 @@
 			    android:layout_marginLeft="70dp"
 			    android:layout_marginTop="70dp"
 			    android:gravity="center|left"
-			    android:text="5"
 			    android:textAppearance="?android:attr/textAppearanceListItem"
 			    android:textSize="15sp" />
 
@@ -67,7 +66,6 @@
                  android:layout_marginLeft="80dp"
                  android:layout_marginTop="100dp"
                  android:gravity="center|left"
-                 android:text="2"
                  android:textAppearance="?android:attr/textAppearanceListItem"
                  android:textSize="15sp" />
 
@@ -113,7 +111,6 @@
 				    
 				    <Button
 				        android:id="@+id/botao_confirmar_atribuicao_atividade"
-				        style="?android:textAppearanceSmall"
 				        android:layout_width="match_parent"
 				        android:layout_height="50dp"
 				        android:layout_marginTop="310dp"
@@ -122,7 +119,6 @@
 				    
 				     <Button
 				         android:id="@+id/botao_concluir_atividade"
-				         style="?android:textAppearanceSmall"
 				         android:layout_width="match_parent"
 				         android:layout_height="50dp"
 				         android:layout_marginTop="370dp"

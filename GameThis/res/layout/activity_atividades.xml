@@ -10,10 +10,10 @@
     
     <Button
           android:id="@+id/botao_add_nova_atividade"
-          style="?android:textAppearanceSmall"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="0dp"
+          android:textSize="15sp"
           android:text="@string/texto_botao_add_nova_atividade" />
     
 	<TextView 
@@ -28,12 +28,12 @@
                  
      <Button
          android:id="@+id/botao_confirmar_lista_atividades"
-         style="?android:textAppearanceSmall"
          android:layout_width="50dp"
          android:layout_height="40dp"
          android:layout_alignParentRight="true"
          android:layout_marginTop="75dp"
          android:layout_marginRight="20dp"
+         android:textSize="15sp"
          android:text="@string/ok_confirmar_lista_atividades" />
      
      <ListView

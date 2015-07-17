@@ -100,16 +100,21 @@ public class MeusJogosActivity extends Activity {
 			dialogo.dismiss(); 
 			
 			if(msgResposta.equals("sucesso")){
-				Intent intent = null;
-				if(opcaoGerenciados){
-					intent = new Intent(getApplicationContext(), JogosGerenciadosActivity.class);
-				}
-				if(opcaoConvidado){
-					intent = new Intent(getApplicationContext(), JogosConvidadoActivity.class);
+				if(!dadosRequisicao.equals("")){
+					Intent intent = null;
+					if(opcaoGerenciados){
+						intent = new Intent(getApplicationContext(), JogosGerenciadosActivity.class);
+					}
+					if(opcaoConvidado){
+						intent = new Intent(getApplicationContext(), JogosConvidadoActivity.class);
+					}
+					
+					intent.putExtra("dadosRequisicao", dadosRequisicao);
+					startActivity(intent);
+				} else {
+					Toast.makeText(getApplicationContext(), "Não há jogos para serem exibidos.", Toast.LENGTH_LONG).show();
 				}
 				
-				intent.putExtra("dadosRequisicao", dadosRequisicao);
-				startActivity(intent);
 			} else {
 				Toast.makeText(getApplicationContext(), "Erro de conexão com o servidor", Toast.LENGTH_LONG).show();
 			}

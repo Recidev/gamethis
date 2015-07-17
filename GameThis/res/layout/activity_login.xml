@@ -30,11 +30,11 @@
     
     		<Button
                     android:id="@+id/botao_login_entrar"
-                    style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/botao_login_entrar"
-                    android:textStyle="bold" />
+                    android:textStyle="normal"
+                    android:textSize="15sp" />
 
 </LinearLayout>

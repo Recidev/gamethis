@@ -75,10 +75,10 @@
     
     <Button
           android:id="@+id/botao_add_atividade"
-          style="?android:textAppearanceSmall"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="35dp"
+          android:textSize="15sp"
           android:text="@string/botao_cadastrar_atividade" />
     
 
